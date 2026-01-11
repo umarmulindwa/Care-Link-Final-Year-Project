@@ -34,7 +34,7 @@ import { Loader } from "@googlemaps/js-api-loader";
 //WYSIWYG editor
 import CKEditor from "@ckeditor/ckeditor5-vue";
 
-const appName = import.meta.env.VITE_APP_NAME || "UNICEF South Sudan";
+const appName = import.meta.env.VITE_APP_NAME || "Care Link";
 const bscURL = "water";
 
 import "ant-design-vue/dist/reset.css";

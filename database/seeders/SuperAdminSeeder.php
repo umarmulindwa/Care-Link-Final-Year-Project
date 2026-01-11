@@ -19,7 +19,7 @@ class SuperAdminSeeder extends Seeder
          * Note: A Super Admin will have all system permissions and they will be able to add and assign roles.
          */
 
-        $userEmail = "samuel@trailanalytics.com";
+        $userEmail = "umar@gmail.com";
 
         $user = User::where('email', $userEmail)->first();
 

@@ -13,14 +13,16 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
+use Illuminate\Support\Arr;
 use phpDocumentor\Reflection\Types\Boolean;
 
 class CreateNewUser implements CreatesNewUsers
 {
     use PasswordValidationRules;
 
-    public String $vendorNo;
+    public String $patientContact;
     public  $isUnicefStaff;
+    public $userDetails;
 
     /**
      * Create a newly registered user.
@@ -29,27 +31,28 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input): User
     {
+
+
         try {
 
-            $this->isUnicefStaff = array_key_exists('newStaff', $input) ? true : false;
 
-            //for unicefstaff
-            if ($this->isUnicefStaff == true) {
-
-
-                Validator::make($input, [
+            if ($input['registerAs'] == 'Patient') {
+                $this->userDetails = Validator::make($input, [
                     'name' => ['required', 'string', 'max:255'],
+                    'patientContact' => ['required'],
+                    'patientGender' => ['required'],
+                    'patientLocation' => ['required'],
+                    'patientDOB' => ['required'],
                     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                    'password' => array_merge($this->passwordRules(),['confirmed']),
+                    'password' => $this->passwordRules(),
                     'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
                 ])->validate();
             } else {
-                $this->vendorNo = $input['vendor_number'];
-
-                //for service providers
-                Validator::make($input, [
+                $this->userDetails = Validator::make($input, [
                     'name' => ['required', 'string', 'max:255'],
-                    'vendor_number' => ['required', 'unique:service_providers'],
+                    'hospital' => ['required'],
+                    'hospitalLocation' => ['required'],
+                    'department' => ['required'],
                     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                     'password' => $this->passwordRules(),
                     'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
@@ -59,28 +62,43 @@ class CreateNewUser implements CreatesNewUsers
 
             return DB::transaction(function () use ($input) {
                 return tap(User::create([
-                    'name' => $input['name'],
+                    'name' => Arr::exists($this->userDetails, 'name')
+                        ? $this->userDetails['name']
+                        : null,
                     'email' => $input['email'],
                     'password' => Hash::make($input['password']),
-                    //registered users will be service providers or new unicef staff
-                    'user_type' => array_key_exists('newStaff', $input) ? 'newstaff' : 'sp',
-                    //service provider accounts will not be active on creation
-                    'status' => array_key_exists('newStaff', $input) ? 'active' : 'pending',
-                    // active directory
+                    'user_type' => $input['registerAs'],
+                    'status' => 'active',
+                    'patientGender' => Arr::exists($this->userDetails, 'patientGender')
+                        ? $this->userDetails['patientGender']
+                        : null,
+                    'patientLocation' => Arr::exists($this->userDetails, 'patientLocation')
+                        ? $this->userDetails['patientLocation']
+                        : null,
+                    'patientContact' => Arr::exists($this->userDetails, 'patientContact')
+                        ? $this->userDetails['patientContact']
+                        : null,
+                    'patientDOB' => Arr::exists($this->userDetails, 'patientDOB')
+                        ? $this->userDetails['patientDOB']
+                        : null,
+                    'hospital' => Arr::exists($this->userDetails, 'hospital')
+                        ? $this->userDetails['hospital']
+                        : null,
+                    'hospitalLocation' => Arr::exists($this->userDetails, 'hospitalLocation')
+                        ? $this->userDetails['hospitalLocation']
+                        : null,
+                    'department' =>  Arr::exists($this->userDetails, 'department')
+                        ? $this->userDetails['department']
+                        : null,
                     'active_directory' => str_replace(" ", "", $input['name']),
                 ]), function (User $user) {
 
-                    //create service provider if the registering user is not a new unicef staff
-                    if ($this->isUnicefStaff == false) {
-                        $this->createVendor($user, $this->vendorNo);
-                    }
-                    $this->createTeam($user);
+                   
                 });
             });
         } catch (\Throwable $th) {
-            Log::error("User Creation Error: " . $th->getMessage(),['errors'=>$th->getTrace()]);
+            Log::error("User Creation Error: " . $th->getMessage(), ['errors' => $th->getTrace()]);
             throw $th;
-
         }
     }
 
@@ -99,11 +117,11 @@ class CreateNewUser implements CreatesNewUsers
             'is_authenticated' => false,
         ]);
 
-        Log::debug('vendor01',['vendor'=>$sp]);
+        Log::debug('vendor01', ['vendor' => $sp]);
 
         if ($sp !== null) {
 
-            Log::debug('vendor',['vendor'=>$sp]);
+            Log::debug('vendor', ['vendor' => $sp]);
             //getting all super Admins
             $admins = User::select('email', 'name')->permission('s_admin')->get();
 
@@ -125,7 +143,7 @@ class CreateNewUser implements CreatesNewUsers
                             "profile_photo_path" => null
                         ]);
                     } catch (\Exception $ex) {
-                        Log::error("Send Mail ==New Service Provider Registered== Error: " . $ex->getMessage(),['error'=>$ex->getTrace()]);
+                        Log::error("Send Mail ==New Service Provider Registered== Error: " . $ex->getMessage(), ['error' => $ex->getTrace()]);
                     }
                 }
             }
@@ -143,6 +161,4 @@ class CreateNewUser implements CreatesNewUsers
             'personal_team' => true,
         ]));
     }
-
-
 }

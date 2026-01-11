@@ -440,12 +440,7 @@ const dashboardView = computed(() => {
                                             <div class="btn-group dropstart">
                                                 <i class="bx bx bx-dots-vertical-rounded" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                                 <ul class="dropdown-menu">
-                                                    <!-- Dropdown menu links -->
-                                                    <!-- <b-dropdown-item class="mb-1">Sub Menu 1</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 2</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 3</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 4</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 5</b-dropdown-item> -->
+                                                
                                                 </ul>
                                             </div>
                                         </div>
@@ -462,7 +457,7 @@ const dashboardView = computed(() => {
                                             <div class="column">
                                                 <div>
                                                     <h5 class="mb-0">
-                                                        <small class="text-muted">{{ bscSection }}</small
+                                                        <small class="text-muted">Appointments</small
                                                         ><br />
                                                         <!-- <p></p> -->
                                                     </h5>
@@ -476,7 +471,6 @@ const dashboardView = computed(() => {
                                             <div class="btn-group dropstart">
                                                 <i class="bx bx bx-dots-vertical-rounded" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                                 <ul class="dropdown-menu">
-                                                    <!-- <b-dropdown-item class="mb-1" @click="goToFinanceModule(0)">BSC </b-dropdown-item> -->
                                                     <b-dropdown-item class="mb-1" @click="goToFinanceModule(1)">Finance</b-dropdown-item>
                                                     <b-dropdown-item class="mb-1" @click="BscRequestsNavigator('face-forms')">FACE Forms</b-dropdown-item>
                                                     <b-dropdown-item class="mb-1" @click="BscRequestsNavigator('myRequests')">My Requests</b-dropdown-item>
@@ -512,12 +506,9 @@ const dashboardView = computed(() => {
                                             <div class="btn-group dropstart">
                                                 <i class="bx bx bx-dots-vertical-rounded" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                                 <ul class="dropdown-menu">
-                                                    <!-- Dropdown menu links -->
                                                     <b-dropdown-item class="mb-1">Add Signature</b-dropdown-item>
                                                     <b-dropdown-item class="mb-1">Update Signature</b-dropdown-item>
-                                                    <!-- <b-dropdown-item class="mb-1">Sub Menu 3</b-dropdown-item>
-                                            <b-dropdown-item class="mb-1">Sub Menu 4</b-dropdown-item>
-                                            <b-dropdown-item class="mb-1">Sub Menu 5</b-dropdown-item> -->
+                                                    
                                                 </ul>
                                             </div>
                                         </div>
@@ -597,130 +588,11 @@ const dashboardView = computed(() => {
                                         </div> -->
                                     </div>
                                 </div>
-                                <!-- <div>
-                            <div class="d-flex flex-row gap-4 align-items-center">
-                                <div class="text-success">
-                                    <i class="fas fa-circle"></i>
-                                </div>
-                                <div class="d-flex flex-column w-100">
-                                    <div class="d-flex flex-row justify-content-between">
-                                        <div class="text-muted fw-bold">New Permission Granted</div>
-                                        <div><small>12 min ago</small></div>
-                                    </div>
-                                    <div class="col-10 text-truncate"><small>you have been awarded rights </small></div>
-                                </div>
-                            </div>
-                            <hr class="bg-secondary border border-top mt-2 mb-4" />
-                        </div>
-                        <div>
-                            <div class="d-flex flex-row gap-4 align-items-center">
-                                <div class="text-success">
-                                    <i class="fas fa-circle"></i>
-                                </div>
-                                <div class="d-flex flex-column w-100">
-                                    <div class="d-flex flex-row justify-content-between">
-                                        <div class="text-muted fw-bold">New Permission Granted</div>
-                                        <div><small>12 min ago</small></div>
-                                    </div>
-                                    <div class="col-10 text-truncate"><small>you have been awarded rights </small></div>
-                                </div>
-                            </div>
-                            <hr class="bg-secondary border border-top mt-2 mb-4" />
-                        </div>
-                        <div>
-                            <div class="d-flex flex-row gap-4 align-items-center">
-                                <div class="text-success">
-                                    <i class="fas fa-circle"></i>
-                                </div>
-                                <div class="d-flex flex-column w-100">
-                                    <div class="d-flex flex-row justify-content-between">
-                                        <div class="text-muted fw-bold">New Permission Granted</div>
-                                        <div><small>12 min ago</small></div>
-                                    </div>
-
-                                    <div class="col-10 text-truncate"><small>you have been awarded the rights of a Petty Cash Custodian</small></div>
-                                </div>
-                            </div>
-                            <hr class="bg-secondary border border-top mt-2 mb-4" />
-                        </div> -->
+                          
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="card">
-                        <div class="card-body">
-                            <div>
-                                <h5 class="mb-0">
-                                    <small class="text-muted">Quick Links</small>
-                                </h5>
-                                <hr class="bg-muted border border-top mt-4 mb-4" />
-
-                                <div
-                                    class="text-primary mb-3"
-                                    role="button"
-                                    @mouseenter="state.quickLink = 'staffOrientation'"
-                                    @mouseleave="state.quickLink = ''"
-                                    :class="state.quickLink === 'staffOrientation' ? 'fw-medium' : ''"
-                                >
-                                    Staff Orientation
-                                </div>
-                                <div
-                                    class="text-primary mb-3"
-                                    role="button"
-                                    @mouseenter="state.quickLink = 'staffExit'"
-                                    @mouseleave="state.quickLink = ''"
-                                    :class="state.quickLink === 'staffExit' ? 'fw-medium' : ''"
-                                >
-                                    Staff Exit
-                                </div>
-                                <div
-                                    class="text-primary mb-3"
-                                    role="button"
-                                    @mouseenter="state.quickLink = 'equipmentRequest'"
-                                    @mouseleave="state.quickLink = ''"
-                                    :class="state.quickLink === 'equipmentRequest' ? 'fw-medium' : ''"
-                                >
-                                    Equipment Request
-                                </div>
-                                <div
-                                    class="text-primary mb-3"
-                                    role="button"
-                                    @mouseenter="state.quickLink = 'requestToSection'"
-                                    @mouseleave="state.quickLink = ''"
-                                    :class="state.quickLink === 'requestToSection' ? 'fw-medium' : ''"
-                                >
-                                    Submit Request To Section
-                                </div>
-                                <div
-                                    class="text-primary mb-3"
-                                    role="button"
-                                    @mouseenter="state.quickLink = 'vehicleRequest'"
-                                    @mouseleave="state.quickLink = ''"
-                                    :class="state.quickLink === 'vehicleRequest' ? 'fw-medium' : ''"
-                                >
-                                    Request UNICEF Vehicle
-                                </div>
-                                <div
-                                    class="text-primary mb-3"
-                                    role="button"
-                                    @mouseenter="state.quickLink = 'consultant'"
-                                    @mouseleave="state.quickLink = ''"
-                                    :class="state.quickLink === 'consultant' ? 'fw-medium' : ''"
-                                >
-                                    Consultant Recruitment
-                                </div>
-                                <div
-                                    class="text-primary mb-4"
-                                    role="button"
-                                    @mouseenter="state.quickLink = 'diplomaticVehicleReg'"
-                                    @mouseleave="state.quickLink = ''"
-                                    :class="state.quickLink === 'diplomaticVehicleReg' ? 'fw-medium' : ''"
-                                    @click="toVehicleRegistration"
-                                >
-                                    Diplomatic Vehicle Registration
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
+                 
                 </div>
             </div>
             <div class="row text-muted" v-if="dashboardView == 1">
@@ -747,12 +619,7 @@ const dashboardView = computed(() => {
                                             <div class="btn-group dropstart">
                                                 <i class="bx bx bx-dots-vertical-rounded" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                                 <ul class="dropdown-menu">
-                                                    <!-- Dropdown menu links -->
-                                                    <!-- <b-dropdown-item class="mb-1">Sub Menu 1</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 2</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 3</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 4</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 5</b-dropdown-item> -->
+                                                   
                                                 </ul>
                                             </div>
                                         </div>
@@ -843,36 +710,7 @@ const dashboardView = computed(() => {
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-sm-4">
-                            <div class="card" role="button">
-                                <div class="card-body p-4">
-                                    <div class="d-flex gap-1 justify-content-between">
-                                        <div class="d-flex align-items-center pt-2 pb-2 gap-3" @click="goToVTSubModule(0)">
-                                            <div><img :src="travel" height="30" /></div>
-                                            <div class="column">
-                                                <div>
-                                                    <h5 class="mb-0">
-                                                        <small class="text-muted">Travel Planner </small>
-                                                    </h5>
-                                                </div>
-                                                <div class="text-primary">
-                                                    <small>Access: All</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-end">
-                                            <div class="btn-group dropstart">
-                                                <i class="bx bx bx-dots-vertical-rounded" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                                <ul class="dropdown-menu">
-                                                    <b-dropdown-item class="mb-1" @click="goToTravelPlannerSubmodule('create-travel-plan')">Create Travel Plan</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1" @click="goToTravelPlannerSubmodule('create-trave-plan?isrequest=1')">New Travel Request</b-dropdown-item>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
+                 
                     </div>
 
                     <div class="row">
@@ -977,75 +815,11 @@ const dashboardView = computed(() => {
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-sm-4">
-                            <div class="card" role="button">
-                                <div class="card-body p-4">
-                                    <div class="d-flex gap-1 justify-content-between">
-                                        <div class="d-flex align-items-center pt-2 pb-2 gap-3" @click="toVisitortracker">
-                                            <div><img :src="visitor" height="27" /></div>
-                                            <div class="column">
-                                                <div>
-                                                    <h5 class="mb-0">
-                                                        <small class="text-muted">Visitor Tracker</small>
-                                                    </h5>
-                                                </div>
-                                                <div class="text-primary">
-                                                    <small>Access: All</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-end">
-                                            <div class="btn-group dropstart invisible">
-                                                <i class="bx bx bx-dots-vertical-rounded" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                                <ul class="dropdown-menu">
-                                                    <b-dropdown-item class="mb-1">Sub Menu 1</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 2</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 3</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 4</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 5</b-dropdown-item>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
+                        
                     </div>
 
                     <div class="row">
-                        <!-- <div class="col-sm-4">
-                            <div class="card" role="button">
-                                <div class="card-body p-4">
-                                    <div class="d-flex gap-1 justify-content-between">
-                                        <div class="d-flex align-items-center pt-2 pb-2 gap-3">
-                                            <div><img :src="visitor" height="27" /></div>
-                                            <div class="column">
-                                                <div>
-                                                    <h5 class="mb-0">
-                                                        <small class="text-muted">Staff Headcount</small>
-                                                    </h5>
-                                                </div>
-                                                <div class="text-primary">
-                                                    <small>Access: All</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-end">
-                                            <div class="btn-group dropstart invisible">
-                                                <i class="bx bx bx-dots-vertical-rounded" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                                <ul class="dropdown-menu">
-                                                    <b-dropdown-item class="mb-1">Sub Menu 1</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 2</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 3</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 4</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 5</b-dropdown-item>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
+                     
 
                         <div class="col-sm-4">
                             <div class="card" role="button">
@@ -1071,9 +845,7 @@ const dashboardView = computed(() => {
                                                     <!-- Dropdown menu links -->
                                                     <b-dropdown-item class="mb-1">Add Signature</b-dropdown-item>
                                                     <b-dropdown-item class="mb-1">Update Signature</b-dropdown-item>
-                                                    <!-- <b-dropdown-item class="mb-1">Sub Menu 3</b-dropdown-item>
-                                            <b-dropdown-item class="mb-1">Sub Menu 4</b-dropdown-item>
-                                            <b-dropdown-item class="mb-1">Sub Menu 5</b-dropdown-item> -->
+                                                   
                                                 </ul>
                                             </div>
                                         </div>
@@ -1102,12 +874,7 @@ const dashboardView = computed(() => {
                                             <div class="btn-group dropstart invisible">
                                                 <i class="bx bx bx-dots-vertical-rounded" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                                 <ul class="dropdown-menu">
-                                                    <!-- Dropdown menu links -->
-                                                    <!-- <b-dropdown-item class="mb-1">Sub Menu 1</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 2</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 3</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 4</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 5</b-dropdown-item> -->
+                                                 
                                                 </ul>
                                             </div>
                                         </div>
@@ -1149,39 +916,7 @@ const dashboardView = computed(() => {
                     </div>
 
                     <div class="row">
-                        <!-- <div class="col-sm-4">
-                            <div class="card" role="button">
-                                <div class="card-body p-4">
-                                    <div class="d-flex gap-1 justify-content-between">
-                                        <div class="d-flex align-items-center pt-2 pb-2 gap-3" @click="toAirtimeData">
-                                            <div><img :src="phonebill" height="28" /></div>
-                                            <div class="column">
-                                                <div>
-                                                    <h5 class="mb-0">
-                                                        <small class="text-muted">Airtime & Data</small>
-                                                    </h5>
-                                                </div>
-                                                <div class="text-primary">
-                                                    <small>Access: All</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-end">
-                                            <div class="btn-group dropstart invisible">
-                                                <i class="bx bx bx-dots-vertical-rounded" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                                <ul class="dropdown-menu">
-                                                    <b-dropdown-item class="mb-1">Sub Menu 1</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 2</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 3</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 4</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 5</b-dropdown-item>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>-->
+                     
                     </div>
 
                     <div class="row">

@@ -30,7 +30,22 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'email', 'password', 'user_type', 'active_directory', 'token', 'current_team_id','password_expires_at',
+        'name',
+        'email',
+        'password',
+        'user_type',
+        'active_directory',
+        'token',
+        'current_team_id',
+        'password_expires_at',
+        'patientGender',
+        'patientLocation',
+        'patientContact',
+        'patientDOB',
+        'hospital',
+        'hospitalLocation',
+        'department',
+        'user_type'
     ];
 
 
@@ -98,7 +113,8 @@ class User extends Authenticatable implements MustVerifyEmail
         $allPermissions = $this->getAllPermissions()->pluck('name')->all();
         return $allPermissions;
     }
-    public function getStaffProfileAttribute(){
+    public function getStaffProfileAttribute()
+    {
         return StaffProfile::where('email', $this->email)->with('staffIdentity')->first();
     }
     public function getrolesAttribute()

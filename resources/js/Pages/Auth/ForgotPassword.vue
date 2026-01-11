@@ -63,17 +63,25 @@ const submit = () => {
                                         <div class="col-lg-6">
                                             <div class="">
                                                 <div class="mb-4">
-                                                    <h2 class="fw-light">{{ coutryOffice }} Digital Operations</h2>
+                                                    <h2 class="fw-light">Care Link Platform</h2>
                                                 </div>
                                                 <div class="mb-4">
-                                                    <h4>Enhancing Productivity</h4>
+                                                    <h4>Connected Care for Better Living.</h4>
                                                 </div>
                                                 <div class="mb-4">
                                                     <p>
-                                                        We are passionate about efficiency hence have established this platform to limit the need to deliver physical invoices to the UNICEF offices,
-                                                        ease the submission of FACE Forms and more.
+                                                        This system is designed to support HIV patients and healthcare
+                                                        providers through secure, private, and reliable digital care. It
+                                                        helps patients stay on track with medication and clinic visits
+                                                        through timely reminders, while enabling doctors to monitor
+                                                        treatment progress and manage patient information efficiently.
                                                     </p>
-                                                    <p>Yes, that means you need an account (if you are not staff) to use this platform, but worry not, that too has also been simplified.</p>
+                                                    <p>
+                                                        By improving communication, adherence, and follow-up care, the
+                                                        system promotes healthier lives and better treatment
+                                                        outcomes—while respecting confidentiality and dignity at every
+                                                        step.
+                                                    </p>
                                                 </div>
                                                 <Link :href="route('login')">
                                                     <b-button pill variant="primary" class="border border-white" style="background-color: rgba(34, 157, 235, 0.9)">
@@ -96,8 +104,8 @@ const submit = () => {
                             <div class="d-flex flex-column h-100">
                                 <div class="mb-4 mb-md-5">
                                     <router-link to="/" class="d-block auth-logo">
-                                        <img :src="logoDark" alt="" height="30" class="auth-logo-dark" />
-                                        <img :src="logoLight" alt="" height="30" class="auth-logo-light" />
+                                        <img :src="logoDark" alt="" height="80" class="auth-logo-dark" />
+                                        <img :src="logoLight" alt="" height="80" class="auth-logo-light" />
                                     </router-link>
                                 </div>
                                 <div class="my-auto">

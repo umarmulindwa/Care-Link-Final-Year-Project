@@ -118,20 +118,23 @@ function onSlideEnd(slide) {
                                         <div class="col-lg-6">
                                             <div class="">
                                                 <div class="mb-4">
-                                                    <h2 class="fw-light">{{ coutryOffice }} Digital Operations</h2>
+                                                    <h2 class="fw-light">Care Link Platform</h2>
                                                 </div>
                                                 <div class="mb-4">
-                                                    <h4>Enhancing Productivity</h4>
+                                                    <h4>Connected Care for Better Living.</h4>
                                                 </div>
                                                 <div class="mb-4">
                                                     <p>
-                                                        We are passionate about efficiency hence have established this
-                                                        platform to limit the need to deliver physical invoices to the
-                                                        UNICEF offices,
-                                                        ease the submission of FACE Forms and more.
+                                                        This system is designed to support HIV patients and healthcare
+                                                        providers through secure, private, and reliable digital care. It
+                                                        helps patients stay on track with medication and clinic visits
+                                                        through timely reminders, while enabling doctors to monitor
+                                                        treatment progress and manage patient information efficiently.
                                                     </p>
-                                                    <p>Yes, that means you need an account (if you are not staff) to use
-                                                        this platform, but worry not, that too has also been simplified.
+                                                    <p>By improving communication, adherence, and follow-up care, the
+                                                        system promotes healthier lives and better treatment
+                                                        outcomes—while respecting confidentiality and dignity at every
+                                                        step.
                                                     </p>
                                                 </div>
                                                 <div class="d-flex">
@@ -141,16 +144,17 @@ function onSlideEnd(slide) {
                                                 <div class="row d-flex justify-content-start">
                                                     <div class="col-md-6 d-flex justify-content-start">
                                                         <Link :href="route('register')">
-                                                        <b-button pill variant="primary" class="border border-white"
-                                                            style="background-color: rgba(34, 157, 235, 0.9)">
-                                                            <div class="px-4">SIGN UP</div>
-                                                        </b-button>
+                                                            <b-button pill variant="primary" class="border border-white"
+                                                                style="background-color: rgba(34, 157, 235, 0.9)">
+                                                                <div class="px-4">SIGN UP</div>
+                                                            </b-button>
                                                         </Link>
 
                                                         <b-button pill variant="primary" cla @click="downloadMobileApp"
                                                             class="border border-white mx-2"
                                                             style="background-color: rgba(34, 157, 235, 0.9)">
-                                                            <div class="px-2"><span class="bx bx-mobile-alt"></span> Mobile
+                                                            <div class="px-2"><span class="bx bx-mobile-alt"></span>
+                                                                Mobile
                                                             </div>
                                                         </b-button>
                                                     </div>
@@ -172,8 +176,8 @@ function onSlideEnd(slide) {
                             <div class="d-flex flex-column h-100">
                                 <div class="mb-4 mb-md-5">
                                     <Link :href="route('login')" class="d-block auth-logo">
-                                    <img :src="logoDark" alt="" height="30" class="auth-logo-dark" />
-                                    <img :src="logoLight" alt="" height="30" class="auth-logo-light" />
+                                        <img :src="logoDark" alt="" height="100" class="auth-logo-dark" />
+                                        <img :src="logoLight" alt="" height="100" class="auth-logo-light" />
                                     </Link>
                                 </div>
                                 <div class="my-auto">
@@ -219,7 +223,7 @@ function onSlideEnd(slide) {
                                             <div class="mb-3">
                                                 <div class="float-end">
                                                     <Link :href="route('password.request')" class="text-muted"> <i
-                                                        class="mdi mdi-lock mr-1"></i> Forgot your password? </Link>
+                                                            class="mdi mdi-lock mr-1"></i> Forgot your password? </Link>
                                                 </div>
                                                 <label for="userpassword">Password</label>
                                                 <input type="password" class="form-control" id="userpassword"
@@ -245,18 +249,18 @@ function onSlideEnd(slide) {
                                             <p>
                                                 Don't have an account ?
                                                 <Link :href="route('register')" class="fw-medium text-primary">Signup
-                                                now </Link>
+                                                    now </Link>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="mt-4 mt-md-5 text-center">
-                                    <p>© {{ new Date().getFullYear() }} UNICEF {{ coutryOffice }}.</p>
+                                    <p>© {{ new Date().getFullYear() }} CareLink Uganda.</p>
                                     <Link :href="route('supportRequest')">
-                                    <div class="text-center text-primary" role="button">
-                                        <span><i class="bx bx-support me-1"></i></span>Support
-                                    </div>
+                                        <div class="text-center text-primary" role="button">
+                                            <span><i class="bx bx-support me-1"></i></span>Support
+                                        </div>
                                     </Link>
                                 </div>
                             </div>
