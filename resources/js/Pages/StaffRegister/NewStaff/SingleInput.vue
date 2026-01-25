@@ -783,75 +783,6 @@
                         <!--                    <span class="text-danger" v-if="missingValue(singleStaff.personal_id)">TYPE is required</span>-->
                     </div>
                 </div>
-<!--                <template v-if="!editMode">-->
-<!--                    <div class="row mb-4 align-items-center">-->
-<!--                        <div class="col-5">-->
-<!--                            <b>Airtime & Data Allocations (Optional)</b>-->
-<!--                        </div>-->
-<!--                        <div class="col-7">-->
-<!--                            <hr class="m-0" style="height:1px; background-color:#6c757d; border:none;" />-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="row mb-4">-->
-<!--                        <div class="col-md-5">-->
-<!--                            <label for="appointment_type">CATEGORY</label>-->
-<!--                            <v-select v-model="singleStaff.airtime_data.category" label="category" :reduce="category => category.category" :options="airtime_categories"></v-select>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    <div class="row mb-4">-->
-<!--                        <div class="col-md-10">-->
-<!--                            <label class="" for="autoSizingSelect">NETWORK</label>-->
-<!--                            <div style="display: flex; align-items: center;">-->
-<!--                                <div class="form-check me-4">-->
-<!--                                    <input class="form-check-input" type="radio" name="network" id="network_zain" v-model="singleStaff.airtime_data.isp" value="Zain">-->
-<!--                                    <label class="form-check-label" for="network_zain">-->
-<!--                                        Zain-->
-<!--                                    </label>-->
-<!--                                </div>-->
-<!--                                <div class="form-check">-->
-<!--                                    <input class="form-check-input" type="radio" name="network" id="network_mtn" v-model="singleStaff.airtime_data.isp" value="MTN">-->
-<!--                                    <label class="form-check-label" for="network_mtn">-->
-<!--                                        MTN-->
-<!--                                    </label>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    <div class="row mb-4">-->
-<!--                        <div class="col-md-5">-->
-<!--                            <label for="appointment_type">PACKAGE OPTED FOR</label>-->
-<!--                            <v-select v-model="singleStaff.airtime_data.packageType" label="name" :options="packageOptions"></v-select>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    <div class="row mb-4">-->
-<!--                        <div class="col-md-5">-->
-<!--                            <label for="contract_end">ALLOCATIONS (SSP)</label>-->
-<!--                            <money3-component type="number" class="form-control" v-model="singleStaff.airtime_data.allocations" v-bind="money3Config" disabled/>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    <div class="row mb-4">-->
-<!--                        <div class="col-md-5">-->
-<!--                            <label for="appointment_type">DATA ALLOCATION</label>-->
-<!--                            <select class="form-select form-control" id="" v-model="singleStaff.airtime_data.dataPlan" :disabled="singleStaff.airtime_data.packageType.toLowerCase() === 'airtime only'">-->
-<!--                                <option disabled value="">Select</option>-->
-<!--                                <template v-for="(type,index) in dataOptions" :key="`b_${index}`">-->
-<!--                                    <option :value="type">{{ type }}</option>-->
-<!--                                </template>-->
-<!--                            </select>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="row mb-4">-->
-<!--                        <div class="col-md-5">-->
-<!--                            <label for="appointment_type">AIRTIME ALLOCATION (SSP)</label>-->
-<!--                            <money3-component type="number" class="form-control" v-model="singleStaff.airtime_data.airtimeAllocations" v-bind="money3Config"/>-->
-<!--                        </div>-->
-<!--                        <span v-if="checkAllocationValue()" class="text-danger">Amount is greater than allocation</span>-->
-<!--                    </div>-->
-<!--                </template>-->
             </div>
 
             <template #ok>
@@ -1038,7 +969,7 @@ export default {
     },
 
     async mounted() {
-        await this.loadDetails();
+        // await this.loadDetails();
         this.initPhone("phone-1");
         this.initPhone("phone-2");
         this.initPhone("phone-3");

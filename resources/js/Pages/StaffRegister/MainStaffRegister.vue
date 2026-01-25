@@ -8,14 +8,10 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { read, utils } from "xlsx";
 import vSelect from "vue-select";
-import AvailabilityPlanner from "./AvailabilityPlanner.vue";
 import "vue-select/dist/vue-select.css";
-import UserPermissionsLegend from "./UserPermissionsLegend.vue";
-import StaffGroups from "@/Pages/RadioCall/Groups.vue";
 import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css";
 import { notify } from "../../mixins/notify.js";
-import staffTitleOptions from "../../Components/StaticData/StaffTitles.js";
 import SingleStaffInput from "@/Pages/StaffRegister/NewStaff/SingleInput.vue";
 import { RequestHelper } from "@/mixins/helpers";
 
@@ -26,7 +22,7 @@ defineOptions({ layout: Layout });
 
 //props
 const props = defineProps({
-    unicefStaff: Array,
+    users: Array,
     serviceProviders: Array,
     userRoles: Array,
     allStaffNames: Array,
@@ -37,7 +33,7 @@ const props = defineProps({
 });
 //data
 const state = reactive({
-    title: "Staff Register",
+    title: "Users",
     userGridData: userGridData,
     showLess: true,
     items: [
@@ -124,10 +120,6 @@ onMounted(() => {
     document.body.classList.remove("side-bg");
     //setting active permissions
     props.seededPermissions.forEach((permission) => state.activePermissions.push(permission.name));
-    //first list of staffprofiles
-    state.staffProfiles = [...state.staffProfiles, ...props.unicefStaff.data];
-    //first list of service providers
-    state.serviceProvidersList = [...state.serviceProvidersList, ...props.serviceProviders.data];
     //setting rolenames
     props.userRoles.forEach((role) => {
         if (role != null) {
@@ -135,6 +127,7 @@ onMounted(() => {
         }
     });
     //Load data for adding single staff
+    loadMoreStaffProfiles()
 });
 
 //watch
@@ -147,12 +140,7 @@ watch(
 );
 
 //updating staffprofiles during search
-watch(
-    () => props.unicefStaff.data,
-    (searchResults) => {
-        state.staffProfiles = searchResults;
-    }
-);
+
 
 //computed
 const currentUser = computed(() => {
@@ -388,7 +376,7 @@ async function onChange(event) {
                 console.log(res);
                 if (res.data.success) {
                     Swal.fire({
-                        title: "New Staff Registered",
+                        title: "New User Registered",
                         icon: "success",
                         html: `<p style="font-size: 14px">A temporary password will be sent to all registered Emails shortly.</p>`,
                         showCloseButton: false,
@@ -1123,45 +1111,31 @@ function assignRolesPermissions() {
 }
 
 function loadMoreStaffProfiles() {
-    if (props.unicefStaff.next_page_url === null) {
+    if (props.users.next_page_url === null  ) {
         return;
     }
 
+    if (state.staffProfiles.length === 0  ) {
+                state.staffProfiles = [...props.users.data];
+    console.log('ferferfrferf')
+        
+    }
     router.get(
-        props.unicefStaff.next_page_url,
+        props.users.next_page_url,
         {},
         {
             preserveState: true,
             preserveScroll: true,
-            only: ["unicefStaff"],
+            only: ["users"],
             onSuccess: () => {
-                state.staffProfiles = [...state.staffProfiles, ...props.unicefStaff.data];
+                state.staffProfiles = [...state.staffProfiles, ...props.users.data];
                 //disabling route change
                 window.history.replaceState({}, usePage().title, usePage().url);
             },
         }
     );
 }
-function loadMoreServiceProviders() {
-    if (props.serviceProviders.next_page_url === null) {
-        return;
-    }
 
-    router.get(
-        props.serviceProviders.next_page_url,
-        {},
-        {
-            preserveState: true,
-            preserveScroll: true,
-            only: ["serviceProviders"],
-            onSuccess: () => {
-                state.serviceProvidersList = [...state.serviceProvidersList, ...props.serviceProviders.data];
-                //disabling route change
-                window.history.replaceState({}, usePage().title, usePage().url);
-            },
-        }
-    );
-}
 
 function deleteRole(role) {
     Swal.fire({
@@ -1299,7 +1273,7 @@ function roleEdit(roleToEdit) {
             //flattening permissions array
             if (state.editRolePermissions[0] === "string") {
                 formData.append("rolePermisions", JSON.stringify(state.editRolePermissions));
-                console.log('dd',state.editRolePermissions)
+                console.log('dd', state.editRolePermissions)
 
             } else {
                 const permissionNames = [];
@@ -1307,7 +1281,7 @@ function roleEdit(roleToEdit) {
                     permissionNames.push(perm);
                 });
                 formData.append("rolePermisions", JSON.stringify(permissionNames));
-                console.log('dd',state.editRolePermissions)
+                console.log('dd', state.editRolePermissions)
             }
 
             axios
@@ -1358,7 +1332,8 @@ function roleEdit(roleToEdit) {
 </script>
 
 <template>
-    <Head title="Staff Register" />
+
+    <Head title="User Register" />
     <div>
         <div class="row">
             <div class="col-lg-12">
@@ -1369,17 +1344,19 @@ function roleEdit(roleToEdit) {
         </div>
         <div class="w-100 d-flex flex-row justify-content-between">
             <div class="d-flex flex-column gap-3" style="width: 10%">
-                <div class="card" role="button" :class="state.title == 'Staff Register' ? 'bg-primary text-white' : ''" @click="state.title = 'Staff Register'">
+                <div class="card" role="button" :class="state.title == 'Users' ? 'bg-primary text-white' : ''"
+                    @click="state.title = 'Users'">
                     <div class="card-body d-flex flex-column align-items-center justify-content-center">
                         <div class="mt-2">
                             <i class="fas fa-user-friends nav-icon d-block mb-2" style="font-size: small"></i>
                         </div>
                         <div class="mb-2">
-                            <p class="fw-bold mb-0 text-center">UNICEF Staff</p>
+                            <p class="fw-bold mb-0 text-center">Users</p>
                         </div>
                     </div>
                 </div>
-                <div class="card" role="button" @click="state.title = 'Service Providers'" :class="state.title == 'Service Providers' ? 'bg-primary text-white' : ''">
+                <div class="card" role="button" @click="state.title = 'Service Providers'"
+                    :class="state.title == 'Service Providers' ? 'bg-primary text-white' : ''">
                     <div class="card-body d-flex flex-column align-items-center justify-content-center text-center">
                         <div>
                             <i class="fas fa-users nav-icon d-block mb-2" style="font-size: small"></i>
@@ -1389,7 +1366,8 @@ function roleEdit(roleToEdit) {
                         </div>
                     </div>
                 </div>
-                <div class="card" role="button" @click="state.title = 'Roles & Permissions'" :class="state.title == 'Roles & Permissions' ? 'bg-primary text-white' : ''">
+                <div class="card" role="button" @click="state.title = 'Roles & Permissions'"
+                    :class="state.title == 'Roles & Permissions' ? 'bg-primary text-white' : ''">
                     <div class="card-body d-flex flex-column align-items-center justify-content-center text-center">
                         <div>
                             <i class="fas fa-address-card nav-icon d-block mb-2" style="font-size: small"></i>
@@ -1399,7 +1377,7 @@ function roleEdit(roleToEdit) {
                         </div>
                     </div>
                 </div>
-                <div class="card" role="button" @click="state.title = 'Radio Call Groups'" :class="state.title == 'Radio Call Groups' ? 'bg-primary text-white' : ''">
+                  <div class="card invisible" role="button" @click="state.title = 'Radio Call Groups'" :class="state.title == 'Radio Call Groups' ? 'bg-primary text-white' : ''">
                     <div class="card-body d-flex flex-column align-items-center justify-content-center text-center">
                         <div class="mt-2">
                             <i class="fas fa-user-friends nav-icon d-block mb-2" style="font-size: small"></i>
@@ -1409,19 +1387,20 @@ function roleEdit(roleToEdit) {
                         </div>
                     </div>
                 </div>
-                <div class="card" role="button" @click="state.title = 'Availability Planner'" :class="state.title == 'Availability Planner' ? 'bg-primary text-white' : ''">
+                  <div class="card invisible" role="button" @click="state.title = 'Radio Call Groups'" :class="state.title == 'Radio Call Groups' ? 'bg-primary text-white' : ''">
                     <div class="card-body d-flex flex-column align-items-center justify-content-center text-center">
                         <div class="mt-2">
-                            <i class="fa fa-users nav-icon d-block mb-2" style="font-size: small"></i>
+                            <i class="fas fa-user-friends nav-icon d-block mb-2" style="font-size: small"></i>
                         </div>
                         <div class="mb-2">
-                            <p class="fw-bold mb-0">Availability Planner</p>
+                            <p class="fw-bold mb-0">Radio Call Groups</p>
                         </div>
                     </div>
                 </div>
+             
             </div>
             <div class="card" style="width: 87%">
-                <div class="card-body" id="staff_reg" v-if="state.title == 'Staff Register'">
+                <div class="card-body" id="staff_reg" v-if="state.title == 'Users'">
                     <div class="d-flex flex-row justify-content-between col-12 mb-4">
                         <div class="d-flex align-items-center">
                             <div class="rounded-pill d-none d-lg-block" style="background-color: #f9f9f9; border: 0px">
@@ -1429,7 +1408,9 @@ function roleEdit(roleToEdit) {
                                     <div class="mt-1">
                                         <span class="" style="font-size: medium"><i class="bx bx-search-alt"></i></span>
                                     </div>
-                                    <div class=""><input type="text" class="form-control" placeholder="Search.." style="background-color: #f9f9f9; border: 0px" v-model="state.searchText" /></div>
+                                    <div class=""><input type="text" class="form-control" placeholder="Search.."
+                                            style="background-color: #f9f9f9; border: 0px" v-model="state.searchText" />
+                                    </div>
 
                                     <div class="hstack gap-3" role="button">
                                         <div class="vr" style="color: #dbdbdb"></div>
@@ -1443,12 +1424,18 @@ function roleEdit(roleToEdit) {
 
                                             <ul class="dropdown-menu">
                                                 <!-- Dropdown menu links -->
-                                                <b-dropdown-item class="mb-1" @click="state.searchWithIn = 'All'">All</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="state.searchWithIn = 'Name'">Name</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="state.searchWithIn = 'Section'">Section</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="state.searchWithIn = 'Roles'">Roles</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="state.searchWithIn = 'Permissions'">Permissions</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="state.searchWithIn = 'Availability'">Availability</b-dropdown-item>
+                                                <b-dropdown-item class="mb-1"
+                                                    @click="state.searchWithIn = 'All'">All</b-dropdown-item>
+                                                <b-dropdown-item class="mb-1"
+                                                    @click="state.searchWithIn = 'Name'">Name</b-dropdown-item>
+                                                <b-dropdown-item class="mb-1"
+                                                    @click="state.searchWithIn = 'Section'">Section</b-dropdown-item>
+                                                <b-dropdown-item class="mb-1"
+                                                    @click="state.searchWithIn = 'Roles'">Roles</b-dropdown-item>
+                                                <b-dropdown-item class="mb-1"
+                                                    @click="state.searchWithIn = 'Permissions'">Permissions</b-dropdown-item>
+                                                <b-dropdown-item class="mb-1"
+                                                    @click="state.searchWithIn = 'Availability'">Availability</b-dropdown-item>
                                             </ul>
                                         </div>
                                     </div>
@@ -1462,60 +1449,55 @@ function roleEdit(roleToEdit) {
                                         Add New Staff
                                         <i class="mdi mdi-dots-vertical ms-2"></i>
                                     </template>
-                                    <b-dropdown-item>
-                                        <div class="d-flex flex-row gap-2 align-items-center" @click="$refs.singleStaffInput.open_single_input_modal = true">
+                                    <!-- <b-dropdown-item>
+                                        <div class="d-flex flex-row gap-2 align-items-center"
+                                            @click="$refs.singleStaffInput.open_single_input_modal = true">
                                             <div>
                                                 <i class="fas fa-user-alt" style="font-size: small"></i>
                                             </div>
                                             <div>Single Input</div>
                                         </div>
-                                    </b-dropdown-item>
+                                    </b-dropdown-item> -->
+                                   
                                     <b-dropdown-item>
-                                        <div class="d-flex flex-row gap-2 align-items-center" @click="getBatchFile">
-                                            <div><i class="mdi mdi-cloud-upload" style="font-size: medium"></i></div>
-                                            <div>Batch Upload</div>
-                                        </div>
-                                    </b-dropdown-item>
-                                    <b-dropdown-item>
-                                        <div class="d-flex flex-row gap-2 align-items-center" @click="downlaodSpBatchUnicefStaffTemplate">
+                                        <div class="d-flex flex-row gap-2 align-items-center"
+                                            @click="downlaodSpBatchUnicefStaffTemplate">
                                             <div><i class="mdi mdi-microsoft-excel" style="font-size: medium"></i></div>
                                             <div>Download Template</div>
                                         </div>
                                     </b-dropdown-item>
                                 </b-dropdown>
                             </div>
-                            <!-- <div class="btn-group">
-                                <b-dropdown id="dropdown-dropright" right variant="primary">
-                                    <template v-slot:button-content>
-                                        <i class="bx bx-filter"></i>
-                                    </template>
-                                    <b-dropdown-item>Section</b-dropdown-item>
-                                    <b-dropdown-item>On Leave</b-dropdown-item>
-                                    <b-dropdown-item>Available</b-dropdown-item>
-                                    <b-dropdown-item>Mute</b-dropdown-item>
-                                </b-dropdown>
-                            </div> -->
+
                         </div>
                     </div>
                     <div class="table-responsive" v-if="state.staffProfiles.length > 0">
                         <input type="file" @change="onChange" hidden id="batchStaffUploadFile" accept=".xls ,.xlsx" />
-                        <table class="table align-middle table-nowrap table-striped dt-responsive nowrap w-100" id="userList-table">
+                        <table class="table align-middle table-nowrap table-striped dt-responsive nowrap w-100"
+                            id="userList-table">
                             <thead class="table-light">
                                 <tr>
                                     <th scope="col" :style="{ backgroundColor: '#eff2f7' }">#</th>
                                     <th scope="col" :style="{ backgroundColor: '#eff2f7' }" class="col-2">Name</th>
-                                    <th scope="col" :style="{ backgroundColor: '#eff2f7' }" class="text-center">Section</th>
-                                    <th scope="col" :style="{ backgroundColor: '#eff2f7' }" class="text-center">Permissions</th>
-                                    <th scope="col" :style="{ backgroundColor: '#eff2f7' }" class="text-center">Roles</th>
-                                    <th scope="col" :style="{ backgroundColor: '#eff2f7' }" class="text-center">Availability</th>
-                                    <th scope="col" :style="{ backgroundColor: '#eff2f7', textAlign: 'center' }" class="text-center">Action</th>
+                                    <th scope="col" :style="{ backgroundColor: '#eff2f7' }" class="text-center">User Type
+                                    </th>
+                                    <th scope="col" :style="{ backgroundColor: '#eff2f7' }" class="text-center">
+                                        Permissions</th>
+                                    <th scope="col" :style="{ backgroundColor: '#eff2f7' }" class="text-center">Roles
+                                    </th>
+                                    <th scope="col" :style="{ backgroundColor: '#eff2f7' }" class="text-center">
+                                        Availability</th>
+                                    <th scope="col" :style="{ backgroundColor: '#eff2f7', textAlign: 'center' }"
+                                        class="text-center">Action
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(list, index) in state.staffProfiles" :key="index + list.email + list.name">
                                     <td :style="{ backgroundColor: '#fff' }">
                                         <div v-if="list.user != null">
-                                            <img :src="list.user.profile_photo_url" :alt="''" class="rounded-circle avatar-xs object-fit-cover" />
+                                            <img :src="list.user.profile_photo_url" :alt="''"
+                                                class="rounded-circle avatar-xs object-fit-cover" />
                                         </div>
                                     </td>
                                     <td :style="{ backgroundColor: '#fff', maxWidth: '20em', wordWrap: 'break-word' }">
@@ -1525,93 +1507,103 @@ function roleEdit(roleToEdit) {
                                         <p class="text-muted mb-0 col-11 text-truncate">{{ list.position_text }}</p>
                                     </td>
                                     <td :style="{ backgroundColor: '#fff' }" class="text-center">
-                                        <div v-if="list.sectionname != null">{{ list.sectionname }}</div>
-                                        <div v-else><span class="badge badge-soft-secondary font-size-11 m-1">No Section</span></div>
+                                        <div v-if="list.user_type != null">{{ list.user_type }}</div>
+                                        <div v-else><span class="badge badge-soft-secondary font-size-11 m-1">No
+                                                Section</span></div>
                                     </td>
                                     <td :style="{ backgroundColor: '#fff' }" class="text-center">
                                         <div v-if="list.user?.allPermissions.length > 0">
                                             <div v-if="state.showLess">
-                                                <div v-for="(permission, index) in list.user?.allPermissions.slice(0, 3)" :key="index">
-                                                    <span class="badge badge-soft-primary font-size-11 m-1"> {{ permission }}</span>
+                                                <div v-for="(permission, index) in list.user?.allPermissions.slice(0, 3)"
+                                                    :key="index">
+                                                    <span class="badge badge-soft-primary font-size-11 m-1"> {{
+                                                        permission }}</span>
                                                 </div>
                                             </div>
                                             <div v-else-if="state.showLess == false">
-                                                <div v-for="(permission, index) in list.user?.allPermissions" :key="index">
-                                                    <span class="badge badge-soft-primary font-size-11 m-1"> {{ permission }}</span>
+                                                <div v-for="(permission, index) in list.user?.allPermissions"
+                                                    :key="index">
+                                                    <span class="badge badge-soft-primary font-size-11 m-1"> {{
+                                                        permission }}</span>
                                                 </div>
                                             </div>
-                                            <div
-                                                class="d-flex align-items-center justify-content-center mt-2"
+                                            <div class="d-flex align-items-center justify-content-center mt-2"
                                                 v-if="list.user?.allPermissions.length > 2 && state.showLess"
-                                                @click="state.showLess = false"
-                                            >
-                                                <small class="text-primary" role="button"
-                                                    ><span class="badge text-bg-primary">See More<i class="bx bx-plus ms-1"></i></span
-                                                ></small>
+                                                @click="state.showLess = false">
+                                                <small class="text-primary" role="button"><span
+                                                        class="badge text-bg-primary">See More<i
+                                                            class="bx bx-plus ms-1"></i></span></small>
                                             </div>
-                                            <div
-                                                class="d-flex align-items-center justify-content-center mt-2"
+                                            <div class="d-flex align-items-center justify-content-center mt-2"
                                                 v-if="list.user?.allPermissions.length > 2 && state.showLess == false"
-                                                @click="state.showLess = true"
-                                            >
-                                                <small class="text-primary" role="button"
-                                                    ><span class="badge text-bg-primary">See Less<i class="bx bx-minus ms-1"></i></span
-                                                ></small>
+                                                @click="state.showLess = true">
+                                                <small class="text-primary" role="button"><span
+                                                        class="badge text-bg-primary">See Less<i
+                                                            class="bx bx-minus ms-1"></i></span></small>
                                             </div>
                                         </div>
-                                        <div v-else><span class="badge badge-soft-secondary font-size-11 m-1">No Permissions</span></div>
+                                        <div v-else><span class="badge badge-soft-secondary font-size-11 m-1">No
+                                                Permissions</span></div>
                                     </td>
                                     <td :style="{ backgroundColor: '#fff' }" class="text-center">
                                         <div v-if="list.user?.roles.length > 0">
                                             <div v-if="state.showLess">
-                                                <div v-for="(role, index) in list.user.roles.slice(0, 3)" :key="`${role.id}_${role.name}`">
-                                                    <span class="badge badge-soft-primary font-size-11 m-1"> {{ role.name }}</span>
+                                                <div v-for="(role, index) in list.user.roles.slice(0, 3)"
+                                                    :key="`${role.id}_${role.name}`">
+                                                    <span class="badge badge-soft-primary font-size-11 m-1"> {{
+                                                        role.name }}</span>
                                                 </div>
                                             </div>
                                             <div v-else-if="state.showLess == false">
                                                 <div v-for="(role, index) in list.user.roles" :key="index">
-                                                    <span class="badge badge-soft-primary font-size-11 m-1"> {{ role.name }}</span>
+                                                    <span class="badge badge-soft-primary font-size-11 m-1"> {{
+                                                        role.name }}</span>
                                                 </div>
                                             </div>
-                                            <div class="d-flex align-items-center justify-content-center mt-2" v-if="list.user.roles.length > 2 && state.showLess" @click="state.showLess = false">
-                                                <small class="text-primary" role="button"
-                                                    ><span class="badge text-bg-primary">See More<i class="bx bx-plus ms-1"></i></span
-                                                ></small>
+                                            <div class="d-flex align-items-center justify-content-center mt-2"
+                                                v-if="list.user.roles.length > 2 && state.showLess"
+                                                @click="state.showLess = false">
+                                                <small class="text-primary" role="button"><span
+                                                        class="badge text-bg-primary">See More<i
+                                                            class="bx bx-plus ms-1"></i></span></small>
                                             </div>
-                                            <div
-                                                class="d-flex align-items-center justify-content-center mt-2"
+                                            <div class="d-flex align-items-center justify-content-center mt-2"
                                                 v-if="list.user.roles.length > 2 && state.showLess == false"
-                                                @click="state.showLess = true"
-                                            >
-                                                <small class="text-primary" role="button"
-                                                    ><span class="badge text-bg-primary">See Less<i class="bx bx-minus ms-1"></i></span
-                                                ></small>
+                                                @click="state.showLess = true">
+                                                <small class="text-primary" role="button"><span
+                                                        class="badge text-bg-primary">See Less<i
+                                                            class="bx bx-minus ms-1"></i></span></small>
                                             </div>
                                         </div>
-                                        <div v-else><span class="badge badge-soft-secondary font-size-11 m-1">No Roles</span></div>
+                                        <div v-else><span class="badge badge-soft-secondary font-size-11 m-1">No
+                                                Roles</span></div>
                                     </td>
-                                    <td :style="{ backgroundColor: '#fff' }" class="text-center">
-                                        <div v-if="list.is_on_leave">
-                                            <span class="badge text-bg-danger">On Leave</span>
-                                        </div>
-                                        <div v-else>
-                                            <span class="badge text-bg-success">Available</span>
-                                        </div>
-                                    </td>
+                                
                                     <td :style="{ backgroundColor: '#fff' }" class="text-center">
                                         <div class="d-flex justify-content-end">
                                             <div class="list-unstyled hstack gap-1 mb-0">
-                                                <div data-bs-toggle="tooltip" data-bs-placement="top" aria-label="View" @click="viewStaffProfile(list.id)">
-                                                    <div class="btn btn-sm btn-soft-primary"><i class="mdi mdi-eye-outline"></i></div>
+                                                <div data-bs-toggle="tooltip" data-bs-placement="top" aria-label="View"
+                                                    @click="viewStaffProfile(list.id)">
+                                                    <div class="btn btn-sm btn-soft-primary"><i
+                                                            class="mdi mdi-eye-outline"></i></div>
                                                 </div>
-                                                <div data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Edit" @click="$refs.singleStaffInput.editStaff(list)">
-                                                    <div href="#" class="btn btn-sm btn-soft-info"><i class="mdi mdi-pencil-outline"></i></div>
+                                                <div data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Edit"
+                                                    @click="$refs.singleStaffInput.editStaff(list)">
+                                                    <div href="#" class="btn btn-sm btn-soft-info"><i
+                                                            class="mdi mdi-pencil-outline"></i>
+                                                    </div>
                                                 </div>
-                                                <div data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Reset Password" v-if="isSuperAdmin">
-                                                    <b-button variant="soft-primary" class="btn-sm" @click="resetMyPassword(list.id)"><i class="mdi mdi-lock-reset"></i></b-button>
+                                                <div data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    aria-label="Reset Password" v-if="isSuperAdmin">
+                                                    <b-button variant="soft-primary" class="btn-sm"
+                                                        @click="resetMyPassword(list.id)"><i
+                                                            class="mdi mdi-lock-reset"></i></b-button>
                                                 </div>
-                                                <div data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Delete" v-if="isSuperAdmin">
-                                                    <b-button variant="soft-danger" class="btn-sm" @click="loginAs(list.email, list.name)"><i class="mdi mdi-login-variant"></i></b-button>
+                                                <div data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    aria-label="Delete" v-if="isSuperAdmin">
+                                                    <b-button variant="soft-danger" class="btn-sm"
+                                                        @click="loginAs(list.email, list.name)"><i
+                                                            class="mdi mdi-login-variant"></i></b-button>
                                                 </div>
                                             </div>
                                         </div>
@@ -1619,152 +1611,20 @@ function roleEdit(roleToEdit) {
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="w-100 d-flex align-items-center justify-content-center pt-4 pb-4" v-if="props.unicefStaff.next_page_url != null">
+                        <div class="w-100 d-flex align-items-center justify-content-center pt-4 pb-4"
+                            v-if="props.users.next_page_url != null">
                             <InfiniteLoading @infinite="loadMoreStaffProfiles" class="invisible" />
                             <div class="text-success"><i class="bx bx-hourglass bx-spin me-2"></i> Loading more</div>
                         </div>
                     </div>
-                    <div v-else class="text-center pt-5 pb-5"><div class="pt-5 pb-5">Nothing Found</div></div>
-                </div>
-                <div class="card-body" id="SP" v-else-if="state.title == 'Service Providers'">
-                    <div class="">
-                        <div class="d-flex flex-row justify-content-between col-12 mb-4">
-                            <div class="d-flex align-items-center">
-                                <div class="rounded-pill d-none d-lg-block" style="background-color: #f9f9f9; border: 0px">
-                                    <div class="input-group d-flex flex-row align-items-center">
-                                        <div class="mt-1">
-                                            <span class="" style="font-size: medium"><i class="bx bx-search-alt"></i></span>
-                                        </div>
-                                        <div class=""><input type="text" class="form-control" placeholder="Search.." style="background-color: #f9f9f9; border: 0px" v-model="state.searchText" /></div>
-
-                                        <div class="hstack gap-3" role="button">
-                                            <div class="vr" style="color: #dbdbdb"></div>
-                                            <div class="btn-group dropbottomstart">
-                                                <div data-bs-toggle="dropdown" class="d-flex flex-row gap-3">
-                                                    <div class="">{{ state.searchWithIn }}</div>
-                                                    <div>
-                                                        <i class="mdi mdi-chevron-down" aria-expanded="false"></i>
-                                                    </div>
-                                                </div>
-
-                                                <ul class="dropdown-menu">
-                                                    <!-- Dropdown menu links -->
-                                                    <b-dropdown-item class="mb-1" @click="state.searchWithIn = 'All'">All</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1" @click="state.searchWithIn = 'Name'">Name</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1" @click="state.searchWithIn = 'Section'">Vendor Number</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1" @click="state.searchWithIn = 'Role'">Active</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1" @click="state.searchWithIn = 'Availability'">Inactive</b-dropdown-item>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-row gap-3">
-                                <div class="" v-if="isSuperAdmin || isHrStaff">
-                                    <b-dropdown class="btn-group mb-2 mb-sm-0" variant="primary">
-                                        <template #button-content>
-                                            Add Service Provider / IP
-                                            <i class="mdi mdi-dots-vertical ms-2"></i>
-                                        </template>
-                                        <b-dropdown-item>
-                                            <div class="d-flex flex-row gap-2 align-items-center" @click="state.addSingleSPModal = true">
-                                                <div>
-                                                    <i class="fas fa-user-alt" style="font-size: small"></i>
-                                                </div>
-                                                <div>Single Input</div>
-                                            </div>
-                                        </b-dropdown-item>
-                                        <b-dropdown-item>
-                                            <div class="d-flex flex-row gap-2 align-items-center" @click="getSPBatchFile">
-                                                <div><i class="mdi mdi-cloud-upload" style="font-size: medium"></i></div>
-                                                <div>Batch Upload</div>
-                                            </div>
-                                        </b-dropdown-item>
-                                        <b-dropdown-item>
-                                            <div class="d-flex flex-row gap-2 align-items-center" @click="downlaodSpBatchTemplate">
-                                                <div><i class="mdi mdi-microsoft-excel" style="font-size: medium"></i></div>
-                                                <div>Download Template</div>
-                                            </div>
-                                        </b-dropdown-item>
-                                    </b-dropdown>
-                                </div>
-                            </div>
+                    <div v-else class="text-center pt-5 pb-5">
+                        <div class="pt-5 pb-5">
+                            <span class="text-center ">Nothing Found</span>
                         </div>
-                        <b-card no-body class="">
-                            <div class="table-responsive">
-                                <input type="file" @change="spBatchUplaod" hidden id="batchSPUploadFile" accept=".xls ,.xlsx" />
-
-                                <table class="table align-middle table-nowrap table-striped dt-responsive nowrap w-100" id="userList-table">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th scope="col" :style="{ backgroundColor: '#eff2f7' }">#</th>
-                                            <th scope="col" :style="{ backgroundColor: '#eff2f7' }">Name</th>
-                                            <th scope="col" :style="{ backgroundColor: '#eff2f7' }" class="text-center">Vendor Number</th>
-                                            <th scope="col" :style="{ backgroundColor: '#eff2f7' }" class="text-center">Account Status</th>
-
-                                            <th scope="col" :style="{ backgroundColor: '#eff2f7', textAlign: 'end' }">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-for="(list, index) in state.serviceProvidersList" :key="index + list.email">
-                                            <td :style="{ backgroundColor: '#fff' }">
-                                                <div v-if="list.user != null">
-                                                    <img :src="list.user.profile_photo_url" :alt="''" class="rounded-circle avatar-xs object-fit-cover" />
-                                                </div>
-                                            </td>
-                                            <td :style="{ backgroundColor: '#fff', maxWidth: '25vw', wordWrap: 'break-word' }">
-                                                <h5 class="font-size-14 mb-1">
-                                                    <a href="#" class="text-dark col-11 text-truncate">{{ list.name }}</a>
-                                                </h5>
-                                            </td>
-                                            <td :style="{ backgroundColor: '#fff' }" class="text-center">
-                                                <div v-if="list.vendor_number != null && list.vendor_number != ''">{{ list.vendor_number }}</div>
-                                                <div v-else><span class="badge badge-soft-secondary font-size-11 m-1">Not Specified</span></div>
-                                            </td>
-                                            <td :style="{ backgroundColor: '#fff', maxWidth: '10vw' }" class="text-center">
-                                                <div v-if="list?.user?.status == 'pending'">
-                                                    <span class="badge badge-soft-danger font-size-11 m-1">Inactive</span>
-                                                </div>
-                                                <div v-else-if="list?.user?.status == 'active'">
-                                                    <span class="badge badge-soft-success font-size-11 m-1">Active</span>
-                                                </div>
-                                                <div v-else><span class="badge badge-soft-secondary font-size-11 m-1">Disabled</span></div>
-                                            </td>
-
-                                            <td :style="{ backgroundColor: '#fff' }">
-                                                <div class="d-flex justify-content-end">
-                                                    <div class="list-unstyled hstack gap-1 mb-0">
-                                                        <div data-bs-toggle="tooltip" data-bs-placement="top" aria-label="View" @click="selectedSP(list)">
-                                                            <div class="btn btn-sm btn-soft-primary"><i class="mdi mdi-eye-outline"></i></div>
-                                                        </div>
-                                                        <div
-                                                            v-if="list?.user?.status == 'active'"
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-placement="top"
-                                                            aria-label="Disable"
-                                                            @click="deActivateSPAccount(list)"
-                                                        >
-                                                            <b-button variant="soft-danger" class="btn-sm"><i class="fas fa-times"></i></b-button>
-                                                        </div>
-                                                        <div v-else data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Activate" @click="activateSPAccount(list)">
-                                                            <div href="#" class="btn btn-sm btn-soft-success"><i class="fas fa-check"></i></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="w-100 d-flex align-items-center justify-content-center pt-4 pb-4" v-if="props.serviceProviders.next_page_url != null">
-                                    <InfiniteLoading @infinite="loadMoreServiceProviders" class="invisible" />
-                                    <div class="text-success"><i class="bx bx-hourglass bx-spin me-2"></i> Loading more</div>
-                                </div>
-                            </div>
-                        </b-card>
                     </div>
                 </div>
-                <div class="card-body" id="r&p" v-else-if="state.title == 'Roles & Permissions'">
+
+                 <div class="card-body" id="r&p" v-else-if="state.title == 'Roles & Permissions'">
                     <div class="">
                         <div class="d-flex flex-row justify-content-between mb-5">
                             <div class="d-flex align-items-center"></div>
@@ -1785,62 +1645,80 @@ function roleEdit(roleToEdit) {
                         </div>
                         <div class="d-flex flex-row justify-content-between" style="width: 100%">
                             <div style="width: 100%">
-                                <!-- <div class="mb-5 invisible">Roles</div> -->
                                 <div>
                                     <div v-if="rolesByUsers.length != null && rolesByUsers.length > 0">
-                                        <table class="table align-middle table-nowrap table-striped dt-responsive nowrap w-100" id="userList-table">
+                                        <table
+                                            class="table align-middle table-nowrap table-striped dt-responsive nowrap w-100"
+                                            id="userList-table">
                                             <thead class="table-light">
                                                 <tr>
                                                     <th scope="col" :style="{ backgroundColor: '#eff2f7' }">Role</th>
-                                                    <th scope="col" :style="{ backgroundColor: '#eff2f7' }" class="text-center">Currently With</th>
-                                                    <th scope="col" :style="{ backgroundColor: '#eff2f7' }" class="text-center">Created By</th>
-                                                    <th scope="col" :style="{ backgroundColor: '#eff2f7' }" class="text-end">Action</th>
+                                                    <th scope="col" :style="{ backgroundColor: '#eff2f7' }"
+                                                        class="text-center">
+                                                        Currently With</th>
+                                                    <th scope="col" :style="{ backgroundColor: '#eff2f7' }"
+                                                        class="text-center">Created
+                                                        By</th>
+                                                    <th scope="col" :style="{ backgroundColor: '#eff2f7' }"
+                                                        class="text-end">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr v-for="(list, index) in rolesByUsers" :key="`${index} _${list.email}`">
-                                                    <td v-if="list != null" :style="{ backgroundColor: '#fff', maxWidth: '25vw', wordWrap: 'break-word' }">
+                                                <tr v-for="(list, index) in rolesByUsers"
+                                                    :key="`${index} _${list.email}`">
+                                                    <td v-if="list != null"
+                                                        :style="{ backgroundColor: '#fff', maxWidth: '25vw', wordWrap: 'break-word' }">
                                                         <h5 class="font-size-14 mb-1">
-                                                            <a href="#" class="text-dark col-11 text-truncate">{{ list?.name }}</a>
+                                                            <a href="#" class="text-dark col-11 text-truncate">{{
+                                                                list?.name }}</a>
                                                         </h5>
                                                     </td>
                                                     <td :style="{ backgroundColor: '#fff' }" class="text-center">
                                                         <div v-if="list.users.length > 0">
                                                             <div v-if="state.showLess">
-                                                                <div v-for="(username, index) in list.users.slice(0, 2)" :key="index">
-                                                                    <span class="badge badge-soft-primary font-size-11 m-1"> {{ username }}</span>
+                                                                <div v-for="(username, index) in list.users.slice(0, 2)"
+                                                                    :key="index">
+                                                                    <span
+                                                                        class="badge badge-soft-primary font-size-11 m-1">
+                                                                        {{ username
+                                                                        }}</span>
                                                                 </div>
                                                             </div>
                                                             <div v-else-if="state.showLess == false">
-                                                                <div v-for="(username, index) in list.users" :key="index">
-                                                                    <span class="badge badge-soft-primary font-size-11 m-1"> {{ username }}</span>
+                                                                <div v-for="(username, index) in list.users"
+                                                                    :key="index">
+                                                                    <span
+                                                                        class="badge badge-soft-primary font-size-11 m-1">
+                                                                        {{ username
+                                                                        }}</span>
                                                                 </div>
                                                             </div>
-                                                            <div
-                                                                class="d-flex align-items-center justify-content-center mt-2"
+                                                            <div class="d-flex align-items-center justify-content-center mt-2"
                                                                 v-if="list.users.length > 2 && state.showLess"
-                                                                @click="state.showLess = false"
-                                                            >
-                                                                <small class="text-primary" role="button"
-                                                                    ><span class="badge text-bg-primary">See More<i class="bx bx-plus ms-1"></i></span
-                                                                ></small>
+                                                                @click="state.showLess = false">
+                                                                <small class="text-primary" role="button"><span
+                                                                        class="badge text-bg-primary">See More<i
+                                                                            class="bx bx-plus ms-1"></i></span></small>
                                                             </div>
-                                                            <div
-                                                                class="d-flex align-items-center justify-content-center mt-2"
+                                                            <div class="d-flex align-items-center justify-content-center mt-2"
                                                                 v-if="list.users.length > 2 && state.showLess == false"
-                                                                @click="state.showLess = true"
-                                                            >
-                                                                <small class="text-primary" role="button"
-                                                                    ><span class="badge text-bg-primary">See Less<i class="bx bx-minus ms-1"></i></span
-                                                                ></small>
+                                                                @click="state.showLess = true">
+                                                                <small class="text-primary" role="button"><span
+                                                                        class="badge text-bg-primary">See Less<i
+                                                                            class="bx bx-minus ms-1"></i></span></small>
                                                             </div>
                                                         </div>
-                                                        <div v-else><span class="badge badge-soft-secondary font-size-11 m-1">Not Assigned</span></div>
+                                                        <div v-else><span
+                                                                class="badge badge-soft-secondary font-size-11 m-1">Not
+                                                                Assigned</span></div>
                                                     </td>
-                                                    <td v-if="list != null" :style="{ backgroundColor: '#fff', maxWidth: '25vw', wordWrap: 'break-word' }">
+                                                    <td v-if="list != null"
+                                                        :style="{ backgroundColor: '#fff', maxWidth: '25vw', wordWrap: 'break-word' }">
                                                         <div class="text-center w-100">
                                                             <h5 class="font-size-14 mb-1">
-                                                                <a href="#" class="text-dark col-11 text-truncate">{{ list.created_by }}</a>
+                                                                <a href="#" class="text-dark col-11 text-truncate">{{
+                                                                    list.created_by
+                                                                    }}</a>
                                                             </h5>
                                                         </div>
                                                     </td>
@@ -1848,16 +1726,24 @@ function roleEdit(roleToEdit) {
                                                     <td v-if="list != null" :style="{ backgroundColor: '#fff' }">
                                                         <div class="d-flex justify-content-end">
                                                             <div class="list-unstyled hstack gap-1 mb-0">
-                                                                <div data-bs-toggle="tooltip" data-bs-placement="top" aria-label="View">
-                                                                    <div class="btn btn-sm btn-soft-primary" @click="editRole(list)"><i class="mdi mdi-eye-outline"></i></div>
+                                                                <div data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                    aria-label="View">
+                                                                    <div class="btn btn-sm btn-soft-primary"
+                                                                        @click="editRole(list)"><i
+                                                                            class="mdi mdi-eye-outline"></i></div>
                                                                 </div>
 
-                                                                <div data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Edit" @click="editUserRole(list)">
-                                                                    <div href="#" class="btn btn-sm btn-soft-info"><i class="mdi mdi-pencil-outline"></i></div>
+                                                                <div data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                    aria-label="Edit" @click="editUserRole(list)">
+                                                                    <div href="#" class="btn btn-sm btn-soft-info"><i
+                                                                            class="mdi mdi-pencil-outline"></i></div>
                                                                 </div>
 
-                                                                <div data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Delete">
-                                                                    <b-button variant="soft-danger" class="btn-sm" @click="deleteRole(list)"><i class="mdi mdi-delete-outline"></i></b-button>
+                                                                <div data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                    aria-label="Delete">
+                                                                    <b-button variant="soft-danger" class="btn-sm"
+                                                                        @click="deleteRole(list)"><i
+                                                                            class="mdi mdi-delete-outline"></i></b-button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1866,7 +1752,9 @@ function roleEdit(roleToEdit) {
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div v-else class="d-flex flex-column gap-3 align-items-center justify-content-center p-5" style="height: 50vh; background-color: #f7f7f79b">
+                                    <div v-else
+                                        class="d-flex flex-column gap-3 align-items-center justify-content-center p-5"
+                                        style="height: 50vh; background-color: #f7f7f79b">
                                         <div class="fw-bold text-muted">Roles have not been created yet.</div>
                                         <b-button variant="secondary" @click="addNewRole">
                                             <i class="bx bx bx-plus font-size-16 align-middle me-2"></i>
@@ -1877,17 +1765,13 @@ function roleEdit(roleToEdit) {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-body" id="availabilityPlanner" v-else-if="state.title == 'Availability Planner'">
-                    <AvailabilityPlanner :upcomingLeaves="props.upcomingLeaves" :ongoingLeaves="props.ongoingLeaves" />
-                </div>
-                <div class="card-body" id="radio_call" v-else>
-                    <staff-groups :unicef_staff="unicefStaff" />
-                </div>
+                </div> 
+
             </div>
         </div>
         <!-- view service provider details -->
-        <b-modal v-model="state.viewSPDetailsModal" id="SPDetails" title-class="font-18" title="" centered header-class="d-flex justify-content-center" hide-header hide-footer>
+        <b-modal v-model="state.viewSPDetailsModal" id="SPDetails" title-class="font-18" title="" centered
+            header-class="d-flex justify-content-center" hide-header hide-footer>
             <div class="mb-4">
                 <div class="text-center fw-bold">Service Provider Details</div>
             </div>
@@ -1911,7 +1795,8 @@ function roleEdit(roleToEdit) {
             </div>
         </b-modal>
         <!-- Add service provider modal -->
-        <b-modal v-model="state.addSingleSPModal" id="addSP" title="Register Service Provider" title-class="font-18" centered hide-footer>
+        <b-modal v-model="state.addSingleSPModal" id="addSP" title="Register Service Provider" title-class="font-18"
+            centered hide-footer>
             <div class="mb-4">
                 <label for="contract_end">Name</label>
                 <input class="form-control" id="contract_end" type="text" v-model="state.spName" />
@@ -1926,47 +1811,53 @@ function roleEdit(roleToEdit) {
             </div>
 
             <div class="mt-4 d-flex justify-content-center">
-                <b-button variant="primary" @click="registerServiceProvider" :disabled="state.addRoleLoader"
-                    ><i class="bx bx-loader bx-spin font-size-16 align-middle me-2" v-if="state.addRoleLoader"></i>Register</b-button
-                >
+                <b-button variant="primary" @click="registerServiceProvider" :disabled="state.addRoleLoader"><i
+                        class="bx bx-loader bx-spin font-size-16 align-middle me-2"
+                        v-if="state.addRoleLoader"></i>Register</b-button>
             </div>
         </b-modal>
 
-        <b-modal v-model="state.addRoleModal" id="addRole" title="Add User Role" title-class="font-18" centered hide-footer>
+        <b-modal v-model="state.addRoleModal" id="addRole" title="Add User Role" title-class="font-18" centered
+            hide-footer>
             <div class="mb-4">
                 <label for="contract_end">Role Name</label>
                 <input class="form-control" id="contract_end" type="text" v-model="state.userRoleDetails.roleName" />
             </div>
             <div class="mb-4">
                 <label for="address">Role Description</label>
-                <textarea class="form-control" :maxlength="225" rows="3" v-model="state.userRoleDetails.roleDescription"></textarea>
+                <textarea class="form-control" :maxlength="225" rows="3"
+                    v-model="state.userRoleDetails.roleDescription"></textarea>
             </div>
             <div class="mb-5">
                 <label for="address">Role Permissions</label>
-                <v-select multiple v-model="state.userRoleDetails.rolePermissions" :options="state.activePermissions"></v-select>
+                <v-select multiple v-model="state.userRoleDetails.rolePermissions"
+                    :options="state.activePermissions"></v-select>
                 <!-- <input class="form-control" id="contract_end" type="text" v-model="state.userRoleDetails.rolePermissions" /> -->
             </div>
             <div class="mt-4 d-flex justify-content-center">
-                <b-button variant="primary" @click="addUserRole" :disabled="state.addRoleLoader"
-                    ><i class="bx bx-loader bx-spin font-size-16 align-middle me-2" v-if="state.addRoleLoader"></i>Add Role</b-button
-                >
+                <b-button variant="primary" @click="addUserRole" :disabled="state.addRoleLoader"><i
+                        class="bx bx-loader bx-spin font-size-16 align-middle me-2" v-if="state.addRoleLoader"></i>Add
+                    Role</b-button>
             </div>
         </b-modal>
-        <b-modal v-model="state.assignRolePermissionModal" id="assignRolePermission" title="Assign Roles & Permissions" title-class="font-18" centered hide-footer>
+        <b-modal v-model="state.assignRolePermissionModal" id="assignRolePermission" title="Assign Roles & Permissions"
+            title-class="font-18" centered hide-footer>
             <div class="mb-4 mt-3">
                 <label for="contract_end">Staff to Assign to:</label>
                 <v-select v-model="state.assignRolesPermissions.staff" multiple :options="unicefStaffNames"></v-select>
             </div>
 
             <div class="mb-4">
-                <b-form-checkbox id="customControlInline" name="checkbox-1" value="accepted" unchecked-value="not_accepted" v-model="state.assignDirectRole">
+                <b-form-checkbox id="customControlInline" name="checkbox-1" value="accepted"
+                    unchecked-value="not_accepted" v-model="state.assignDirectRole">
                     Assign Direct Permission
                 </b-form-checkbox>
             </div>
 
             <div class="mb-5" v-if="state.assignDirectRole === 'accepted'">
                 <label for="address">Permission:</label>
-                <v-select multiple v-model="state.assignRolesPermissions.permissions" :options="state.activePermissions"></v-select>
+                <v-select multiple v-model="state.assignRolesPermissions.permissions"
+                    :options="state.activePermissions"></v-select>
             </div>
             <div class="mb-5" v-else>
                 <label for="address">Role:</label>
@@ -1974,24 +1865,29 @@ function roleEdit(roleToEdit) {
             </div>
 
             <div class="mt-4 d-flex justify-content-center">
-                <b-button variant="primary" @click="assignRolesPermissions" :disabled="state.assignRolesPermissionsLoader"
-                    ><i class="bx bx-loader bx-spin font-size-16 align-middle me-2" v-if="state.assignRolesPermissionsLoader"></i>Assign</b-button
-                >
+                <b-button variant="primary" @click="assignRolesPermissions"
+                    :disabled="state.assignRolesPermissionsLoader"><i
+                        class="bx bx-loader bx-spin font-size-16 align-middle me-2"
+                        v-if="state.assignRolesPermissionsLoader"></i>Assign</b-button>
             </div>
         </b-modal>
         <!-- editing role -->
-        <b-modal v-model="state.editRoleModal" id="addRole" title="User Role" title-class="font-18" centered hide-footer>
+        <b-modal v-model="state.editRoleModal" id="addRole" title="User Role" title-class="font-18" centered
+            hide-footer>
             <div class="mb-4">
                 <label for="contract_end">Role Name</label>
-                <input class="form-control" id="contract_end" type="text" v-model="state.editRoleName" disabled="true" />
+                <input class="form-control" id="contract_end" type="text" v-model="state.editRoleName"
+                    disabled="true" />
             </div>
             <div class="mb-4">
                 <label for="address">Role Description</label>
-                <textarea class="form-control" :maxlength="225" rows="3" v-model="state.editRoleDescription" disabled="true"></textarea>
+                <textarea class="form-control" :maxlength="225" rows="3" v-model="state.editRoleDescription"
+                    disabled="true"></textarea>
             </div>
             <div class="mb-5">
                 <label for="address">Role Permissions</label>
-                <v-select multiple v-model="state.editRolePermissions" :options="state.activePermissions" :label="'name'" disabled="true"></v-select>
+                <v-select multiple v-model="state.editRolePermissions" :options="state.activePermissions"
+                    :label="'name'" disabled="true"></v-select>
                 <!-- <input class="form-control" id="contract_end" type="text" v-model="state.userRoleDetails.rolePermissions" /> -->
             </div>
             <!-- <div class="mt-4 d-flex justify-content-center">
@@ -2001,7 +1897,8 @@ function roleEdit(roleToEdit) {
             </div> -->
         </b-modal>
         <!-- editing role -->
-        <b-modal v-model="state.editUserRoleModal" id="addRole" title="Edit User Role" title-class="font-18" centered hide-footer>
+        <b-modal v-model="state.editUserRoleModal" id="addRole" title="Edit User Role" title-class="font-18" centered
+            hide-footer>
             <div class="mb-4">
                 <label for="contract_end">Role Name</label>
                 <input class="form-control" id="contract_end" type="text" v-model="state.editRoleName" />
@@ -2012,13 +1909,15 @@ function roleEdit(roleToEdit) {
             </div>
             <div class="mb-5">
                 <label for="address">Role Permissions</label>
-                <v-select multiple v-model="state.editRolePermissions" :options="state.activePermissions" :label="'name'"></v-select>
+                <v-select multiple v-model="state.editRolePermissions" :options="state.activePermissions"
+                    :label="'name'"></v-select>
                 <!-- <input class="form-control" id="contract_end" type="text" v-model="state.userRoleDetails.rolePermissions" /> -->
             </div>
             <div class="mt-4 d-flex justify-content-center">
-                <b-button variant="primary" :disabled="state.editRolePermissions.length == 0 || state.editRoleDescription == '' || state.editRoleName == ''" @click="roleEdit"
-                    ><i class="bx bx-loader bx-spin font-size-16 align-middle me-2" v-if="state.addRoleLoader"></i>Edit Role</b-button
-                >
+                <b-button variant="primary"
+                    :disabled="state.editRolePermissions.length == 0 || state.editRoleDescription == '' || state.editRoleName == ''"
+                    @click="roleEdit"><i class="bx bx-loader bx-spin font-size-16 align-middle me-2"
+                        v-if="state.addRoleLoader"></i>Edit Role</b-button>
             </div>
         </b-modal>
 

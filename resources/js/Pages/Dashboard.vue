@@ -121,7 +121,7 @@ onMounted(() => {
     state.isUserAuthorised = true;
     // checkUserProfile();
     if(props.user.password_expired){
-        state.open_password_expired_modal = true;
+        state.open_password_expired_modal = false;
     }
     // console.log("these are all mfs", import.meta.env.VITE_MODULES_WATER)
 });

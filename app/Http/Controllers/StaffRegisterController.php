@@ -48,10 +48,10 @@ class StaffRegisterController extends Controller
         // $staffDetails = StaffProfile::select('id', 'personal_id', 'name', 'position_text','email', 'section')->with(['user'])->filter('seachFor', 'seachWithIn')->paginate(20)->withQueryString();
 
         //getting service providers
-        $serviceProviders = ServiceProvider::select('id', 'name', 'phone', 'contractor_number', 'vendor_number', 'email')->with(['user'])->paginate(20);
+        $serviceProviders = [];
 
         //all Staffnames
-        $allStaffNames = StaffProfile::select('id', 'email', 'name', 'section')->latest()->get();
+        $allStaffNames =[];
 
         //getting user roles
         $userRoles = Role::with('permissions')->latest()->get();
@@ -64,8 +64,8 @@ class StaffRegisterController extends Controller
 
         //upcoming leaves
         $todayDate = now();
-        $upcomingLeaves = Leave::where('start', '>', $todayDate)->where('end', '>=', $todayDate)->with(['staffDelegated'])->latest()->get();
-        $ongoingLeaves = Leave::where('end', '>=', $todayDate)->where('start', '<=', $todayDate)->with(['staffDelegated'])->latest()->get();
+        $upcomingLeaves = [];
+        $ongoingLeaves =[];
 
         $searchWithIn =  $request->input('seachWithIn');
         $seachPerms =  $request->input('seachFor');
@@ -75,52 +75,64 @@ class StaffRegisterController extends Controller
         return Inertia::render(
             'StaffRegister/MainStaffRegister',
             [
-                'unicefStaff' => StaffProfile::query()
-                ->orWhereHas('user',  function ($query) use ( $seachPerms) {
-                    $query->whereHas('permissions', function ($query2)  use ( $seachPerms) {
-                        $query2->where('name', "like", "%$seachPerms%");
-                    })->orWhereHas('roles.permissions', function ($query3)  use ( $seachPerms) {
-                        $query3->where('name', "like", "%$seachPerms%");
+                'users' => User::query()
+    ->with(['roles', 'permissions'])
+    ->when($seachPerms, function ($q) use ($seachPerms) {
+        $q->where(function ($sub) use ($seachPerms) {
+            $sub->whereHas('permissions', function ($p) use ($seachPerms) {
+                $p->where('name', 'like', "%{$seachPerms}%");
+            })
+            ->orWhereHas('roles.permissions', function ($p) use ($seachPerms) {
+                $p->where('name', 'like', "%{$seachPerms}%");
+            });
+        });
+    })
+    ->when($request->input('searchFor'), function ($q, $searchFor) use ($searchWithIn) {
+
+        $q->where(function ($sub) use ($searchFor, $searchWithIn) {
+
+            switch ($searchWithIn) {
+
+                case 'All':
+                    $sub->where('name', 'like', "%{$searchFor}%")
+                        ->orWhere('email', 'like', "%{$searchFor}%");
+                    break;
+
+                case 'Name':
+                    $sub->where('name', 'like', "%{$searchFor}%");
+                    break;
+
+                case 'Roles':
+                    $sub->whereHas('roles', function ($r) use ($searchFor) {
+                        $r->where('name', 'like', "%{$searchFor}%");
                     });
-                })
-                    ->with(['user', 'staffIdentity'])
-                    ->when($request->input('seachFor'), function ($query, $seachFor) use ($searchWithIn) {
-                        switch ($searchWithIn) {
-                                //TODO: implement the filters for different cases
-                            case 'All':
-                                $query->where('name', 'like', '%' . $seachFor . '%')
-                                    ->OrWhere('email', 'like', '%' . $seachFor . '%');
-                                break;
-                            case 'Name':
-                                $query->where('name', 'like', '%' . $seachFor . '%');
-                                break;
-                            case 'Section':
-                                $query->where('name', 'like', '%' . $seachFor . '%')
-                                    ->OrWhere('email', 'like', '%' . $seachFor . '%');
-                                break;
-                            case 'Roles':
+                    break;
 
-                                break;
-                            case 'Permissions':
+                case 'Permissions':
+                    $sub->whereHas('permissions', function ($p) use ($searchFor) {
+                        $p->where('name', 'like', "%{$searchFor}%");
+                    })
+                    ->orWhereHas('roles.permissions', function ($p) use ($searchFor) {
+                        $p->where('name', 'like', "%{$searchFor}%");
+                    });
+                    break;
 
-
-                                break;
-                            case 'Availability':
-                                $query->where('name', 'like', '%' . $seachFor . '%')
-                                    ->OrWhere('email', 'like', '%' . $seachFor . '%');
-                                break;
-                        }
-                    })->orderBy('section', 'asc')->orderBy('name', 'asc')->paginate(20)
-                    ->withQueryString(),
+                case 'Availability':
+                    $sub->where('availability', 'like', "%{$searchFor}%");
+                    break;
+            }
+        });
+    })
+    ->orderBy('name', 'asc')
+    ->paginate(20)
+    ->withQueryString(),
                 'filters' => $request->only(['seachFor']),
-
                 'serviceProviders' => $serviceProviders,
                 'userRoles' => $userRoles,
                 'allStaffNames' => $allStaffNames,
                 'seededPermissions' => $seededPermissions,
                 'upcomingLeaves' => $upcomingLeaves,
                 'ongoingLeaves' => $ongoingLeaves,
-                // '$usersWithRoles' => $usersWithRoles
             ]
         );
     }
