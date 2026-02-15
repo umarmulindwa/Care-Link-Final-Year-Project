@@ -51,7 +51,7 @@ class StaffRegisterController extends Controller
         $serviceProviders = [];
 
         //all Staffnames
-        $allStaffNames =[];
+        $allStaffNames = User::select('id', 'name')->get()->toArray();
 
         //getting user roles
         $userRoles = Role::with('permissions')->latest()->get();
@@ -65,7 +65,7 @@ class StaffRegisterController extends Controller
         //upcoming leaves
         $todayDate = now();
         $upcomingLeaves = [];
-        $ongoingLeaves =[];
+        $ongoingLeaves = [];
 
         $searchWithIn =  $request->input('seachWithIn');
         $seachPerms =  $request->input('seachFor');
@@ -76,56 +76,56 @@ class StaffRegisterController extends Controller
             'StaffRegister/MainStaffRegister',
             [
                 'users' => User::query()
-    ->with(['roles', 'permissions'])
-    ->when($seachPerms, function ($q) use ($seachPerms) {
-        $q->where(function ($sub) use ($seachPerms) {
-            $sub->whereHas('permissions', function ($p) use ($seachPerms) {
-                $p->where('name', 'like', "%{$seachPerms}%");
-            })
-            ->orWhereHas('roles.permissions', function ($p) use ($seachPerms) {
-                $p->where('name', 'like', "%{$seachPerms}%");
-            });
-        });
-    })
-    ->when($request->input('searchFor'), function ($q, $searchFor) use ($searchWithIn) {
-
-        $q->where(function ($sub) use ($searchFor, $searchWithIn) {
-
-            switch ($searchWithIn) {
-
-                case 'All':
-                    $sub->where('name', 'like', "%{$searchFor}%")
-                        ->orWhere('email', 'like', "%{$searchFor}%");
-                    break;
-
-                case 'Name':
-                    $sub->where('name', 'like', "%{$searchFor}%");
-                    break;
-
-                case 'Roles':
-                    $sub->whereHas('roles', function ($r) use ($searchFor) {
-                        $r->where('name', 'like', "%{$searchFor}%");
-                    });
-                    break;
-
-                case 'Permissions':
-                    $sub->whereHas('permissions', function ($p) use ($searchFor) {
-                        $p->where('name', 'like', "%{$searchFor}%");
+                    ->with(['roles', 'permissions'])
+                    ->when($seachPerms, function ($q) use ($seachPerms) {
+                        $q->where(function ($sub) use ($seachPerms) {
+                            $sub->whereHas('permissions', function ($p) use ($seachPerms) {
+                                $p->where('name', 'like', "%{$seachPerms}%");
+                            })
+                                ->orWhereHas('roles.permissions', function ($p) use ($seachPerms) {
+                                    $p->where('name', 'like', "%{$seachPerms}%");
+                                });
+                        });
                     })
-                    ->orWhereHas('roles.permissions', function ($p) use ($searchFor) {
-                        $p->where('name', 'like', "%{$searchFor}%");
-                    });
-                    break;
+                    ->when($request->input('searchFor'), function ($q, $searchFor) use ($searchWithIn) {
 
-                case 'Availability':
-                    $sub->where('availability', 'like', "%{$searchFor}%");
-                    break;
-            }
-        });
-    })
-    ->orderBy('name', 'asc')
-    ->paginate(20)
-    ->withQueryString(),
+                        $q->where(function ($sub) use ($searchFor, $searchWithIn) {
+
+                            switch ($searchWithIn) {
+
+                                case 'All':
+                                    $sub->where('name', 'like', "%{$searchFor}%")
+                                        ->orWhere('email', 'like', "%{$searchFor}%");
+                                    break;
+
+                                case 'Name':
+                                    $sub->where('name', 'like', "%{$searchFor}%");
+                                    break;
+
+                                case 'Roles':
+                                    $sub->whereHas('roles', function ($r) use ($searchFor) {
+                                        $r->where('name', 'like', "%{$searchFor}%");
+                                    });
+                                    break;
+
+                                case 'Permissions':
+                                    $sub->whereHas('permissions', function ($p) use ($searchFor) {
+                                        $p->where('name', 'like', "%{$searchFor}%");
+                                    })
+                                        ->orWhereHas('roles.permissions', function ($p) use ($searchFor) {
+                                            $p->where('name', 'like', "%{$searchFor}%");
+                                        });
+                                    break;
+
+                                case 'Availability':
+                                    $sub->where('availability', 'like', "%{$searchFor}%");
+                                    break;
+                            }
+                        });
+                    })
+                    ->orderBy('name', 'asc')
+                    ->paginate(20)
+                    ->withQueryString(),
                 'filters' => $request->only(['seachFor']),
                 'serviceProviders' => $serviceProviders,
                 'userRoles' => $userRoles,
@@ -135,6 +135,19 @@ class StaffRegisterController extends Controller
                 'ongoingLeaves' => $ongoingLeaves,
             ]
         );
+    }
+
+    public function editUserDetails(Request $request){
+                   $usertoEdit = User::where('id',$request->id)->first();       
+                   $usertoEdit->name =  $request->name;
+                   $usertoEdit->hospital =  $request->hospital;         
+                   $usertoEdit->hospitalLocation =  $request->hospitalLocation;         
+                   $usertoEdit->patientContact =  $request->patientContact;    
+                   $usertoEdit->patientLocation =  $request->patientLocation;         
+
+                   $usertoEdit->save();      
+                   
+            return response()->json($usertoEdit);
     }
 
     public function listPAs(Request $request)
@@ -151,64 +164,18 @@ class StaffRegisterController extends Controller
             return apiErrorResponse("Error List:: " . $th->getMessage(), ['error' => $th->getTrace()]);
         }
     }
-    // public function searchStaff(Request $request){
-    //     $request->validate([
-    //         'seachFor' => 'required|string',
-    //         'seachWithIn' => 'required|string',
-
-    //     ]);
-
-    //     switch ($request->query('seachWithIn')) {
-    //         case 'All':
-    //             return Inertia::render(
-    //                 'StaffRegister/MainStaffRegister',
-    //                 [
-    //                     'unicefStaffSearch' => StaffProfile::query()
-    //                     ->when($request->query('seachFor'), function ($query, $seachFor) {
-
-    //                         $query->where('name', 'like', '%' . $seachFor . '%')
-    //                             ->OrWhere('email', 'like', '%' . $seachFor . '%');
-    //                     })->paginate(20)
-    //                     ->withQueryString(),
-
-    //                 ]
-    //             );
-    //             break;
-    //         case 'Name':
-    //             echo "i equals 1";
-    //             break;
-    //         case 'Section':
-    //             echo "i equals 2";
-    //             break;
-    //         case 'Role':
-    //             echo "i equals 2";
-    //             break;
-    //         case 'Availability':
-    //             echo "i equals 2";
-    //             break;
-    //     }
-
-    // }
+ 
 
     public function UnicefStaffProfile(Request $request)
     {
 
         //setting staff Details
-        $staffDetails = StaffProfile::where('id', $request->staffProfileID)->with(['user', 'organisationUnit'])->first();
-
-        //user invoices
-        $userInvoices = Invoice::select('status', 'ip_profile_id', 'service_provider_id', 'invoice_number', 'service_name', 'invoice_currency', 'invoice_value_amount', 'tourism_levy_amount', 'exise_duty_amount', 'other_taxes_amount', 'vat_amount')->where('assigned_staff', auth()->user()->email)->orWhere('invoice_manager', auth()->user()->email)->latest()->limit(7)->get();
-
-        //use bsc requests
-        $userbscRequests = BscRequests::where('assigned_staff', auth()->user()->email)->orWhere('requests_manager', auth()->user()->email)->latest()->limit(7)->get();
-
+        $staffDetails = User::where('id', $request->staffProfileID)->first();
 
         return Inertia::render(
             'StaffRegister/UnicefProfileView',
             [
                 'staffDetails' => $staffDetails,
-                'invoices' => $userInvoices,
-                'userbscRequests' => $userbscRequests,
             ]
         );
     }
@@ -633,7 +600,7 @@ class StaffRegisterController extends Controller
 
         foreach ($rolesPermissions['staff'] as $selectedStaff) {
 
-            $staffProfileEmail = StaffProfile::where('id', $selectedStaff['code'])->first();
+            $staffProfileEmail = User::where('id', $selectedStaff['code'])->first();
 
             $user = User::where('email', $staffProfileEmail->email)->first();
 
@@ -644,13 +611,6 @@ class StaffRegisterController extends Controller
             if (array_key_exists('roles', $rolesPermissions)) {
                 foreach ($rolesPermissions['roles'] as $role) {
                     $user->assignRole($role);
-
-                    //if it is a finance permission assign a user another permission to manage finance requests
-                    $roleDef = Role::where('name', $role)->first();
-                    if ($roleDef->hasPermissionTo('finance_staff')) {
-                        Permission::updateOrCreate(['name' => 'fnc_' . $emailUsername], ['name' => 'fnc_' . $emailUsername, 'guard_name' => 'web']);
-                        $user->givePermissionTo('fnc_' . $emailUsername);
-                    }
                 }
             }
 
@@ -658,12 +618,6 @@ class StaffRegisterController extends Controller
             if (array_key_exists('permissions', $rolesPermissions)) {
                 foreach ($rolesPermissions['permissions'] as $permission) {
                     $user->givePermissionTo($permission);
-
-                    //if it is a finance permission assign a user another permission to manage finance requests
-                    if ($permission == 'finance_staff') {
-                        Permission::updateOrCreate(['name' => 'fnc_' . $emailUsername], ['name' => 'fnc_' . $emailUsername, 'guard_name' => 'web']);
-                        $user->givePermissionTo('fnc_' . $emailUsername);
-                    }
                 }
             }
         }
@@ -1273,36 +1227,36 @@ class StaffRegisterController extends Controller
         $blackEmail->save();
     }
 
-    public function editRole(Request $request){
+    public function editRole(Request $request)
+    {
 
         $roleToEdit = Role::where('id', $request->roleID)->first();
-         $newRolePermissions = json_decode($request->rolePermisions);
+        $newRolePermissions = json_decode($request->rolePermisions);
         $roleToEdit->name = $request->roleName;
         $roleToEdit->description = $request->roleDescriptsion;
         $roleToEdit->save();
 
         //revoking all role permissions
-        $rolePermisions = Role::findByName($roleToEdit->name,'web')->permissions;
+        $rolePermisions = Role::findByName($roleToEdit->name, 'web')->permissions;
 
-        if( !is_null($rolePermisions) && count($rolePermisions) > 0){
+        if (!is_null($rolePermisions) && count($rolePermisions) > 0) {
             foreach ($rolePermisions as $rolePermision) {
                 $roleToEdit->revokePermissionTo($rolePermision->name);
             }
         }
-       
+
 
         //assigning role new permissions;
-        if(!is_null($newRolePermissions) && count($newRolePermissions) > 0){
+        if (!is_null($newRolePermissions) && count($newRolePermissions) > 0) {
             foreach ($newRolePermissions as $newRolePermission) {
-                if(is_string($newRolePermission)){
+                if (is_string($newRolePermission)) {
                     $roleToEdit->givePermissionTo($newRolePermission);
-                }else{
+                } else {
                     $roleToEdit->givePermissionTo($newRolePermission->name);
                 }
-                
             }
         }
-      
+
 
         return apiResponse('success');
     }

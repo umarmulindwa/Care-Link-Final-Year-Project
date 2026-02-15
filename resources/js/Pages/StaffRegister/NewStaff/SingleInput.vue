@@ -48,22 +48,10 @@
 <!--                        <span class="text-danger" v-if="missingValue(singleStaff.gender)">GENDER is required</span>-->
                     </div>
                 </div>
-<!--                <div class="row mb-4">-->
-<!--                    <div class="col-md-5">-->
-<!--                        <label class="" for="autoSizingSelect">MARITAL STATUS</label>-->
-<!--                        <select class="form-select form-control" id="" v-model="singleStaff.marital_status">-->
-<!--                            <option disabled value="">Select</option>-->
-<!--                            <option value="Single">Single</option>-->
-<!--                            <option value="Married">Married</option>-->
-<!--                            <option value="Widowed">Widowed</option>-->
-<!--                            <option value="Other">Other</option>-->
-<!--                        </select>-->
-<!--                        <span class="text-danger" v-if="missingValue(singleStaff.marital_status)">MARITAL STATUS is required</span>-->
-<!--                    </div>-->
-<!--                </div>-->
+
                 <div class="row mb-4">
                     <div class="col-md-5">
-                        <label class="" for="autoSizingSelect">STAFF TYPE</label>
+                        <label class="" for="autoSizingSelect">User TYPE</label>
                         <select class="form-select form-control" id="" v-model="singleStaff.staff_type" :disabled="editMode">
                             <option disabled value="">Select</option>
                             <option value="Official">Official</option>
@@ -475,22 +463,8 @@
         </div>
     </div>
     <div v-else>
-        <b-modal v-model="open_single_input_modal" scrollable size="lg" title="Register UNICEF Staff" title-class="font-18" centered @ok="handleOk" @hidden="resetForm">
+        <b-modal v-model="open_single_input_modal" scrollable size="lg" title="Edit User Details" title-class="font-18" centered @ok="handleOk" @hidden="resetForm">
             <div class="mb-4">
-                <div class="row mb-4">
-                    <div class="col-md-5">
-                        <label for="pesonal_id">PERSONNEL ID</label>
-                        <input class="form-control" id="pesonal_id" type="text" v-model="singleStaff.personal_id" placeholder="ID"/>
-                        <!--                    <span class="text-danger" v-if="missingValue(singleStaff.personal_id)">PERSONNEL ID required</span>-->
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-5">
-                        <label for="index_number">INDEX NUMBER</label>
-                        <input class="form-control" id="index_number" type="text" v-model="singleStaff.index_number" placeholder="NUMBER"/>
-                        <span class="text-danger" v-if="missingValue(singleStaff.index_number)">INDEX NUMBER is required</span>
-                    </div>
-                </div>
 
                 <div class="row mb-4">
                     <div class="col-md-10">
@@ -505,44 +479,30 @@
                         <label class="" for="autoSizingSelect">GENDER</label>
                         <div style="display: flex; align-items: center;padding-top:3px;">
                             <div class="form-check me-4">
-                                <input class="form-check-input" type="radio" name="gender" id="gender_male" v-model="singleStaff.gender" value="Male">
+                                <input class="form-check-input" type="radio" name="gender" id="gender_male" v-model="singleStaff.patientGender" value="Male">
                                 <label class="form-check-label" for="gender_male">
                                     Male
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="gender_female" v-model="singleStaff.gender" value="Female">
+                                <input class="form-check-input" type="radio" name="gender" id="gender_female" v-model="singleStaff.patientGender" value="Female">
                                 <label class="form-check-label" for="gender_female">
                                     Female
                                 </label>
                             </div>
                         </div>
-                        <span class="text-danger" v-if="missingValue(singleStaff.gender)">GENDER is required</span>
+                        <span class="text-danger" v-if="missingValue(singleStaff.patientGender)">GENDER is required</span>
                     </div>
                 </div>
-<!--                <div class="row mb-4">-->
-<!--                    <div class="col-md-5">-->
-<!--                        <label class="" for="autoSizingSelect">MARITAL STATUS</label>-->
-<!--                        <select class="form-select form-control" id="" v-model="singleStaff.marital_status">-->
-<!--                            <option disabled value="">Select</option>-->
-<!--                            <option value="Single">Single</option>-->
-<!--                            <option value="Married">Married</option>-->
-<!--                            <option value="Widowed">Widowed</option>-->
-<!--                            <option value="Other">Other</option>-->
-<!--                        </select>-->
-<!--                        <span class="text-danger" v-if="missingValue(singleStaff.marital_status)">MARITAL STATUS is required</span>-->
-<!--                    </div>-->
-<!--                </div>-->
                 <div class="row mb-4">
                     <div class="col-md-5">
-                        <label class="" for="autoSizingSelect">STAFF TYPE</label>
-                        <select class="form-select form-control" id="" v-model="singleStaff.staff_type">
+                        <label class="" for="autoSizingSelect">USER TYPE</label>
+                        <select class="form-select form-control" id="" v-model="singleStaff.user_type">
                             <option disabled value="">Select</option>
-                            <option value="Official">Official</option>
-                            <option value="Volunteer">Volunteer</option>
-                            <option value="Intern">Intern</option>
+                            <option value="Patient">Patient</option>
+                            <option value="Doctor">Doctor</option>
                         </select>
-                        <span class="text-danger" v-if="missingValue(singleStaff.staff_type)">STAFF TYPE is required</span>
+                        <span class="text-danger" v-if="missingValue(singleStaff.user_type)">STAFF TYPE is required</span>
                     </div>
                 </div>
 
@@ -563,22 +523,7 @@
                         <span class="text-danger" v-if="missingValue(singleStaff.phone)">PHONE NUMBER is required</span>
                     </div>
                 </div>
-                <div class="row mb-4">
-                    <div class="col-md-5">
-                        <label for="whatsapp">WHATSAPP NUMBER</label>
-                        <input class="form-control" id="phone-2" type="text" v-model="singleStaff.phone_whatsapp" />
-                        <br><span id="error-msg-phone-2" class="error-hide text-danger"></span>
-                    </div>
-                    <span class="text-danger" v-if="missingValue(singleStaff.phone_whatsapp)">WHATSAPP NUMBER is required</span>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-5">
-                        <label for="whatsapp">ALLOCATED PHONE NUMBER</label>
-                        <input class="form-control" id="phone-3" type="text" v-model="singleStaff.allocated_phone_number" />
-                        <br><span id="error-msg-phone-3" class="error-hide text-danger"></span>
-                    </div>
-                    <span class="text-danger" v-if="missingValue(singleStaff.allocated_phone_number)">ALLOCATED PHONE NUMBER is required</span>
-                </div>
+               
                 <div class="row mb-4">
                     <div class="col-md-10">
                         <label for="address">ADDRESS</label>
@@ -603,186 +548,19 @@
                                 </div>
                             </div>
                         </div>
-                        <span class="text-danger" v-if="missingValue(singleStaff.address)">ADDRESS is required</span>
+                        <span class="text-danger" v-if="missingValue(singleStaff.patientLocation)">ADDRESS is required</span>
                     </div>
                 </div>
+             
                 <div class="row mb-4">
                     <div class="col-md-5">
-                        <label for="position">POSITION</label>
-                        <v-select v-model="singleStaff.position_text" :options="positions" taggable></v-select>
-                        <span class="text-danger" v-if="missingValue(singleStaff.position_text)">POSITION is required</span>
+                        <label for="date_joined_global">DATE JOINED</label>
+                        <input class="form-control" id="date_joined_global" type="date" v-model="singleStaff.email_verified_at" />
+                        <span class="text-danger" v-if="missingValue(singleStaff.email_verified_at)">DATE JOINED is required</span>
                     </div>
                 </div>
-                <div class="row mb-4">
-                    <div class="col-md-5">
-                        <label for="positionId">POSITION ID</label>
-                        <input class="form-control" id="positionId" type="text" v-model="singleStaff.position_id" placeholder="Position ID"/>
-                        <span class="text-danger" v-if="missingValue(singleStaff.position_id)">POSITION ID is required</span>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-5">
-                        <label for="section">SECTION</label>
-                        <v-select v-model="singleStaff.section" label="name" :reduce="section => section.id" :options="sections"></v-select>
-                        <span class="text-danger" v-if="missingValue(singleStaff.section)">SECTION is required</span>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-5">
-                        <label for="pillar">PILLAR</label>
-                        <v-select v-model="singleStaff.pillar" label="name" :reduce="pillar => pillar.id" :options="pillars"></v-select>
-                        <span class="text-danger" v-if="missingValue(singleStaff.pillar)">PILLAR is required</span>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-5">
-                        <label for="org_unit">ORGANISATION UNIT</label>
-                        <v-select v-model="singleStaff.organisation_unit" label="name" :reduce="unit => unit.id" :options="organisation_units"></v-select>
-                        <span class="text-danger" v-if="missingValue(singleStaff.organisation_unit)">ORGANISATION UNIT is required</span>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-5">
-                        <label for="report_to">REPORTS TO</label>
-                        <v-select v-model="singleStaff.reports_to" label="name" :reduce="st => st.position_id" :options="staff"></v-select>
-                        <!--                    <span class="text-danger" v-if="missingValue(singleStaff.reports_to)">REPORTS TO is required</span>-->
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-5">
-                        <label for="staff_names">CATEGORY</label>
-                        <v-select v-model="singleStaff.category" label="name" :reduce="category => category.id" :options="categories"></v-select>
-                        <span class="text-danger" v-if="missingValue(singleStaff.category)">CATEGORY is required</span>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-5">
-                        <label for="appointment_type">APPOINTMENT TYPE</label>
-                        <v-select v-model="singleStaff.appointment_type" label="name" :reduce="types => types.id" :options="appointment_types"></v-select>
-                        <span class="text-danger" v-if="missingValue(singleStaff.appointment_type)">APPOINTMENT TYPE is required</span>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-5">
-                        <label for="date_joined_global">DATE JOINED UNICEF (GLOBAL)</label>
-                        <input class="form-control" id="date_joined_global" type="date" v-model="singleStaff.date_began_working_with_unicef" />
-                        <span class="text-danger" v-if="missingValue(singleStaff.date_began_working_with_unicef)">DATE JOINED UNICEF (GLOBAL) is required</span>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-5">
-                        <label for="date_joined_country">DATE JOINED UNICEF (COUNTRY OFFICE)</label>
-                        <input class="form-control" id="date_joined_country" type="date" v-model="singleStaff.date_began_working_with_unicef_country_level" />
-                        <span class="text-danger" v-if="missingValue(singleStaff.date_began_working_with_unicef_country_level)">DATE JOINED UNICEF (COUNTRY OFFICE) is required</span>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-5">
-                        <label for="contract_end">CONTRACT END DATE</label>
-                        <input class="form-control" id="contract_end" type="date" v-model="singleStaff.date_contract_end" />
-                        <span class="text-danger" v-if="missingValue(singleStaff.date_contract_end)">CONTRACT END DATE is required</span>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-5">
-                        <label for="contract_end">BLOOD GROUP (Optional)</label>
-                        <select class="form-select form-control" id="" v-model="singleStaff.blood_group">
-                            <option disabled value="">Select</option>
-                            <template v-for="(group,index) in blood_groups" :key="`b_${index}`">
-                                <option :value="group">{{ group }}</option>
-                            </template>
-                        </select>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-5">
-                        <label for="contract_end">P/NUMBER (Optional)</label>
-                        <input class="form-control"  type="text" v-model="singleStaff.p_number" placeholder="Number"/>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-2">
-                        <label for="contract_end">RADIO TYPE</label>
-                        <select class="form-select form-control" id="" v-model="singleStaff.radio_type">
-                            <option disabled value="">Select</option>
-                            <template v-for="(type,index) in radio_types" :key="`b_${index}`">
-                                <option :value="type">{{ type }}</option>
-                            </template>
-                        </select>
-                        <span class="text-danger" v-if="missingValue(singleStaff.radio_type)">RADIO TYPE is required</span>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="contract_end">CALL SIGN</label>
-                        <input class="form-control"  type="text" v-model="singleStaff.call_sign" placeholder="Number"/>
-                        <span class="text-danger" v-if="missingValue(singleStaff.call_sign)">CALL SIGN is required</span>
-                    </div>
-                </div>
-                <div class="row mb-4 align-items-center">
-                    <div class="col-3">
-                        <b>Identification & VISA's</b>
-                    </div>
-                    <div class="col-9">
-                        <hr class="m-0" style="height:1px; background-color:#6c757d; border:none;" />
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-4">
-                        <label for="contract_end">UN ID Card</label>
-                        <input class="form-control"  type="text" v-model="singleStaff.identity.un_id" placeholder="Number"/>
-                        <span class="text-danger" v-if="missingValue(singleStaff.identity.un_id)">UN ID is required</span>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="contract_end">EXPIRY</label>
-                        <input class="form-control"  type="date" v-model="singleStaff.identity.un_id_expiry" placeholder="Number"/>
-                        <span class="text-danger" v-if="missingValue(singleStaff.identity.un_id_expiry)">EXPIRY is required</span>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-4">
-                        <label for="contract_end">UNLP (Optional)</label>
-                        <input class="form-control"  type="text" v-model="singleStaff.identity.diplomatic_passport" placeholder="Number"/>
-                        <span class="text-danger" v-if="missingValue(singleStaff.identity.diplomatic_passport)">DIPLOMATIC PASSPORT (Optional) is required</span>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="contract_end">EXPIRY</label>
-                        <input class="form-control"  type="date" v-model="singleStaff.identity.diplomatic_passport_expiry" placeholder="Number"/>
-                        <span class="text-danger" v-if="missingValue(singleStaff.identity.diplomatic_passport_expiry)">EXPIRY is required</span>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-4">
-                        <label for="contract_end">NATIONAL PASSPORT</label>
-                        <input class="form-control"  type="text" v-model="singleStaff.identity.national_passport" placeholder="Number"/>
-                        <span class="text-danger" v-if="missingValue(singleStaff.identity.national_passport)">NATIONAL PASSPORT is required</span>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="contract_end">EXPIRY</label>
-                        <input class="form-control"  type="date" v-model="singleStaff.identity.national_passport_expiry" placeholder="Number"/>
-                        <span class="text-danger" v-if="missingValue(singleStaff.identity.national_passport_expiry)">EXPIRY is required</span>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-md-3">
-                        <label for="contract_end">VISA (Optional)</label>
-                        <input class="form-control"  type="text" v-model="singleStaff.identity.visa" placeholder="Number"/>
-                        <!--                    <span class="text-danger" v-if="missingValue(singleStaff.identity.visa)">VISA (Optional) is required</span>-->
-                    </div>
-                    <div class="col-md-3">
-                        <label for="contract_end">EXPIRY</label>
-                        <input class="form-control"  type="date" v-model="singleStaff.identity.visa_expiry" placeholder="Number"/>
-                        <!--                    <span class="text-danger" v-if="missingValue(singleStaff.identity.visa_expiry)">EXPIRY is required</span>-->
-                    </div>
-                    <div class="col-md-2">
-                        <label for="contract_end">TYPE</label>
-                        <select class="form-select form-control" id="" v-model="singleStaff.identity.visa_type">
-                            <option disabled value="">Select</option>
-                            <template v-for="(type,index) in visa_types" :key="`b_${index}`">
-                                <option :value="type">{{ type }}</option>
-                            </template>
-                        </select>
-                        <!--                    <span class="text-danger" v-if="missingValue(singleStaff.personal_id)">TYPE is required</span>-->
-                    </div>
-                </div>
+              
+                
             </div>
 
             <template #ok>

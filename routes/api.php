@@ -72,6 +72,8 @@ Route::group(['namespace' => 'Api'], function () {
             Route::post("/blacklistemail", [StaffRegisterController::class, 'blacklistEmail']);
             Route::post("/removeblacklistemail", [StaffRegisterController::class, 'removeblacklistemail']);
             Route::post("/editRole", [StaffRegisterController::class, 'editRole']);
+            Route::post("/editUserDetails", [StaffRegisterController::class, 'editUserDetails']);
+
         });
 
         Route::prefix('mobile-api')->group(function () {

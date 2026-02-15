@@ -10,12 +10,6 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 import { ChartData } from "./ChartData";
-// import Stat from "../../components/widgets/stat.vue";
-// import profile from "../../images/logo-dark.svg";
-// import avatar1 from "../../images/logo-dark.svg";
-
-// import profile from "../../../images/profile-img.png";
-// import avatar1 from "../../../images/users/avatar-1.jpg";
 
 //props
 const props = defineProps({
@@ -287,7 +281,7 @@ function revokeRole(roleName) {
                     <div class="row">
                         <div class="col-sm-7">
                             <div class="avatar-md profile-user-wid mb-4">
-                                <img :src="props.staffDetails.user.profile_photo_url" alt class="img-thumbnail rounded-circle" />
+                                <img :src="props.staffDetails.profile_photo_url" alt class="img-thumbnail rounded-circle" />
                             </div>
                             <div class="mt-4">
                                 <h5 class="font-size-15 text-truncate">{{ props.staffDetails.name }}</h5>
@@ -329,7 +323,7 @@ function revokeRole(roleName) {
                                     <th scope="row">Full Name :</th>
                                     <td>{{ props.staffDetails.name }}</td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <th scope="row">E-mail :</th>
                                     <td>{{ props.staffDetails.email }}</td>
                                 </tr>
@@ -389,7 +383,7 @@ function revokeRole(roleName) {
                                         Joined UNICEF<span><small>(Global)</small></span> :
                                     </th>
                                     <td>{{ moment(props.staffDetails.date_began_working_with_unicef).format(`Do MMM, YYYY`) }}</td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                     </div>
@@ -400,8 +394,8 @@ function revokeRole(roleName) {
                                 <tr>
                                     <td>
                                         <div class="fw-bold mb-3 flex-wrap col-2" style="word-wrap: normal">Permissions:</div>
-                                        <div v-if="props.staffDetails.user.hasOwnProperty('allPermissions')">
-                                            <span role="button" v-for="permission in props.staffDetails.user.allPermissions" :key="`${permission.id}_${permission.name}`">
+                                        <div v-if="props.staffDetails.hasOwnProperty('allPermissions')">
+                                            <span role="button" v-for="permission in props.staffDetails.allPermissions" :key="`${permission.id}_${permission.name}`">
                                                 <span class="badge badge-soft-primary font-size-11 me-4 mb-3" @click="revokePermission(permission.name)"
                                                     >{{ permission }}<i class="bx bxs-x-circle text-danger ps-1 pe-1" role="button"></i
                                                 ></span>
@@ -409,8 +403,8 @@ function revokeRole(roleName) {
                                         </div>
 
                                         <div class="fw-bold mt-4 mb-3 flex-wrap col-2" style="word-wrap: normal">Roles:</div>
-                                        <div v-if="props.staffDetails.user.hasOwnProperty('roles')">
-                                            <span role="button" v-for="role in props.staffDetails.user.roles" :key="`${role.id}_${role.name}`">
+                                        <div v-if="props.staffDetails.hasOwnProperty('roles')">
+                                            <span role="button" v-for="role in props.staffDetails.roles" :key="`${role.id}_${role.name}`">
                                                 <span class="badge badge-soft-primary font-size-11 me-4 mb-3" @click="revokeRole(role.name)"
                                                     >{{ role.name }}<i class="bx bxs-x-circle text-danger ps-1 pe-1" role="button"></i
                                                 ></span>
@@ -434,105 +428,6 @@ function revokeRole(roleName) {
             <div class="">
                 <div class="">
                     <UnicefStaffLoginActivity />
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title mb-4">Latest Invoices</h4>
-                    <div class="table-responsive mb-0">
-                        <div v-if="props.invoices.length > 0">
-                            <table class="table table-striped mb-0">
-                                <thead>
-                                    <tr>
-                                        <th :style="{ backgroundColor: '#eff2f7' }" scope="col">#</th>
-                                        <th :style="{ backgroundColor: '#eff2f7' }" scope="col">Supplier</th>
-                                        <th :style="{ backgroundColor: '#eff2f7' }" scope="col" class="text-center">Type of Service/Product</th>
-                                        <th :style="{ backgroundColor: '#eff2f7' }" scope="col" class="text-center">Status</th>
-                                        <th :style="{ backgroundColor: '#eff2f7' }" scope="col" class="text-end">Invoice Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(invoice, index) in props.invoices" :key="`${index}-${invoice.id}`">
-                                        <th :style="{ backgroundColor: '#fff' }" scope="row">{{ index + 1 }}</th>
-                                        <td :style="{ backgroundColor: '#fff' }">
-                                            <div style="max-width: 15vw">
-                                                <div class="col-11 text-truncate"><span class="fw-medium">SP:</span> {{ invoice.provider_name }}</div>
-                                                <div class="col-11 text-truncate"><span class="fw-medium">Invoice #: </span> {{ invoice.invoice_number }}</div>
-                                            </div>
-                                        </td>
-                                        <td :style="{ backgroundColor: '#fff' }">
-                                            <div style="max-width: 10vw" class="text-center col-11 text-truncate">{{ invoice.service_name }}</div>
-                                        </td>
-                                        <td :style="{ backgroundColor: '#fff' }">
-                                            <div class="text-center">
-                                                <span class="badge badge-soft-primary font-size-11 m-1">{{ invoice.status }}</span>
-                                            </div>
-                                        </td>
-                                        <td :style="{ backgroundColor: '#fff' }">
-                                            <div class="text-end">{{ invoice.invoice_currency }} {{ Intl.NumberFormat("en-US").format(invoice.total_amount) }}</div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div v-else>
-                            <div class="text-center mt-5 mb-5">
-                                <div class="mb-2"><i class="fas fa-ban text-muted" style=""></i></div>
-                                No Inovices
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title mb-4">Latest BSC Requests</h4>
-                    <div class="table-responsive mb-0">
-                        <div v-if="props.invoices.length > 0">
-                            <table class="table table-striped mb-0">
-                                <thead>
-                                    <tr>
-                                        <th :style="{ backgroundColor: '#eff2f7' }" scope="col">#</th>
-                                        <th :style="{ backgroundColor: '#eff2f7' }" scope="col">Originator</th>
-                                        <th :style="{ backgroundColor: '#eff2f7' }" scope="col" class="">Type of Request</th>
-                                        <th :style="{ backgroundColor: '#eff2f7' }" scope="col" class="text-center">Status</th>
-                                        <!-- <th :style="{ backgroundColor: '#eff2f7' }" scope="col" class="text-end">Invoice Amount</th> -->
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(request, index) in props.userbscRequests" :key="`${index}-${request.id}`">
-                                        <th :style="{ backgroundColor: '#fff' }" scope="row">{{ index + 1 }}</th>
-                                        <td :style="{ backgroundColor: '#fff' }">
-                                            <div style="max-width: 15vw">
-                                                <div class="col-11 text-truncate"><span class="fw-medium">Originator:</span> {{ request.submitted_by }}</div>
-                                                <div class="col-11 text-truncate"><span class="fw-medium">Ref #: </span> {{ request.reference_number }}</div>
-                                            </div>
-                                        </td>
-                                        <td :style="{ backgroundColor: '#fff' }">
-                                            <div style="max-width: 10vw" class="text-center col-11 text-truncate">{{ request.request_type }}</div>
-                                        </td>
-                                        <td :style="{ backgroundColor: '#fff' }">
-                                            <div class="text-center">
-                                                <span class="badge badge-soft-primary font-size-11 m-1">{{ request.status }}</span>
-                                            </div>
-                                        </td>
-                                        <!-- <td :style="{ backgroundColor: '#fff' }">
-                                            <div class="text-end">{{invoice.invoice_currency}} {{ Intl.NumberFormat("en-US").format(invoice.total_amount) }}</div>
-                                        </td> -->
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div v-else>
-                            <div class="text-center mt-5 mb-5">
-                                <div class="mb-2"><i class="fas fa-ban text-muted" style=""></i></div>
-                                No Requests
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 

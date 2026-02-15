@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             [
                 "name" => "ADMIN",
                 "email" => "admin@carelink.com",
-                "user_type" => "unicef",
+                "user_type" => "Admin",
                 "active_directory" => "info",
                 'email_verified_at' => date("Y-m-d H:i:s"),
                 "password" => bcrypt("@admin#123@"),
