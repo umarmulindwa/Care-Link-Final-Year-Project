@@ -1,8 +1,8 @@
 <template>
     <div class="row">
         <div class="col-md-12 text-left">
-            <h5>Travel Planner</h5>
-            <h6 class="text-muted">Pending trips this month, {{ formatDate(period) }}</h6>
+            <h5>Patient Planner</h5>
+            <h6 class="text-muted">Pending visits this month, {{ formatDate(period) }}</h6>
         </div>
     </div>
 
@@ -15,7 +15,7 @@
                 <div class="row mt-5 mb-5">
                     <div class="col-md-12 text-center" v-if="!fetching">
                         <img src="/images/icons/icon.no-data.png" alt="" style="width:100px;">
-                        <p>No trips this month</p>
+                        <p>No visits this month</p>
                     </div>
                     <div class="col-md-12 text-center" v-else>
                         <span class="spinner spinner-border"></span>

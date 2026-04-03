@@ -411,7 +411,7 @@ const dashboardView = computed(() => {
                 </div> -->
                 <div role="button" v-if="dashboardView != 2" @click="state.showSystems = false">
                     <h5 class="mb-0">
-                        <small class="fw-bold" :class="state.showSystems ? 'text-primary' : 'text-muted'">FORMS</small>
+                        <small class="fw-bold" :class="state.showSystems ? 'text-primary' : 'text-muted'">DASHBOARD</small>
                     </h5>
                 </div>
             </div>
@@ -607,7 +607,7 @@ const dashboardView = computed(() => {
                                             <div class="column">
                                                 <div>
                                                     <h5 class="mb-0">
-                                                        <small class="text-muted">Staff Register</small>
+                                                        <small class="text-muted">Profile Management</small>
                                                     </h5>
                                                 </div>
                                                 <div class="text-primary">
@@ -636,7 +636,7 @@ const dashboardView = computed(() => {
                                             <div class="column">
                                                 <div>
                                                     <h5 class="mb-0">
-                                                        <small class="text-muted">{{ bscSection }}</small>
+                                                        <small class="text-muted">p</small>
                                                     </h5>
                                                 </div>
                                                 <div class="text-primary">
@@ -644,20 +644,7 @@ const dashboardView = computed(() => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-end">
-                                            <div class="btn-group dropstart">
-                                                <i class="bx bx bx-dots-vertical-rounded" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                                <ul class="dropdown-menu">
-                                                    <!-- <b-dropdown-item class="mb-1" @click="goToFinanceModule(0)">BSC </b-dropdown-item> -->
-                                                    <b-dropdown-item class="mb-1" @click="goToFinanceModule(1)">Finance</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1" @click="BscRequestsNavigator('myRequests')">My Requests</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1" @click="BscRequestsNavigator('face-forms')">FACE Forms</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1" @click="BscRequestsNavigator('createRequest')">Submit Request</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1" @click="BscRequestsNavigator('payroll')">Payroll</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1" @click="BscRequestsNavigator('pettyCashReconciliation')">PettyCash Reconciliation</b-dropdown-item>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                      
                                     </div>
                                 </div>
                             </div>
@@ -671,7 +658,7 @@ const dashboardView = computed(() => {
                                             <div class="column">
                                                 <div>
                                                     <h5 class="mb-0">
-                                                        <small class="text-muted">Administration</small>
+                                                        <small class="text-muted">Health Records</small>
                                                     </h5>
                                                 </div>
                                                 <div class="text-primary">
@@ -680,30 +667,7 @@ const dashboardView = computed(() => {
                                             </div>
                                         </div>
                                          <div class="d-flex justify-content-end">
-                                        <div class="btn-group dropstart">
-                                            <i class="bx bx bx-dots-vertical-rounded" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                            <ul class="dropdown-menu">
-                                                <!-- Dropdown menu links -->
-                                                <b-dropdown-item class="mb-1" @click="goToAssetSubModule(0)">Asset tagging</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="goToAssetSubModule(1)">Asset tracking</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="goToAssetSubModule(2)">Equipment Request</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="goToAssetSubModule(3)">Disposal Process</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="goToAssetSubModule(4)">AMR Creation</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="goToAssetSubModule(5)">Car Park Allocation</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="goToAssetSubModule(6)">Vehicle Maintenance</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="goToAssetSubModule(7)">Vehicle Fuel</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="goToAssetSubModule(8)">Vehicle Utilization</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="goToAssetSubModule(9)">Request Vehicle For Private Use</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="goToAssetSubModule(10)">Private Use of UNICEF Vehicles</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="goToVTSubModule(0)">Travel Planner</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="toOfficeSupplies">Office Supplies</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="toVisitortracker">Visitor Tracker</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="toAccidentReporting">Accident Reporting</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="toIncidentReporting">Incident Reporting</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="toAirtimeData">Airtime & Data</b-dropdown-item>
-                                                <b-dropdown-item class="mb-1" @click="toGuestHouse">Guest House</b-dropdown-item>
-                                            </ul>
-                                        </div>
+                                      
                                     </div>
                                     </div>
 
@@ -723,7 +687,7 @@ const dashboardView = computed(() => {
                                             <div class="column">
                                                 <div>
                                                     <h5 class="mb-0">
-                                                        <small class="text-muted">Leave/Availability Planner</small>
+                                                        <small class="text-muted">My Appointments</small>
                                                     </h5>
                                                 </div>
                                                 <div class="text-primary">
@@ -731,21 +695,7 @@ const dashboardView = computed(() => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="d-flex gap-1">
-                                            <div class="d-flex justify-content-end invisible">
-                                                <div class="btn-group dropstart">
-                                                    <i class="bx bx bx-dots-vertical-rounded" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                                    <ul class="dropdown-menu">
-                                                        <!-- Dropdown menu links -->
-                                                        <b-dropdown-item class="mb-1">Sub Menu 1</b-dropdown-item>
-                                                        <b-dropdown-item class="mb-1">Sub Menu 2</b-dropdown-item>
-                                                        <b-dropdown-item class="mb-1">Sub Menu 3</b-dropdown-item>
-                                                        <b-dropdown-item class="mb-1">Sub Menu 4</b-dropdown-item>
-                                                        <b-dropdown-item class="mb-1">Sub Menu 5</b-dropdown-item>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
+                                   
                                     </div>
                                 </div>
                             </div>
@@ -759,7 +709,7 @@ const dashboardView = computed(() => {
                                             <div class="column">
                                                 <div>
                                                     <h5 class="mb-0">
-                                                        <small class="text-muted">Supply</small>
+                                                        <small class="text-muted">Schedule Appointement</small>
                                                     </h5>
                                                 </div>
                                                 <div class="text-primary">
@@ -767,16 +717,7 @@ const dashboardView = computed(() => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-end">
-                                            <div class="btn-group dropstart">
-                                                <i class="bx bx bx-dots-vertical-rounded" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                                <ul class="dropdown-menu">
-                                                    <!-- Dropdown menu links -->
-                                                    <b-dropdown-item class="mb-1" @click="LowValueNavigator('home')">Low Value</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1" @click="toSupplyPlanning">Planning</b-dropdown-item>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                      
                                     </div>
                                 </div>
                             </div>
@@ -790,7 +731,7 @@ const dashboardView = computed(() => {
                                             <div class="column">
                                                 <div>
                                                     <h5 class="mb-0">
-                                                        <small class="text-muted">Human Resource</small>
+                                                        <small class="text-muted">Hospital Referals</small>
                                                     </h5>
                                                 </div>
                                                 <div class="text-primary">
@@ -798,19 +739,7 @@ const dashboardView = computed(() => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-end">
-                                            <div class="btn-group dropstart">
-                                                <i class="bx bx bx-dots-vertical-rounded" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                                <ul class="dropdown-menu">
-                                                    <!-- Dropdown menu links -->
-                                                    <b-dropdown-item class="mb-1" @click="toHR(1)">Consultant TOR</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1" @click="toHR(2)">Staff Exit</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1" @click="toHR(3)">Staff Headcount</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1" @click="toHR(4)">Staff Orientation</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1" @click="toHR(5, false)">Staff Onboarding</b-dropdown-item>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -830,7 +759,7 @@ const dashboardView = computed(() => {
                                             <div class="column">
                                                 <div>
                                                     <h5 class="mb-0">
-                                                        <small class="text-muted">Signature Manager</small>
+                                                        <small class="text-muted">Talk to a Doctor</small>
                                                     </h5>
                                                 </div>
                                                 <div class="text-primary">
@@ -862,7 +791,7 @@ const dashboardView = computed(() => {
                                             <div class="column">
                                                 <div>
                                                     <h5 class="mb-0">
-                                                        <small class="text-muted">Phone</small>
+                                                        <small class="text-muted">FAQ</small>
                                                     </h5>
                                                 </div>
                                                 <div class="text-primary">
@@ -891,7 +820,7 @@ const dashboardView = computed(() => {
                                             <div class="column">
                                                 <div>
                                                     <h5 class="mb-0">
-                                                        <small class="text-muted">ICT</small>
+                                                        <small class="text-muted">Data Recovery</small>
                                                     </h5>
                                                 </div>
                                                 <div class="text-primary">
@@ -899,16 +828,7 @@ const dashboardView = computed(() => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-end">
-                                            <div class="btn-group dropstart">
-                                                <i class="bx bx bx-dots-vertical-rounded" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                                <ul class="dropdown-menu">
-                                                    <!-- Dropdown menu links -->
-                                                    <b-dropdown-item class="mb-1" @click="toIctAccess(1)">Vision Access</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1" @click="toIctAccess(2)">Service Access</b-dropdown-item>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -920,72 +840,7 @@ const dashboardView = computed(() => {
                     </div>
 
                     <div class="row">
-                        <!-- <div class="col-sm-4">
-                            <div class="card" role="button">
-                                <div class="card-body p-4">
-                                    <div class="d-flex gap-1 justify-content-between">
-                                        <div class="d-flex align-items-center pt-2 pb-2 gap-3">
-                                            <div><img :src="boq" height="28" /></div>
-                                            <div class="column">
-                                                <div>
-                                                    <h5 class="mb-0">
-                                                        <small class="text-muted">Clocking</small>
-                                                    </h5>
-                                                </div>
-                                                <div class="text-primary">
-                                                    <small>Access: All</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-end">
-                                            <div class="btn-group dropstart invisible">
-                                                <i class="bx bx bx-dots-vertical-rounded" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                                <ul class="dropdown-menu">
-                                                    <b-dropdown-item class="mb-1">Sub Menu 1</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 2</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 3</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 4</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 5</b-dropdown-item>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-                        <!--  <div class="col-sm-4">
-                            <div class="card" role="button">
-                                <div class="card-body p-4">
-                                    <div class="d-flex gap-1 justify-content-between">
-                                        <div class="d-flex align-items-center gap-3" @click="toAccidentReporting">
-                                            <div><img :src="travel" height="28" /></div>
-                                            <div class="column">
-                                                <div>
-                                                    <h5 class="mb-0">
-                                                        <small class="text-muted">Accident Reporting</small>
-                                                    </h5>
-                                                </div>
-                                                <div class="text-primary">
-                                                    <small>Access: All</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-end">
-                                            <div class="btn-group dropstart invisible">
-                                                <i class="bx bx bx-dots-vertical-rounded" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                                <ul class="dropdown-menu">
-                                                    <b-dropdown-item class="mb-1">Sub Menu 1</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 2</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 3</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 4</b-dropdown-item>
-                                                    <b-dropdown-item class="mb-1">Sub Menu 5</b-dropdown-item>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
+                  
                     </div>
                 </div>
                 <div class="column col-xl-8" v-else>

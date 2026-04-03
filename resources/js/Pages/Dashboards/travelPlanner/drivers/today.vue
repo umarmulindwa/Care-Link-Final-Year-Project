@@ -1,8 +1,8 @@
 <template>
     <div class="row">
         <div class="col-md-12">
-            <h5>Travel Planner</h5>
-            <h6 class="text-muted">Driver trips as of today - {{ formatDate(period) }}</h6>
+            <h5>Patient Planner</h5>
+            <h6 class="text-muted">Patient as of today - {{ formatDate(period) }}</h6>
         </div>
     </div>
 

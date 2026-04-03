@@ -1,6 +1,6 @@
 <script>
 import { menuItems } from "./horizontal-menu";
-import megamenu from "../../images/header-logo.svg";
+import megamenu from "../../images/logo-dark.svg";
 import { BscNavigator } from "../Composables/BscNavigator.js";
 import { BscRequestsNavigator } from "../Composables/BscRequestsNavigator.js";
 import { LeaveNavigator } from "../Composables/LeaveNavigator.js";
@@ -205,9 +205,10 @@ export default {
                 <div id="topnav-menu-content" class="collapse navbar-collapse">
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
-                            <a class="nav-link" @click="onMenuClick($event)" href="javascript: void(0);" id="topnav-components" role="button">
+                            <a class="nav-link" @click="onMenuClick($event)" href="javascript: void(0);"
+                                id="topnav-components" role="button">
                                 <i :class="`bx bx-home-circle mr-1`"></i>
-                                Dashboard Systems
+                                Quick Links
                                 <i class="mdi mdi-chevron-down"></i>
                             </a>
                             <div class="dropdown-menu dropdown-mega-menu-xl p-4" aria-labelledby="topnav-dashboard">
@@ -217,365 +218,226 @@ export default {
                                             <div class="col-md-3">
                                                 <div class="mb-5">
                                                     <h5 class="font-size-14 mt-0 fw-bold">
-                                                        Finance
+                                                        Profile Management
                                                         <!-- {{ $t("navbar.dropdown.megamenu.uicontent.title") }} -->
                                                     </h5>
                                                     <ul class="list-unstyled megamenu-list">
                                                         <li>
-                                                            <div
-                                                                role="button"
-                                                                @mouseenter="currentLink = 'invoices'"
+                                                            <div role="button" @mouseenter="currentLink = 'invoices'"
                                                                 @mouseleave="currentLink = ''"
                                                                 :class="currentLink === 'invoices' ? 'text-secondary' : ''"
-                                                                @click="FinanceInvoiceNavitor(1)"
-                                                            >
-                                                                Invoices
+                                                                @click="FinanceInvoiceNavitor(1)">
+                                                                See User Details
                                                             </div>
                                                         </li>
 
                                                         <li>
-                                                            <div
-                                                                role="button"
-                                                                @mouseenter="currentLink = 'bscRequests'"
+                                                            <div role="button" @mouseenter="currentLink = 'bscRequests'"
                                                                 @mouseleave="currentLink = ''"
                                                                 :class="currentLink === 'bscRequests' ? 'text-secondary' : ''"
-                                                                @click="BscRequestsNavigator('face-forms')"
-                                                            >
-                                                                FACE Forms
+                                                                @click="BscRequestsNavigator('face-forms')">
+                                                                Edit User Details
                                                             </div>
                                                         </li>
 
                                                         <li>
-                                                            <div
-                                                                role="button"
-                                                                @mouseenter="currentLink = 'bscRequests'"
+                                                            <div role="button" @mouseenter="currentLink = 'bscRequests'"
                                                                 @mouseleave="currentLink = ''"
                                                                 :class="currentLink === 'bscRequests' ? 'text-secondary' : ''"
-                                                                @click="BscRequestsNavigator('myRequests')"
-                                                            >
-                                                                Finance Requests
+                                                                @click="BscRequestsNavigator('myRequests')">
+                                                                Log in As User
                                                             </div>
                                                         </li>
 
                                                         <li>
-                                                            <div
-                                                                role="button"
-                                                                @mouseenter="currentLink = 'settings'"
+                                                            <div role="button" @mouseenter="currentLink = 'settings'"
                                                                 @mouseleave="currentLink = ''"
                                                                 :class="currentLink === 'settings' ? 'text-secondary' : ''"
-                                                                @click="BscRequestsNavigator('settings')"
-                                                            >
-                                                                Settings
+                                                                @click="BscRequestsNavigator('settings')">
+                                                                Create User Roles & Permissions
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div role="button" @mouseenter="currentLink = 'settings'"
+                                                                @mouseleave="currentLink = ''"
+                                                                :class="currentLink === 'settings' ? 'text-secondary' : ''"
+                                                                @click="BscRequestsNavigator('settings')">
+                                                                Assign User Roles & Permissions
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div role="button" @mouseenter="currentLink = 'settings'"
+                                                                @mouseleave="currentLink = ''"
+                                                                :class="currentLink === 'settings' ? 'text-secondary' : ''"
+                                                                @click="BscRequestsNavigator('settings')">
+                                                                Revoke User Roles & Permissions
                                                             </div>
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                <div>
-                                                    <h5 class="font-size-14 mt-0 fw-bold">
-                                                        Leave
-                                                        <!-- {{ $t("navbar.dropdown.megamenu.uicontent.title") }} -->
-                                                    </h5>
-                                                    <ul class="list-unstyled megamenu-list">
-                                                        <li>
-                                                            <div
-                                                                role="button"
-                                                                @mouseenter="currentLink = 'myAvailability'"
-                                                                @mouseleave="currentLink = ''"
-                                                                :class="currentLink === 'myAvailability' ? 'text-secondary' : ''"
-                                                                @click="LeaveNavigator('updateAvailability')"
-                                                            >
-                                                                My Availability
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div
-                                                                role="button"
-                                                                @mouseenter="currentLink = 'updataAvailability'"
-                                                                @mouseleave="currentLink = ''"
-                                                                :class="currentLink === 'updataAvailability' ? 'text-secondary' : ''"
-                                                                @click="LeaveNavigator('updateAvailability')"
-                                                            >
-                                                                Update Availability
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+
                                             </div>
 
                                             <div class="col-md-3">
                                                 <h5 class="font-size-14 mt-0 fw-bold">
-                                                    Administration
+                                                    Request Medication
                                                     <!-- {{ $t("navbar.dropdown.megamenu.application.title") }} -->
                                                 </h5>
                                                 <ul class="list-unstyled megamenu-list">
                                                     <li @click="vehiclePrivateUse()">
-                                                        <div
-                                                            role="button"
+                                                        <div role="button"
                                                             @mouseenter="currentLink = 'privateUnicefVehicle'"
                                                             @mouseleave="currentLink = ''"
-                                                            :class="currentLink === 'privateUnicefVehicle' ? 'text-secondary' : ''"
-                                                        >
-                                                            Private Use UNICEF Vehicle
+                                                            :class="currentLink === 'privateUnicefVehicle' ? 'text-secondary' : ''">
+                                                            Request ARVs Medication Refill 
                                                         </div>
                                                     </li>
                                                     <li @click="toVehicleMaintenance()">
-                                                        <div
-                                                            role="button"
+                                                        <div role="button"
                                                             @mouseenter="currentLink = 'vehicleMaintenance'"
                                                             @mouseleave="currentLink = ''"
-                                                            :class="currentLink === 'vehicleMaintenance' ? 'text-secondary' : ''"
-                                                        >
-                                                            Vehicle Maintenance
+                                                            :class="currentLink === 'vehicleMaintenance' ? 'text-secondary' : ''">
+                                                            Select Medication Type
                                                         </div>
                                                     </li>
                                                     <li @click="toVehicleUtilization()">
-                                                        <div
-                                                            role="button"
+                                                        <div role="button"
                                                             @mouseenter="currentLink = 'vehicleUtilization'"
                                                             @mouseleave="currentLink = ''"
-                                                            :class="currentLink === 'vehicleUtilization' ? 'text-secondary' : ''"
-                                                        >
-                                                            Vehicle Utilization Log
+                                                            :class="currentLink === 'vehicleUtilization' ? 'text-secondary' : ''">
+                                                            Delivery Request
                                                         </div>
                                                     </li>
                                                     <li @click="vehicleFuelManagement()">
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'fuelManagement'"
+                                                        <div role="button" @mouseenter="currentLink = 'fuelManagement'"
                                                             @mouseleave="currentLink = ''"
-                                                            :class="currentLink === 'fuelManagement' ? 'text-secondary' : ''"
-                                                        >
-                                                            Fuel Management
+                                                            :class="currentLink === 'fuelManagement' ? 'text-secondary' : ''">
+                                                            Review previous medication request
                                                         </div>
                                                     </li>
-                                                    <li>
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'travelPlanner'"
-                                                            @mouseleave="currentLink = ''"
-                                                            :class="currentLink === 'travelPlanner' ? 'text-secondary' : ''"
-                                                            @click="TravelPlannerNavigator(0)"
-                                                        >
-                                                            Travel Planner
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'CarPark'"
-                                                            @mouseleave="currentLink = ''"
-                                                            :class="currentLink === 'CarPark' ? 'text-secondary' : ''"
-                                                        >
-                                                            Car Park
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'AccidentReporting'"
-                                                            @mouseleave="currentLink = ''"
-                                                            :class="currentLink === 'AccidentReporting' ? 'text-secondary' : ''"
-                                                            @click="AccidentReportingNavigator('accidentReport')"
-                                                        >
-                                                            Accident Reporting
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'diplomaticVehicleReg'"
-                                                            @mouseleave="currentLink = ''"
-                                                            :class="currentLink === 'diplomaticVehicleReg' ? 'text-secondary' : ''"
-                                                            @click="diplomaticVehicleRegistration('vehicleReg')"
-                                                        >
-                                                            Diplomatic Vehicle Registration
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'AdminSettings'"
-                                                            @mouseleave="currentLink = ''"
-                                                            :class="currentLink === 'AdminSettings' ? 'text-secondary' : ''"
-                                                        >
-                                                            Settings
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <h5 class="font-size-14 mt-0 fw-bold invisible">
-                                                    AMR
-                                                    <!-- {{ $t("navbar.dropdown.megamenu.extrapages.title") }} -->
-                                                </h5>
-
-                                                <ul class="list-unstyled megamenu-list">
-                                                    <li @click="goToAssetSubModule(4)">
-                                                        <div role="button" @mouseenter="currentLink = 'amr'" @mouseleave="currentLink = ''" :class="currentLink === 'amr' ? 'text-secondary' : ''">
-                                                            AMR creation
-                                                        </div>
-                                                    </li>
-
-                                                    <li @click="goToAssetSubModule(2)">
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'equipmentRequest'"
-                                                            @mouseleave="currentLink = ''"
-                                                            :class="currentLink === 'equipmentRequest' ? 'text-secondary' : ''"
-                                                        >
-                                                            Equipment Requests
-                                                        </div>
-                                                    </li>
-                                                    <li @click="goToAssetSubModule(2, 'requests#initiate')">
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'initiateEquipmetRequest'"
-                                                            @mouseleave="currentLink = ''"
-                                                            :class="currentLink === 'initiateEquipmetRequest' ? 'text-secondary' : ''"
-                                                        >
-                                                            Initiate Equipment Request
-                                                        </div>
-                                                    </li>
-                                                    <li @click="goToAssetSubModule(0)">
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'tagging'"
-                                                            @mouseleave="currentLink = ''"
-                                                            :class="currentLink === 'tagging' ? 'text-secondary' : ''"
-                                                        >
-                                                            Tagging of Non Expendables
-                                                        </div>
-                                                    </li>
-
-                                                    <li @click="goToAssetSubModule(3)">
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'disposal'"
-                                                            @mouseleave="currentLink = ''"
-                                                            :class="currentLink === 'disposal' ? 'text-secondary' : ''"
-                                                        >
-                                                            Disposal
-                                                        </div>
-                                                    </li>
-                                                    <hr class="bg-muted border border-top mt-4 mb-4" />
-                                                    <li>
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'phoneBill'"
-                                                            @mouseleave="currentLink = ''"
-                                                            :class="currentLink === 'phoneBill' ? 'text-secondary' : ''"
-                                                            @click="AirtimeDataNavigator('airtimeData')"
-                                                        >
-                                                            Airtime & Data
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'officeSupplies'"
-                                                            @mouseleave="currentLink = ''"
-                                                            :class="currentLink === 'officeSupplies' ? 'text-secondary' : ''"
-                                                            @click="toOfficeSupplies"
-                                                        >
-                                                            Office Supplies
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'visitorTracker'"
-                                                            @mouseleave="currentLink = ''"
-                                                            :class="currentLink === 'visitorTracker' ? 'text-secondary' : ''"
-                                                            @click="visitortrackerNavigator"
-                                                        >
-                                                            Visitor Tracker
-                                                        </div>
-                                                    </li>
+                                                  
                                                 </ul>
                                             </div>
 
                                             <div class="col-md-3">
                                                 <h5 class="font-size-14 mt-0 fw-bold">
-                                                    HR
+                                                    Health Records
                                                     <!-- {{ $t("navbar.dropdown.megamenu.extrapages.title") }} -->
                                                 </h5>
                                                 <ul class="list-unstyled megamenu-list">
                                                     <li>
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'staffManagement'"
+                                                        <div role="button" @mouseenter="currentLink = 'staffManagement'"
                                                             @mouseleave="currentLink = ''"
                                                             :class="currentLink === 'staffManagement' ? 'text-secondary' : ''"
-                                                            @click="HrNavigator('staff')"
-                                                        >
-                                                            Staff Management
+                                                            @click="HrNavigator('staff')">
+                                                            Patient Medical History
                                                         </div>
                                                     </li>
                                                     <li>
-                                                        <div
-                                                            role="button"
+                                                        <div role="button"
                                                             @mouseenter="currentLink = 'staffOrientation'"
                                                             @mouseleave="currentLink = ''"
                                                             :class="currentLink === 'staffOrientation' ? 'text-secondary' : ''"
-                                                            @click="HrNavigator('staff-orientation')"
-                                                        >
-                                                            Staff Orientation
+                                                            @click="HrNavigator('staff-orientation')">
+                                                            HIV Viral Load Results
                                                         </div>
                                                     </li>
                                                     <li>
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'staffOnboarding'"
+                                                        <div role="button" @mouseenter="currentLink = 'staffOnboarding'"
                                                             @mouseleave="currentLink = ''"
                                                             :class="currentLink === 'staffOnboarding' ? 'text-secondary' : ''"
-                                                            @click="toStaffOnboarding"
-                                                        >
-                                                            Staff Onboarding
+                                                            @click="toStaffOnboarding">
+                                                            Lab test Results
                                                         </div>
                                                     </li>
                                                     <li>
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'tors'"
+                                                        <div role="button" @mouseenter="currentLink = 'tors'"
                                                             @mouseleave="currentLink = ''"
                                                             :class="currentLink === 'tors' ? 'text-secondary' : ''"
-                                                            @click="HrNavigator('consultant-tor')"
-                                                        >
-                                                            Consultant TORs
+                                                            @click="HrNavigator('consultant-tor')">
+                                                            Doctor Notes
                                                         </div>
                                                     </li>
                                                     <li>
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'staffExit'"
+                                                        <div role="button" @mouseenter="currentLink = 'staffExit'"
                                                             @mouseleave="currentLink = ''"
                                                             :class="currentLink === 'staffExit' ? 'text-secondary' : ''"
-                                                            @click="HrNavigator('staff-exit')"
-                                                        >
-                                                            Staff Exit
+                                                            @click="HrNavigator('staff-exit')">
+                                                            Treatment History
                                                         </div>
                                                     </li>
                                                     <li>
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'staffHeadcount'"
+                                                        <div role="button" @mouseenter="currentLink = 'staffHeadcount'"
                                                             @mouseleave="currentLink = ''"
                                                             :class="currentLink === 'staffHeadcount' ? 'text-secondary' : ''"
-                                                            @click="HrNavigator('radio-call')"
-                                                        >
-                                                            Staff Headcount
+                                                            @click="HrNavigator('radio-call')">
+                                                            Upload/Download Medical Document
+                                                        </div>
+                                                    </li>
+                                                   
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <h5 class="font-size-14 mt-0 fw-bold">
+                                                    My Appointments
+                                                    <!-- {{ $t("navbar.dropdown.megamenu.extrapages.title") }} -->
+                                                </h5>
+                                                <ul class="list-unstyled megamenu-list">
+                                                    <li>
+                                                        <div role="button" @mouseenter="currentLink = 'staffManagement'"
+                                                            @mouseleave="currentLink = ''"
+                                                            :class="currentLink === 'staffManagement' ? 'text-secondary' : ''"
+                                                            @click="HrNavigator('staff')">
+                                                            List of Upcoming appointments
                                                         </div>
                                                     </li>
                                                     <li>
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'Hrsettings'"
+                                                        <div role="button"
+                                                            @mouseenter="currentLink = 'staffOrientation'"
+                                                            @mouseleave="currentLink = ''"
+                                                            :class="currentLink === 'staffOrientation' ? 'text-secondary' : ''"
+                                                            @click="HrNavigator('staff-orientation')">
+                                                            Appointment History
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div role="button" @mouseenter="currentLink = 'staffOnboarding'"
+                                                            @mouseleave="currentLink = ''"
+                                                            :class="currentLink === 'staffOnboarding' ? 'text-secondary' : ''"
+                                                            @click="toStaffOnboarding">
+                                                            Appointment Status
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div role="button" @mouseenter="currentLink = 'tors'"
+                                                            @mouseleave="currentLink = ''"
+                                                            :class="currentLink === 'tors' ? 'text-secondary' : ''"
+                                                            @click="HrNavigator('consultant-tor')">
+                                                            Doctor Assigned
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div role="button" @mouseenter="currentLink = 'staffExit'"
+                                                            @mouseleave="currentLink = ''"
+                                                            :class="currentLink === 'staffExit' ? 'text-secondary' : ''"
+                                                            @click="HrNavigator('staff-exit')">
+                                                            Clinic Location
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div role="button" @mouseenter="currentLink = 'staffHeadcount'"
+                                                            @mouseleave="currentLink = ''"
+                                                            :class="currentLink === 'staffHeadcount' ? 'text-secondary' : ''"
+                                                            @click="HrNavigator('radio-call')">
+                                                            Cancel Appointment
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div role="button" @mouseenter="currentLink = 'Hrsettings'"
                                                             @mouseleave="currentLink = ''"
                                                             :class="currentLink === 'Hrsettings' ? 'text-secondary' : ''"
-                                                            @click="HrNavigator('settings')"
-                                                        >
-                                                            Settings
+                                                            @click="HrNavigator('settings')">
+                                                            Schedule Appointments
                                                         </div>
                                                     </li>
                                                 </ul>
@@ -588,183 +450,43 @@ export default {
                                             <div class="col-sm-6">
                                                 <div class="mb-5">
                                                     <h5 class="font-size-14 mt-0 fw-bold">
-                                                        Supply
+                                                        Help Crenter
                                                         <!-- {{ $t("navbar.dropdown.megamenu.uicontent.title") }} -->
                                                     </h5>
                                                     <ul class="list-unstyled megamenu-list">
                                                         <li>
-                                                            <div
-                                                                role="button"
-                                                                @mouseenter="currentLink = 'lowValue'"
+                                                            <div role="button" @mouseenter="currentLink = 'lowValue'"
                                                                 @mouseleave="currentLink = ''"
                                                                 :class="currentLink === 'lowValue' ? 'text-secondary' : ''"
-                                                                @click="LowValueNavigator('home')"
-                                                            >
-                                                                Low Value Procurement
+                                                                @click="LowValueNavigator('home')">
+                                                                Talk to a Doctor
                                                             </div>
                                                         </li>
                                                         <li>
-                                                            <div
-                                                                role="button"
-                                                                @mouseenter="currentLink = 'supplyPlan'"
+                                                            <div role="button" @mouseenter="currentLink = 'supplyPlan'"
                                                                 @mouseleave="currentLink = ''"
                                                                 :class="currentLink === 'supplyPlan' ? 'text-secondary' : ''"
-                                                                @click="SupplyPlanNavigator('home')"
-                                                            >
-                                                                Supply Plan Management
+                                                                @click="SupplyPlanNavigator('home')">
+                                                                Data Recovery
                                                             </div>
                                                         </li>
                                                         <li>
-                                                            <div
-                                                                role="button"
+                                                            <div role="button"
                                                                 @mouseenter="currentLink = 'supplySettings'"
                                                                 @mouseleave="currentLink = ''"
-                                                                :class="currentLink === 'supplySettings' ? 'text-secondary' : ''"
-                                                            >
-                                                                Settings
+                                                                :class="currentLink === 'supplySettings' ? 'text-secondary' : ''">
+                                                                FAQ
                                                             </div>
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                <div>
-                                                    <div class="mb-4">
-                                                        <h5 class="font-size-14 mt-0 fw-bold">
-                                                            IFM/ PPM Checklist
-                                                            <!-- {{ $t("navbar.dropdown.megamenu.uicontent.title") }} -->
-                                                        </h5>
-                                                        <ul class="list-unstyled megamenu-list">
-                                                            <li>
-                                                                <div
-                                                                    role="button"
-                                                                    @mouseenter="currentLink = 'forms'"
-                                                                    @mouseleave="currentLink = ''"
-                                                                    :class="currentLink === 'forms' ? 'text-secondary' : ''"
-                                                                >
-                                                                    Forms
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                             <div class="col-sm-4 d-flex align-items-center">
                                                 <div class="d-none d-lg-block">
                                                     <img :src="megamenu" alt class="img-fluid mx-auto d-block" />
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-
-                    <!-- ................................................ -->
-
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" @click="onMenuClick($event)" href="javascript: void(0);" id="topnav-components2" role="button">
-                                <i :class="`bx bx-file mr-1`"></i>
-                                Forms
-                                <i class="mdi mdi-chevron-down"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-mega-menu-lg p-4" aria-labelledby="topnav-dashboard">
-                                <div class="d-flex flex-row mb-5 jutify-content-center">
-                                    <div class="col-sm-8">
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <div class="mb-5">
-                                                    <h5 class="font-size-14 mt-0 fw-bold invisible">
-                                                        Staff <i class="fas fa-exclamation-triangle"></i>
-                                                        <!-- {{ $t("navbar.dropdown.megamenu.uicontent.title") }} -->
-                                                    </h5>
-                                                    <ul class="list-unstyled megamenu-list">
-                                                        <li>
-                                                            <div
-                                                                role="button"
-                                                                @mouseenter="currentLink = 'staffExit'"
-                                                                @mouseleave="currentLink = ''"
-                                                                :class="currentLink === 'staffExit' ? 'text-secondary' : ''"
-                                                                @click="HrNavigator('staff-exit')"
-                                                            >
-                                                                Staff Exit
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div
-                                                                role="button"
-                                                                @mouseenter="currentLink = 'forEquipment'"
-                                                                @mouseleave="currentLink = ''"
-                                                                :class="currentLink === 'forEquipment' ? 'text-secondary' : ''"
-                                                                @click="goToAssetSubModule(2)"
-                                                            >
-                                                                Request For Equipment
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div
-                                                                role="button"
-                                                                @mouseenter="currentLink = 'forBsc'"
-                                                                @mouseleave="currentLink = ''"
-                                                                :class="currentLink === 'forBsc' ? 'text-secondary' : ''"
-                                                                @click="BscRequestsNavigator('myRequests')"
-                                                            >
-                                                                Finance Request
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-5">
-                                                <h5 class="font-size-14 mt-0 fw-bold invisible">
-                                                    Private
-                                                    <!-- {{ $t("navbar.dropdown.megamenu.application.title") }} -->
-                                                </h5>
-                                                <ul class="list-unstyled megamenu-list">
-                                                    <li>
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'forPrivateUse'"
-                                                            @mouseleave="currentLink = ''"
-                                                            :class="currentLink === 'forPrivateUse' ? 'text-secondary' : ''"
-                                                            @click="vehiclePrivateUse()"
-                                                        >
-                                                            Private use of UNICEF Vehicle
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'forAssets'"
-                                                            @mouseleave="currentLink = ''"
-                                                            :class="currentLink === 'forAssets' ? 'text-secondary' : ''"
-                                                            @click="goToAssetSubModule(1, 'manage-assets')"
-                                                        >
-                                                            Update Asset Status
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div
-                                                            role="button"
-                                                            @mouseenter="currentLink = 'forDiplomaticVehicle'"
-                                                            @mouseleave="currentLink = ''"
-                                                            :class="currentLink === 'forDiplomaticVehicle' ? 'text-secondary' : ''"
-                                                            @click="diplomaticVehicleRegistration('vehicleReg')"
-                                                        >
-                                                            Diplomatic Vehicle Registration
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-2 d-flex align-items-center">
-                                        <div class="d-none d-lg-block">
-                                            <img :src="megamenu" alt class="img-fluid mx-auto d-block" />
                                         </div>
                                     </div>
                                 </div>

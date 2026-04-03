@@ -10,7 +10,7 @@ import avatar1 from "../../images/users/avatar-1.jpg";
 import avatar3 from "../../images/users/avatar-3.jpg";
 import avatar4 from "../../images/users/avatar-4.jpg";
 
-import megamenu from "../../images/header-logo.svg";
+import megamenu from "../../images/logo-dark.svg";
 
 import { Head, Link, router, usePage } from "@inertiajs/vue3";
 import { BscNavigator } from "../Composables/BscNavigator.js";
@@ -340,20 +340,14 @@ export default {
                                         <b-dropdown-item class="mb-1"
                                             @click="searchWithIn = 'Users'">Users</b-dropdown-item>
                                         <b-dropdown-item class="mb-1"
-                                            @click="searchWithIn = 'Emails'">Emails</b-dropdown-item>
+                                            @click="searchWithIn = 'Hospitals'">Hospitals</b-dropdown-item>
                                         <b-dropdown-item class="mb-1"
-                                            @click="searchWithIn = 'Invoices'">Invoices</b-dropdown-item>
-                                        <b-dropdown-item class="mb-1" @click="searchWithIn = 'Finance Requests'">Finance
-                                            Requests</b-dropdown-item>
+                                            @click="searchWithIn = 'Appointments'">Appointments</b-dropdown-item>
                                         <b-dropdown-item class="mb-1"
-                                            @click="searchWithIn = 'Items/Assets/LVNEs'">Items/Assets/LVNEs</b-dropdown-item>
-                                        <b-dropdown-item class="mb-1" @click="searchWithIn = 'Call Logs'">Call
-                                            Logs</b-dropdown-item>
-                                        <b-dropdown-item class="mb-1"
-                                            @click="searchWithIn = 'Monthly Travel Plans'">Monthly Travel
-                                            Plans</b-dropdown-item>
-                                        <b-dropdown-item class="mb-1" @click="searchWithIn = 'Staff Exit'">Staff
-                                            Exit</b-dropdown-item>
+                                            @click="searchWithIn = 'Referals'">Referals</b-dropdown-item>
+                                        <b-dropdown-item class="mb-1" @click="searchWithIn = 'Health Records'">Health
+                                            Records</b-dropdown-item>
+
                                     </ul>
                                 </div>
                             </div>
@@ -361,448 +355,7 @@ export default {
                     </div>
                 </form>
 
-                <b-dropdown variant="black" class="dropdown-mega d-none d-lg-block ml-4" toggle-class="header-item"
-                    menu-class="dropdown-megamenu dropdown-menu-end" style="color: #f3f3f9">
-                    <template v-slot:button-content>
-                        <div style="color: #f3f3f9">Menu</div>
-                        <!-- <i class="mdi mdi-chevron-down"></i> -->
-                        <!-- {{ $t("navbar.dropdown.megamenu.text") }} -->
-                    </template>
 
-                    <div class="d-flex flex-row mb-5 jutify-content-center">
-                        <div class="col-sm-8">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="mb-5">
-                                        <h5 class="font-size-14 mt-0 fw-bold">
-                                            Finance
-                                            <!-- {{ $t("navbar.dropdown.megamenu.uicontent.title") }} -->
-                                        </h5>
-                                        <ul class="list-unstyled megamenu-list">
-                                            <li>
-                                                <div role="button" @mouseenter="currentLink = 'invoices'"
-                                                    @mouseleave="currentLink = ''"
-                                                    :class="currentLink === 'invoices' ? 'text-secondary' : ''"
-                                                    @click="FinanceInvoiceNavitor('all-invoices')">
-                                                    Invoices
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <div role="button" @mouseenter="currentLink = 'bscRequests'"
-                                                    @mouseleave="currentLink = ''"
-                                                    :class="currentLink === 'bscRequests' ? 'text-secondary' : ''"
-                                                    @click="BscRequestsNavigator('face-forms')">
-                                                    FACE Forms
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <div role="button" @mouseenter="currentLink = 'BscRequests'"
-                                                    @mouseleave="currentLink = ''"
-                                                    :class="currentLink === 'BscRequests' ? 'text-secondary' : ''"
-                                                    @click="BscRequestsNavigator('myRequests')">
-                                                    Finance Requests
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <div role="button" @mouseenter="currentLink = 'payroll'"
-                                                    @mouseleave="currentLink = ''"
-                                                    :class="currentLink === 'payroll' ? 'text-secondary' : ''"
-                                                    @click="BscRequestsNavigator('payroll')">
-                                                    Payroll
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div role="button" @mouseenter="currentLink = 'pettycashReconciliation'"
-                                                    @mouseleave="currentLink = ''"
-                                                    :class="currentLink === 'pettycashReconciliation' ? 'text-secondary' : ''"
-                                                    @click="BscRequestsNavigator('pettyCashReconciliation')">
-                                                    Petty Cash Reconciliation
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div role="button" @mouseenter="currentLink = 'helpCenter'"
-                                                    @mouseleave="currentLink = ''"
-                                                    :class="currentLink === 'helpCenter' ? 'text-secondary' : ''"
-                                                    @click="BscRequestsNavigator('helpcenter')">
-                                                    Help Center
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div role="button" @mouseenter="currentLink = 'bscSettings'"
-                                                    @mouseleave="currentLink = ''"
-                                                    :class="currentLink === 'bscSettings' ? 'text-secondary' : ''"
-                                                    @click="BscRequestsNavigator('settings')">
-                                                    Settings
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div v-if="dashboardView != 2">
-                                        <h5 class="font-size-14 mt-0 fw-bold">
-                                            Leave
-                                            <!-- {{ $t("navbar.dropdown.megamenu.uicontent.title") }} -->
-                                        </h5>
-                                        <ul class="list-unstyled megamenu-list">
-                                            <li>
-                                                <div role="button" @mouseenter="currentLink = 'myAvailability'"
-                                                    @mouseleave="currentLink = ''"
-                                                    :class="currentLink === 'myAvailability' ? 'text-secondary' : ''"
-                                                    @click="LeaveNavigator('updateAvailability')">
-                                                    My Availability
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div role="button" @mouseenter="currentLink = 'updateAvailability'"
-                                                    @mouseleave="currentLink = ''"
-                                                    :class="currentLink === 'updateAvailability' ? 'text-secondary' : ''"
-                                                    @click="LeaveNavigator('updateAvailability')">
-                                                    Update Availability
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3" v-if="dashboardView != 2">
-                                    <h5 class="font-size-14 mt-0 fw-bold">
-                                        Administration
-                                        <!-- {{ $t("navbar.dropdown.megamenu.application.title") }} -->
-                                    </h5>
-                                    <ul class="list-unstyled megamenu-list">
-                                        <li @click="vehiclePrivateUse()">
-                                            <div role="button" @mouseenter="currentLink = 'privateUse'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'privateUse' ? 'text-secondary' : ''">
-                                                Private use of UNICEF Vehicle
-                                            </div>
-                                        </li>
-
-                                        <li @click="vehicleMaintenance()">
-                                            <div role="button" @mouseenter="currentLink = 'vehicleMaintenance'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'vehicleMaintenance' ? 'text-secondary' : ''">
-                                                Vehicle Maintenance
-                                            </div>
-                                        </li>
-                                        <li @click="vehicleUtilization()">
-                                            <div role="button" @mouseenter="currentLink = 'vehicleUtilization'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'vehicleUtilization' ? 'text-secondary' : ''">
-                                                Vehicle Utilization Log
-                                            </div>
-                                        </li>
-                                        <li @click="vehicleFuelManagement()">
-                                            <div role="button" @mouseenter="currentLink = 'fuelManagement'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'fuelManagement' ? 'text-secondary' : ''">
-                                                Fuel Management
-                                            </div>
-                                        </li>
-
-                                        <li>
-                                            <div role="button" @mouseenter="currentLink = 'travelPlanner'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'travelPlanner' ? 'text-secondary' : ''"
-                                                @click="TravelPlannerNavigator(0)">
-                                                Travel Planner
-                                            </div>
-                                        </li>
-
-                                        <li>
-                                            <div role="button" @mouseenter="currentLink = 'accidentReporting'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'accidentReporting' ? 'text-secondary' : ''"
-                                                @click="AccidentReportingNavigator('accidentReport')">
-                                                Accident Reporting
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div role="button" @mouseenter="currentLink = 'vehicleReg'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'vehicleReg' ? 'text-secondary' : ''"
-                                                @click="diplomaticVehicleRegistration('vehicleReg')">
-                                                Diplomatic Vehicle Registration
-                                            </div>
-                                        </li>
-
-                                        <li>
-                                            <div role="button" @mouseenter="currentLink = 'dim'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'dim' ? 'text-secondary' : ''" @click="toDIM()">
-                                                Diplomatic Information Management
-                                            </div>
-                                        </li>
-
-                                        <li>
-                                            <div role="button" @mouseenter="currentLink = 'adminHelpcetnter'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'adminHelpcetnter' ? 'text-secondary' : ''">
-                                                Help Center
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div role="button" @click="vehiclePrivateUse('admin-settings')"
-                                                @mouseenter="currentLink = 'AdminSettings'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'AdminSettings' ? 'text-secondary' : ''">
-                                                Settings
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-md-3" v-if="dashboardView != 2">
-                                    <h5 class="font-size-14 mt-0 fw-bold invisible">
-                                        AMR
-                                        <!-- {{ $t("navbar.dropdown.megamenu.extrapages.title") }} -->
-                                    </h5>
-                                    <ul class="list-unstyled megamenu-list">
-                                        <li @click="goToAssetSubModule(2)">
-                                            <div role="button" @mouseenter="currentLink = 'equipmentRequest'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'equipmentRequest' ? 'text-secondary' : ''">
-                                                Equipment Requests
-                                            </div>
-                                        </li>
-
-                                        <li @click="goToAssetSubModule(0)">
-                                            <div role="button" @mouseenter="currentLink = 'tagging'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'tagging' ? 'text-secondary' : ''">
-                                                Tagging of Non Expendables
-                                            </div>
-                                        </li>
-                                        <li @click="goToAssetSubModule(1)">
-                                            <div role="button" @mouseenter="currentLink = 'tracking'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'tracking' ? 'text-secondary' : ''">
-                                                Tracking of Non Expendables
-                                            </div>
-                                        </li>
-                                        <li @click="goToAssetSubModule(1, 'manage-assets')">
-                                            <div role="button" @mouseenter="currentLink = 'assetList'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'assetList' ? 'text-secondary' : ''">
-                                                Manage Asset List
-                                            </div>
-                                        </li>
-                                        <li @click="goToAssetSubModule(3)">
-                                            <div role="button" @mouseenter="currentLink = 'disposal'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'disposal' ? 'text-secondary' : ''">
-                                                Disposal
-                                            </div>
-                                        </li>
-
-                                        <hr class="bg-muted border border-top mt-4 mb-4" />
-                                        <li>
-                                            <div role="button" @mouseenter="currentLink = 'airtimeData'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'airtimeData' ? 'text-secondary' : ''"
-                                                @click="AirtimeDataNavigator('airtimeData')">
-                                                Airtime & Data Management
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div role="button" @mouseenter="currentLink = 'guestHouse'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'guestHouse' ? 'text-secondary' : ''"
-                                                @click="GuestHouseNavigator('guestHouse')">
-                                                Guest House Management
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div role="button" @mouseenter="currentLink = 'incidentReport'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'incidentReport' ? 'text-secondary' : ''"
-                                                @click="IncidentReportingNavigator('incidentReport')">
-                                                Incident Reporting
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div role="button" @mouseenter="currentLink = 'officeSupplies'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'officeSupplies' ? 'text-secondary' : ''"
-                                                @click="toOfficeSupplies">
-                                                Office Supplies
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div role="button" @mouseenter="currentLink = 'visitorTracker'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'visitorTracker' ? 'text-secondary' : ''"
-                                                @click="visitortrackerNavigator">
-                                                Visitor Tracker
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-md-3" v-if="dashboardView != 2">
-                                    <h5 class="font-size-14 mt-0 fw-bold">
-                                        HR
-                                        <!-- {{ $t("navbar.dropdown.megamenu.extrapages.title") }} -->
-                                    </h5>
-                                    <ul class="list-unstyled megamenu-list">
-                                        <li @click="HrNavigator('staff')">
-                                            <div role="button" @mouseenter="currentLink = 'staffManagement'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'staffManagement' ? 'text-secondary' : ''">
-                                                Staff Management
-                                            </div>
-                                        </li>
-                                        <li @click="HrNavigator('staff-orientation')">
-                                            <div role="button" @mouseenter="currentLink = 'staffOrientation'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'staffOrientation' ? 'text-secondary' : ''">
-                                                Staff Orientation
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div role="button" @mouseenter="currentLink = 'staffOnboarding'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'staffOnboarding' ? 'text-secondary' : ''"
-                                                @click="toStaffOnboarding">
-                                                Staff Onboarding
-                                            </div>
-                                        </li>
-                                        <li @click="HrNavigator('consultant-tor')">
-                                            <div role="button" @mouseenter="currentLink = 'tors'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'tors' ? 'text-secondary' : ''">
-                                                Consultant TORs
-                                            </div>
-                                        </li>
-
-                                        <li @click="HrNavigator('staff-exit')">
-                                            <div role="button" @mouseenter="currentLink = 'staffExit'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'staffExit' ? 'text-secondary' : ''">
-                                                Staff Exit
-                                            </div>
-                                        </li>
-
-                                        <li @click="HrNavigator('radio-call')">
-                                            <div role="button" @mouseenter="currentLink = 'headcount'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'headcount' ? 'text-secondary' : ''">
-                                                Staff Headcount
-                                            </div>
-                                        </li>
-                                        <li @click="HrNavigator('help-center')">
-                                            <div role="button" @mouseenter="currentLink = 'staffHelpCenter'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'staffHelpCenter' ? 'text-secondary' : ''">
-                                                Help Center
-                                            </div>
-                                        </li>
-                                        <li @click="HrNavigator('settings')">
-                                            <div role="button" @mouseenter="currentLink = 'staffSettings'"
-                                                @mouseleave="currentLink = ''"
-                                                :class="currentLink === 'staffSettings' ? 'text-secondary' : ''">
-                                                Settings
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-4">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="mb-5" v-if="dashboardView != 2">
-                                        <h5 class="font-size-14 mt-0 fw-bold">
-                                            Supply
-                                            <!-- {{ $t("navbar.dropdown.megamenu.uicontent.title") }} -->
-                                        </h5>
-                                        <ul class="list-unstyled megamenu-list">
-                                            <li @click="LowValueNavigator()">
-                                                <div role="button" @mouseenter="currentLink = 'lowvalus'"
-                                                    @mouseleave="currentLink = ''"
-                                                    :class="currentLink === 'lowvalus' ? 'text-secondary' : ''">
-                                                    Low Value Procurement
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div role="button" @mouseenter="currentLink = 'supplyPlann'"
-                                                    @mouseleave="currentLink = ''"
-                                                    :class="currentLink === 'supplyPlann' ? 'text-secondary' : ''"
-                                                    @click="SupplyPlanNavigator('home')">
-                                                    Supply Plan Management
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div role="button" @mouseenter="currentLink = 'supplyHelpCenter'"
-                                                    @mouseleave="currentLink = ''"
-                                                    :class="currentLink === 'supplyHelpCenter' ? 'text-secondary' : ''">
-                                                    Help Center
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div role="button" @mouseenter="currentLink = 'supplySupply'"
-                                                    @mouseleave="currentLink = ''"
-                                                    :class="currentLink === 'supplySupply' ? 'text-secondary' : ''">
-                                                    Settings
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <div class="mb-4" v-if="dashboardView != 2">
-                                            <h5 class="font-size-14 mt-0 fw-bold">
-                                                ICT UNIT
-                                                <!-- {{ $t("navbar.dropdown.megamenu.uicontent.title") }} -->
-                                            </h5>
-                                            <ul class="list-unstyled megamenu-list">
-                                                <li>
-                                                    <div @click="IctNavigator('vision')" role="button"
-                                                        @mouseenter="currentLink = 'vision'"
-                                                        @mouseleave="currentLink = ''"
-                                                        :class="currentLink === 'vision' ? 'text-secondary' : ''">
-                                                        VISION Access
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div @click="IctNavigator('services')" role="button"
-                                                        @mouseenter="currentLink = 'services'"
-                                                        @mouseleave="currentLink = ''"
-                                                        :class="currentLink === 'services' ? 'text-secondary' : ''">
-                                                        Services Access
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div @click="IctNavigator('help-center')" role="button"
-                                                        @mouseenter="currentLink = 'visionHelp'"
-                                                        @mouseleave="currentLink = ''"
-                                                        :class="currentLink === 'visionHelp' ? 'text-secondary' : ''">
-                                                        Help Center
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div @click="IctNavigator('settings')" role="button"
-                                                        @mouseenter="currentLink = 'visionSettings'"
-                                                        @mouseleave="currentLink = ''"
-                                                        :class="currentLink === 'visionSettings' ? 'text-secondary' : ''">
-                                                        Settings
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4 d-flex align-items-center">
-                                    <div>
-                                        <img :src="megamenu" alt class="img-fluid mx-auto d-block" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </b-dropdown>
             </div>
 
             <div class="d-flex" style="color: #f3f3f9">
@@ -984,12 +537,7 @@ export default {
                     </b-dropdown-item>
                     </Link>
                     <Link :href="route('AllLogs')">
-                    <b-dropdown-item>
-                        <i class="bx bxs-chat font-size-16 align-middle me-1 p-1"
-                            style="color: #639099; background-color: #e0e8f1; border-radius: 50%"></i>
-                        Emails
-                        <!-- {{ $t("navbar.dropdown.henry.list.profile") }} -->
-                    </b-dropdown-item>
+
                     </Link>
                     <b-dropdown-item href="javascript: void(0);">
                         <i class="bx bx bxs-report font-size-16 align-middle me-1 p-1"
@@ -998,21 +546,11 @@ export default {
                         <!-- {{ $t("navbar.dropdown.henry.list.mywallet") }} -->
                     </b-dropdown-item>
                     <Link v-if="allPermissions.includes('s_admin')"
-                        :href="route('mobile-app', {}, { preserveState: false, preserveScroll: false })">
-                    <b-dropdown-item href="javascript: void(0);">
-                        <i class="bx bx bx-mobile font-size-16 align-middle me-1 p-1"
-                            style="color: #639099; background-color: #e0e8f1; border-radius: 50%"></i>
-                        Mobile
-                        <!-- {{ $t("navbar.dropdown.henry.list.mywallet") }} -->
-                    </b-dropdown-item>
-                    </Link>
-
-                    <Link v-if="allPermissions.includes('s_admin')"
                         :href="route('supportCenter', {}, { preserveState: false, preserveScroll: false })">
                     <b-dropdown-item href="javascript: void(0);">
                         <i class="bx bx bxs-help-circle font-size-16 align-middle me-1 p-1"
                             style="color: #639099; background-color: #e0e8f1; border-radius: 50%"></i>
-                        Support Center
+                        Support Centers
                     </b-dropdown-item>
                     </Link>
                     <Link v-else :href="route('supportRequest', {}, { preserveState: false, preserveScroll: false })">
@@ -1037,32 +575,7 @@ export default {
                         </b-dropdown-item>
                     </template>
 
-                    <Link v-if="allPermissions.includes('s_admin')"
-                        :href="route('systemconfig', {}, { preserveState: false, preserveScroll: false })">
-                    <b-dropdown-item href="javascript: void(0);">
-                        <i class="bx bx-cog font-size-16 align-middle me-1 p-1"
-                            style="color: #639099; background-color: #e0e8f1; border-radius: 50%"></i>
-                        System Configuration
-                    </b-dropdown-item>
-                    </Link>
-
-                    <Link :href="route('dashboards', {}, { preserveState: false, preserveScroll: false })">
-                    <b-dropdown-item href="javascript: void(0);">
-                        <i class="bx bxs-report font-size-16 align-middle me-1 p-1"
-                            style="color: #639099; background-color: #e0e8f1; border-radius: 50%"></i>
-                        Dashboards
-                    </b-dropdown-item>
-                    </Link>
-
-                    <!-- <b-dropdown-item class="d-block" href="javascript: void(0);">
-                        <span class="badge bg-success float-end">11</span>
-                        <i class="bx bx-wrench font-size-16 align-middle me-1"></i>
-                        {{ $t("navbar.dropdown.henry.list.settings") }}
-                    </b-dropdown-item>
-                    <b-dropdown-item href="javascript: void(0);">
-                        <i class="bx bx-lock-open font-size-16 align-middle me-1"></i>
-                        {{ $t("navbar.dropdown.henry.list.lockscreen") }}
-                    </b-dropdown-item> -->
+                    
                     <b-dropdown-divider></b-dropdown-divider>
                     <a @click="logout" class="dropdown-item text-danger" role="button">
                         <i class="mdi mdi-login-variant font-size-16 align-middle me-1 text-danger p-1"></i>
