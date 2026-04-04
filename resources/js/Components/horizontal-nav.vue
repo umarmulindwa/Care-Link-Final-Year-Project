@@ -70,6 +70,9 @@ export default {
     },
     mounted() {
         this.currentUser = usePage().props.auth.user;
+        this.isSuperAdmin = this.currentUser.allPermissions.includes("s_admin")
+        this.isAdmin = this.currentUser.allPermissions.includes("admin")
+
         var links = document.getElementsByClassName("side-nav-link-ref");
         var matchingMenuItem = null;
         for (var i = 0; i < links.length; i++) {
@@ -215,10 +218,10 @@ export default {
                                 <div class="d-flex flex-row mb-5 jutify-content-center">
                                     <div class="col-sm-8">
                                         <div class="row">
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" v-if="isSuperAdmin || isAdmin">
                                                 <div class="mb-5">
                                                     <h5 class="font-size-14 mt-0 fw-bold">
-                                                        Profile Management
+                                                        Profile Management 
                                                         <!-- {{ $t("navbar.dropdown.megamenu.uicontent.title") }} -->
                                                     </h5>
                                                     <ul class="list-unstyled megamenu-list">

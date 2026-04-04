@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 use App\Models\EquipmentRequest;
 use App\Http\Controllers\MainSearchController;
+use App\Http\Controllers\RequestMedicationController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -188,6 +189,8 @@ Route::middleware([
     //search
     Route::get('/search', [MainSearchController::class, 'getSearchResults'])->name('search');
 
+    //Request medication
+    Route::get('/request-medication', [RequestMedicationController::class, 'index'])->name('index');
 
 
     // Email Logs

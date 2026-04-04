@@ -14,27 +14,26 @@ class IncidenReporting extends Controller
     public function index()
     {
         $incidents = [];
-        $incidents = Incident::where('status', '!=', 'deleted')->where('reported_by_email', auth()->user()->email)->latest()->get();
+        // $incidents = Incident::where('status', '!=', 'deleted')->where('reported_by_email', auth()->user()->email)->latest()->get();
         
         return \Inertia\Inertia::render('IncidentReporting/MainPage', [
-            'incidents' => $incidents
+            'incidents' => []
         ]);
     }
     public function createIncident(){
-        $incidents = [];
-        $implementingPartners = [];
+        // $incidents = [];
+        // $implementingPartners = [];
 
         
-        //getting Incident locations
-        $incidentLocations = IncidentLocation::select('id', 'state', 'county', 'site_name', 'latitude', 'cooperating_partner', 'payam', 'longitude', 'comment')->get();
-        $sections = Section::select('name', 'id')->get();
+        // //getting Incident locations
+        // $incidentLocations = IncidentLocation::select('id', 'state', 'county', 'site_name', 'latitude', 'cooperating_partner', 'payam', 'longitude', 'comment')->get();
+        // $sections = Section::select('name', 'id')->get();
 
 
         return \Inertia\Inertia::render('IncidentReporting/CreateIncident', [
-            'implementingPartners' => $implementingPartners,
-            'incidentLocations' => $incidentLocations,
-            'sections' => $sections,
-
+            'implementingPartners' => [],
+            'incidentLocations' => [],
+            'sections' => [],
         ]);
     }
     public function registerSignature(){

@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
         // admin accounts
 
         $adminOne = \App\Models\User::updateOrCreate(
-            ["id" => 1],
+        ["id" => 1  ],
             [
                 "name" => "ADMIN",
                 "email" => "admin@carelink.com",

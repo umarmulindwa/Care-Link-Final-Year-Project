@@ -2,13 +2,14 @@
 import { Head, Link, router, usePage } from "@inertiajs/vue3";
 import Layout from "../Layouts/main.vue";
 import PageHeader from "@/Components/page-header.vue";
-import finance from "../../images/finance.png";
-import staff from "../../images/staff.png";
-import travel from "../../images/travel.png";
-import administration from "../../images/administration.png";
-import leave from "../../images/leave.png";
-import visitor from "../../images/visitor.png";
-import supply from "../../images/supply.png";
+import faq from "../../images/faq.svg";
+import requestMedication from "../../images/requestMedication.svg";
+import medicalRecords from "../../images/medicalRecords.svg";
+import MedicalAppointment from "../../images/MedicalAppointment.svg";
+import scheduleappointment from "../../images/scheduleappointment.svg";
+import talkDoctor from "../../images/talkDoctor.svg";
+import referal from "../../images/referal.svg";
+import users from "../../images/users.svg";
 import boq from "../../images/boq.png";
 import hrIcon from "../../images/hrIcon.png";
 import ictIcon from "../../images/ict-icon.png";
@@ -68,6 +69,12 @@ const state = reactive({
 const store = useStore();
 
 const downloadMobileAppModal = ref(false);
+const isSuperAdmin = ref(usePage().props.auth.user.allPermissions.includes("s_admin"));
+const isDoctor = ref(usePage().props.auth.user.allPermissions.includes("doctor"));
+const isPatient = ref(usePage().props.auth.user.allPermissions.includes("patient"));
+const isAdmin = ref(usePage().props.auth.user.allPermissions.includes("admin"));
+
+
 const downloadMobileApp = () => {
     downloadMobileAppModal.value = true;
 };
@@ -391,6 +398,11 @@ const dashboardView = computed(() => {
     }
     return isToShow;
 });
+
+function toRequestMedication(){
+    
+      router.visit("/request-medication");
+}
 </script>
 
 <template>
@@ -603,7 +615,7 @@ const dashboardView = computed(() => {
                                 <div class="card-body p-4">
                                     <div class="d-flex gap-1 justify-content-between" @click="toStaffRegister">
                                         <div class="d-flex align-items-center pt-2 pb-2 gap-3">
-                                            <div><img :src="staff" height="25" /></div>
+                                            <div><img :src="users" height="25" /></div>
                                             <div class="column">
                                                 <div>
                                                     <h5 class="mb-0">
@@ -627,16 +639,16 @@ const dashboardView = computed(() => {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4" @click="toRequestMedication">
                             <div class="card" role="button">
                                 <div class="card-body p-4">
                                     <div class="d-flex gap-1 justify-content-between">
-                                        <div class="d-flex align-items-center pt-2 pb-2 gap-3" @click="toBSC">
-                                            <div><img :src="finance" height="30" /></div>
+                                        <div class="d-flex align-items-center pt-2 pb-2 gap-3" >
+                                            <div><img :src="requestMedication" height="30" /></div>
                                             <div class="column">
                                                 <div>
                                                     <h5 class="mb-0">
-                                                        <small class="text-muted">p</small>
+                                                        <small class="text-muted">Request Medication</small>
                                                     </h5>
                                                 </div>
                                                 <div class="text-primary">
@@ -654,7 +666,7 @@ const dashboardView = computed(() => {
                                 <div class="card-body p-4">
                                     <div class="d-flex gap-1 justify-content-between">
                                         <div class="d-flex align-items-center pt-2 pb-2 gap-3">
-                                            <div><img :src="administration" height="30" /></div>
+                                            <div><img :src="medicalRecords" height="30" /></div>
                                             <div class="column">
                                                 <div>
                                                     <h5 class="mb-0">
@@ -683,7 +695,7 @@ const dashboardView = computed(() => {
                                 <div class="card-body p-4">
                                     <div class="d-flex gap-1 justify-content-between">
                                         <div class="d-flex align-items-center gap-3" @click="toLEAVE">
-                                            <div><img :src="leave" height="30" /></div>
+                                            <div><img :src="MedicalAppointment" height="32" /></div>
                                             <div class="column">
                                                 <div>
                                                     <h5 class="mb-0">
@@ -692,7 +704,10 @@ const dashboardView = computed(() => {
                                                 </div>
                                                 <div class="text-primary">
                                                     <small>Access: All</small>
+                                                    
                                                 </div>
+                                                <span class="invisible">sd</span>
+
                                             </div>
                                         </div>
                                    
@@ -705,7 +720,7 @@ const dashboardView = computed(() => {
                                 <div class="card-body p-4">
                                     <div class="d-flex gap-1 justify-content-between">
                                         <div class="d-flex align-items-center pt-2 pb-2 gap-3" @click="toSupply">
-                                            <div><img :src="supply" height="28" /></div>
+                                            <div><img :src="scheduleappointment" height="28" /></div>
                                             <div class="column">
                                                 <div>
                                                     <h5 class="mb-0">
@@ -727,7 +742,7 @@ const dashboardView = computed(() => {
                                 <div class="card-body p-4">
                                     <div class="d-flex gap-1 justify-content-between">
                                         <div class="d-flex align-items-center pt-2 pb-2 gap-3" @click="toHR(0)">
-                                            <div><img :src="hrIcon" height="24" width="24" /></div>
+                                            <div><img :src="referal" height="24" width="24" /></div>
                                             <div class="column">
                                                 <div>
                                                     <h5 class="mb-0">
@@ -755,7 +770,7 @@ const dashboardView = computed(() => {
                                 <div class="card-body p-4">
                                     <div class="d-flex gap-1 justify-content-between">
                                         <div class="d-flex align-items-center pt-2 pb-2 gap-3" id="showSignatureManager" data-bs-toggle="modal" data-bs-target="#signatureRegister">
-                                            <div><img :src="signaturemanager" height="28" /></div>
+                                            <div><img :src="talkDoctor" height="28" /></div>
                                             <div class="column">
                                                 <div>
                                                     <h5 class="mb-0">
@@ -782,12 +797,12 @@ const dashboardView = computed(() => {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4" v-if="isPatient || isAdmin || isSuperAdmin">
                             <div class="card" role="button">
                                 <div class="card-body p-4">
                                     <div class="d-flex gap-1 justify-content-between">
                                         <div class="d-flex align-items-center pt-2 pb-2 gap-3" @click="downloadMobileApp">
-                                            <div><img :src="mobile" height="28" /></div>
+                                            <div><img :src="faq" height="28" /></div>
                                             <div class="column">
                                                 <div>
                                                     <h5 class="mb-0">
@@ -811,7 +826,8 @@ const dashboardView = computed(() => {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        
+                        <div class="col-sm-4" v-if="isAdmin || isSuperAdmin">
                             <div class="card" role="button">
                                 <div class="card-body p-4">
                                     <div class="d-flex gap-1 justify-content-between">
@@ -1063,130 +1079,11 @@ const dashboardView = computed(() => {
                                     <!-- <div role="button"><small class="text-primary">More Notifications</small></div> -->
                                 </div>
                             </div>
-                            <!-- <div>
-                            <div class="d-flex flex-row gap-4 align-items-center">
-                                <div class="text-success">
-                                    <i class="fas fa-circle"></i>
-                                </div>
-                                <div class="d-flex flex-column w-100">
-                                    <div class="d-flex flex-row justify-content-between">
-                                        <div class="text-muted fw-bold">New Permission Granted</div>
-                                        <div><small>12 min ago</small></div>
-                                    </div>
-                                    <div class="col-10 text-truncate"><small>you have been awarded rights </small></div>
-                                </div>
-                            </div>
-                            <hr class="bg-secondary border border-top mt-2 mb-4" />
-                        </div>
-                        <div>
-                            <div class="d-flex flex-row gap-4 align-items-center">
-                                <div class="text-success">
-                                    <i class="fas fa-circle"></i>
-                                </div>
-                                <div class="d-flex flex-column w-100">
-                                    <div class="d-flex flex-row justify-content-between">
-                                        <div class="text-muted fw-bold">New Permission Granted</div>
-                                        <div><small>12 min ago</small></div>
-                                    </div>
-                                    <div class="col-10 text-truncate"><small>you have been awarded rights </small></div>
-                                </div>
-                            </div>
-                            <hr class="bg-secondary border border-top mt-2 mb-4" />
-                        </div>
-                        <div>
-                            <div class="d-flex flex-row gap-4 align-items-center">
-                                <div class="text-success">
-                                    <i class="fas fa-circle"></i>
-                                </div>
-                                <div class="d-flex flex-column w-100">
-                                    <div class="d-flex flex-row justify-content-between">
-                                        <div class="text-muted fw-bold">New Permission Granted</div>
-                                        <div><small>12 min ago</small></div>
-                                    </div>
-
-                                    <div class="col-10 text-truncate"><small>you have been awarded the rights of a Petty Cash Custodian</small></div>
-                                </div>
-                            </div>
-                            <hr class="bg-secondary border border-top mt-2 mb-4" />
-                        </div> -->
+                          
                         </div>
                     </div>
                 </div>
-                <!-- <div class="card">
-                        <div class="card-body">
-                            <div>
-                                <h5 class="mb-0">
-                                    <small class="text-muted">Quick Links</small>
-                                </h5>
-                                <hr class="bg-muted border border-top mt-4 mb-4" />
-
-                                <div
-                                    class="text-primary mb-3"
-                                    role="button"
-                                    @mouseenter="state.quickLink = 'staffOrientation'"
-                                    @mouseleave="state.quickLink = ''"
-                                    :class="state.quickLink === 'staffOrientation' ? 'fw-medium' : ''"
-                                >
-                                    Staff Orientation
-                                </div>
-                                <div
-                                    class="text-primary mb-3"
-                                    role="button"
-                                    @mouseenter="state.quickLink = 'staffExit'"
-                                    @mouseleave="state.quickLink = ''"
-                                    :class="state.quickLink === 'staffExit' ? 'fw-medium' : ''"
-                                >
-                                    Staff Exit
-                                </div>
-                                <div
-                                    class="text-primary mb-3"
-                                    role="button"
-                                    @mouseenter="state.quickLink = 'equipmentRequest'"
-                                    @mouseleave="state.quickLink = ''"
-                                    :class="state.quickLink === 'equipmentRequest' ? 'fw-medium' : ''"
-                                >
-                                    Equipment Request
-                                </div>
-                                <div
-                                    class="text-primary mb-3"
-                                    role="button"
-                                    @mouseenter="state.quickLink = 'requestToSection'"
-                                    @mouseleave="state.quickLink = ''"
-                                    :class="state.quickLink === 'requestToSection' ? 'fw-medium' : ''"
-                                >
-                                    Submit Request To Section
-                                </div>
-                                <div
-                                    class="text-primary mb-3"
-                                    role="button"
-                                    @mouseenter="state.quickLink = 'vehicleRequest'"
-                                    @mouseleave="state.quickLink = ''"
-                                    :class="state.quickLink === 'vehicleRequest' ? 'fw-medium' : ''"
-                                >
-                                    Request UNICEF Vehicle
-                                </div>
-                                <div
-                                    class="text-primary mb-3"
-                                    role="button"
-                                    @mouseenter="state.quickLink = 'consultant'"
-                                    @mouseleave="state.quickLink = ''"
-                                    :class="state.quickLink === 'consultant' ? 'fw-medium' : ''"
-                                >
-                                    Consultant Recruitment
-                                </div>
-                                <div
-                                    class="text-primary mb-4"
-                                    role="button"
-                                    @mouseenter="state.quickLink = 'diplomaticVehicleReg'"
-                                    @mouseleave="state.quickLink = ''"
-                                    :class="state.quickLink === 'diplomaticVehicleReg' ? 'fw-medium' : ''"
-                                    @click="toVehicleRegistration"
-                                >
-                                    Diplomatic Vehicle Registration
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
+               
             </div>
         </div>
         <!-- signature register modal -->

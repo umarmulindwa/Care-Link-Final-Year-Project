@@ -21,47 +21,10 @@ class EmailsInboxController extends Controller
      */
     public function getUserEmails()
     {
-        //TODO:paginate emails page
-        //Emails from Adminstration sent to current user 
-        $userInboxAdmin = AdministrationEmailLogs::where('to', auth()->user()->email)->where('is_sent', 1)->get()->toArray();
-        // $userInboxAdminCount = count($userInboxAdmin);
-
-        //Emails from BSC sent to the current user
-        $userInboxBsc = FinanceEmailLog::where('to', auth()->user()->email)->where('is_sent', 1)->get()->toArray();
-        // $userInboxBscCount = count($userInboxBsc);
-
-        //merging the emails and sorting
-        $mergedArrays = array_merge($userInboxAdmin, $userInboxBsc);
-        $mergedInboxEmails = collect($mergedArrays);
-        $sortedEmails = $mergedInboxEmails->sortBy('created_at');
-        $reversedEmails = $sortedEmails->reverse();
-        $inboxEmails = $reversedEmails->values()->all();
-
-        //outbox Emails
-        // $userOutboxAdminCount = AdministrationEmailLogs::where('submitted_by', auth()->user()->name)->where('is_sent', 0)->count();
-        // $userOutboxBscCount = FinanceEmailLog::where('submitted_by', auth()->user()->name)->where('is_sent', 0)->count();
-        // //calculating total Emails outbox
-        // $totalOutboxCount = $userOutboxAdminCount + $userOutboxBscCount;
-
-        //calcutating total count
-        // $totalInboxCount = $userInboxAdminCount + $userInboxBscCount;
-
-        // //sent Emails
-        // //Adminstration Sent Emails count
-        // $userSentAdminCount = AdministrationEmailLogs::where('submitted_by', auth()->user()->name)->whereNot('to', auth()->user()->email)->where('is_sent', 1)->count();
-        // //BSC Sent Emails count
-        // $userSentBscCount = FinanceEmailLog::where('submitted_by', auth()->user()->name)->whereNot('to', auth()->user()->email)->where('is_sent', 1)->count();
-        // //calculating total Emails sent
-        // $totalSentCount = $userSentAdminCount + $userSentBscCount;
-
-        //Logs
-        // $allBscLogsCount = FinanceEmailLog::where('is_sent', 1)->latest()->get()->count();
-        // $allAdminLogsCount = AdministrationEmailLogs::where('is_sent', 1)->latest()->get()->count();
-        // $allFinanceLogsCount = FinanceEmailLog::where('is_sent', 1)->count();
-
+       
 
         return Inertia::render('MyInbox/Inbox', [
-            'myInbox' => $inboxEmails,
+            'myInbox' => 0,
             "myInboxCount" => 0,
             "allBscLogsCount" => 0,
             'allFinanceCount' => 0,
