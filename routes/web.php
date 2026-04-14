@@ -26,6 +26,9 @@ use Illuminate\Support\Facades\Log;
 use App\Models\EquipmentRequest;
 use App\Http\Controllers\MainSearchController;
 use App\Http\Controllers\RequestMedicationController;
+use App\Http\Controllers\HospitalController;
+use App\Http\Controllers\HealthRecordsController;
+use App\Http\Controllers\AppointmentController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -191,6 +194,17 @@ Route::middleware([
 
     //Request medication
     Route::get('/request-medication', [RequestMedicationController::class, 'index'])->name('index');
+
+    //Hospital Referals
+    Route::get('/hospital-referals', [HospitalController::class, 'index'])->name('index');
+
+     //Health Records
+    Route::get('/health-records', [HealthRecordsController::class, 'index'])->name('index');
+
+    
+     //Appointments
+    Route::get('/my-appointments', [AppointmentController::class, 'myAppointments'])->name('myAppointments');
+    Route::get('/schedule-appointments', [AppointmentController::class, 'scheduleAppointments'])->name('scheduleAppointments');
 
 
     // Email Logs

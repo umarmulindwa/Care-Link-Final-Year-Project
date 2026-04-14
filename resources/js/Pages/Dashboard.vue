@@ -403,6 +403,22 @@ function toRequestMedication(){
     
       router.visit("/request-medication");
 }
+function toHospitalReferals(){
+    
+      router.visit("/hospital-referals");
+}
+function toHHealthRecords(){
+    
+      router.visit("/health-records");
+}
+function toMyAppointments(){
+    
+      router.visit("/my-appointments");
+}
+function toScheduleAppointment(){
+    
+      router.visit("/schedule-appointments");
+}
 </script>
 
 <template>
@@ -661,7 +677,7 @@ function toRequestMedication(){
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4" @click="toHHealthRecords">
                             <div class="card" role="button">
                                 <div class="card-body p-4">
                                     <div class="d-flex gap-1 justify-content-between">
@@ -694,7 +710,7 @@ function toRequestMedication(){
                             <div class="card" role="button">
                                 <div class="card-body p-4">
                                     <div class="d-flex gap-1 justify-content-between">
-                                        <div class="d-flex align-items-center gap-3" @click="toLEAVE">
+                                        <div class="d-flex align-items-center gap-3" @click="toMyAppointments">
                                             <div><img :src="MedicalAppointment" height="32" /></div>
                                             <div class="column">
                                                 <div>
@@ -719,7 +735,7 @@ function toRequestMedication(){
                             <div class="card" role="button">
                                 <div class="card-body p-4">
                                     <div class="d-flex gap-1 justify-content-between">
-                                        <div class="d-flex align-items-center pt-2 pb-2 gap-3" @click="toSupply">
+                                        <div class="d-flex align-items-center pt-2 pb-2 gap-3" @click="toScheduleAppointment">
                                             <div><img :src="scheduleappointment" height="28" /></div>
                                             <div class="column">
                                                 <div>
@@ -741,7 +757,7 @@ function toRequestMedication(){
                             <div class="card" role="button">
                                 <div class="card-body p-4">
                                     <div class="d-flex gap-1 justify-content-between">
-                                        <div class="d-flex align-items-center pt-2 pb-2 gap-3" @click="toHR(0)">
+                                        <div class="d-flex align-items-center pt-2 pb-2 gap-3" @click="toHospitalReferals">
                                             <div><img :src="referal" height="24" width="24" /></div>
                                             <div class="column">
                                                 <div>
