@@ -1380,6 +1380,11 @@ function roleEdit(roleToEdit) {
         }
     });
 }
+
+function toSpportCenter(){
+    state.title = 'Support Center Loading ...'
+    router.visit("/supportCenter")
+}
 </script>
 
 <template>
@@ -1406,17 +1411,7 @@ function roleEdit(roleToEdit) {
                         </div>
                     </div>
                 </div>
-                <!-- <div class="card" role="button" @click="state.title = 'Service Providers'"
-                    :class="state.title == 'Service Providers' ? 'bg-primary text-white' : ''">
-                    <div class="card-body d-flex flex-column align-items-center justify-content-center text-center">
-                        <div>
-                            <i class="fas fa-users nav-icon d-block mb-2" style="font-size: small"></i>
-                        </div>
-                        <div>
-                            <p class="fw-bold mb-0 text-center">Registered Hospitals</p>
-                        </div>
-                    </div>
-                </div> -->
+               
                 <div class="card" role="button" @click="state.title = 'Roles & Permissions'"
                     :class="state.title == 'Roles & Permissions' ? 'bg-primary text-white' : ''">
                     <div class="card-body d-flex flex-column align-items-center justify-content-center text-center">
@@ -1425,6 +1420,17 @@ function roleEdit(roleToEdit) {
                         </div>
                         <div>
                             <p class="fw-bold mb-0">Roles & Permissions</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="card" role="button" @click="toSpportCenter"
+                    :class="state.title == 'Support Center Loading ...' ? 'bg-primary text-white' : ''">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center text-center">
+                        <div>
+                            <i class="fas fa-users nav-icon d-block mb-2" style="font-size: small"></i>
+                        </div>
+                        <div>
+                            <p class="fw-bold mb-0 text-center">Support Center</p>
                         </div>
                     </div>
                 </div>

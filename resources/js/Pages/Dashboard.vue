@@ -419,6 +419,17 @@ function toScheduleAppointment(){
     
       router.visit("/schedule-appointments");
 }
+function toDataRecovery(){
+    
+      router.visit("/data-recovery");
+}
+function toSupport(){
+      router.visit("/support");
+}
+function toChat(){
+      router.visit("/chat");
+}
+
 </script>
 
 <template>
@@ -782,10 +793,11 @@ function toScheduleAppointment(){
                      
 
                         <div class="col-sm-4">
-                            <div class="card" role="button">
+                            <div class="card" role="button" @click="toChat">
                                 <div class="card-body p-4">
                                     <div class="d-flex gap-1 justify-content-between">
-                                        <div class="d-flex align-items-center pt-2 pb-2 gap-3" id="showSignatureManager" data-bs-toggle="modal" data-bs-target="#signatureRegister">
+                                        <!-- <div  id="showSignatureManager" data-bs-toggle="modal" data-bs-target="#signatureRegister"></div> -->
+                                        <div class="d-flex align-items-center pt-2 pb-2 gap-3" >
                                             <div><img :src="talkDoctor" height="28" /></div>
                                             <div class="column">
                                                 <div>
@@ -813,16 +825,16 @@ function toScheduleAppointment(){
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4" v-if="isPatient || isAdmin || isSuperAdmin">
+                        <div class="col-sm-4" v-if="isPatient || isAdmin || isSuperAdmin" @click="toSupport">
                             <div class="card" role="button">
                                 <div class="card-body p-4">
                                     <div class="d-flex gap-1 justify-content-between">
-                                        <div class="d-flex align-items-center pt-2 pb-2 gap-3" @click="downloadMobileApp">
+                                        <div class="d-flex align-items-center pt-2 pb-2 gap-3" >
                                             <div><img :src="faq" height="28" /></div>
                                             <div class="column">
                                                 <div>
                                                     <h5 class="mb-0">
-                                                        <small class="text-muted">FAQ</small>
+                                                        <small class="text-muted">FAQ / Support</small>
                                                     </h5>
                                                 </div>
                                                 <div class="text-primary">
@@ -847,7 +859,7 @@ function toScheduleAppointment(){
                             <div class="card" role="button">
                                 <div class="card-body p-4">
                                     <div class="d-flex gap-1 justify-content-between">
-                                        <div class="d-flex align-items-center pt-2 pb-2 gap-3" @click="toIctAccess(0)">
+                                        <div class="d-flex align-items-center pt-2 pb-2 gap-3" @click="toDataRecovery">
                                             <div><img :src="ictIcon" height="28" /></div>
                                             <div class="column">
                                                 <div>

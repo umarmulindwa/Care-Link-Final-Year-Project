@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 class SupportRequest extends Model
 {
     use Utils;
-    protected $connection = 'support_db_connection';
 
     protected $table = 'support_requests';
 

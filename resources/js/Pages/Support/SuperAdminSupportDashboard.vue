@@ -115,7 +115,7 @@ const getcleanedGeneralReponses = computed(() => {
                         >
                     </div>
                 </div>
-                <div class="card" role="button" @click="state.title = 'Support Request Statistics'" :class="state.title == 'Support Request Statistics' ? 'bg-primary text-white' : 'text-muted'">
+                <!-- <div class="card" role="button" @click="state.title = 'Support Request Statistics'" :class="state.title == 'Support Request Statistics' ? 'bg-primary text-white' : 'text-muted'">
                     <div class="card-body d-flex flex-column align-items-center justify-content-center text-center">
                         <div>
                             <i class="fas fa-chart-bar nav-icon d-block mb-2" style="font-size: large"></i>
@@ -124,8 +124,8 @@ const getcleanedGeneralReponses = computed(() => {
                             <p class="fw-bold mb-0">Request Statistics</p>
                         </div>
                     </div>
-                </div>
-                <div class="card" role="button" @click="state.title = 'FAQS'" :class="state.title == 'FAQS' ? 'bg-primary text-white' : 'text-muted'">
+                </div> -->
+                <!-- <div class="card" role="button" @click="state.title = 'FAQS'" :class="state.title == 'FAQS' ? 'bg-primary text-white' : 'text-muted'">
                     <div class="card-body d-flex flex-column align-items-center justify-content-center text-center">
                         <div>
                             <i class="fas fa-question-circle nav-icon d-block mb-2" style="font-size: large"></i>
@@ -134,8 +134,8 @@ const getcleanedGeneralReponses = computed(() => {
                             <p class="fw-bold mb-2">FAQS</p>
                         </div>
                     </div>
-                </div>
-                <div class="card" role="button" @click="state.title = 'Sytem Videos'" :class="state.title == 'Sytem Videos' ? 'bg-primary text-white' : 'text-muted'">
+                </div> -->
+                <div class="card invisible" role="button" @click="state.title = 'Sytem Videos'" :class="state.title == 'Sytem Videos' ? 'bg-primary text-white' : 'text-muted'">
                     <div class="card-body d-flex flex-column align-items-center justify-content-center text-center">
                         <div class="mt-2">
                             <i class="bx bxs-videos nav-icon d-block mb-2" style="font-size: large"></i>

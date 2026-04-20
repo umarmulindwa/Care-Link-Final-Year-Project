@@ -69,36 +69,36 @@ class SupportController extends Controller
         }
 
 
-        // sending support request email to all  super admins
-        if (count($admins) > 0) {
-            $issueDetails = [
-                'name' => $request->name,
-                'email' => $request->email,
-                'issue_category' => $request->issueType,
-                'issue' => $request->issue,
-                'description' => $request->detailedDescription,
-            ];
-            foreach ($admins as $admin) {
-                //checking whether the staff is on Leave
-                $staff = StaffProfile::where('email', $admin->email)->first();
+        // HOW TO SEND EMAILS ( Send Notifications)
+        // if (count($admins) > 0) {
+        //     $issueDetails = [
+        //         'name' => $request->name,
+        //         'email' => $request->email,
+        //         'issue_category' => $request->issueType,
+        //         'issue' => $request->issue,
+        //         'description' => $request->detailedDescription,
+        //     ];
+        //     foreach ($admins as $admin) {
+        //         //checking whether the staff is on Leave
+        //         $staff = StaffProfile::where('email', $admin->email)->first();
             
-                try {
-                    $subject =  "New Support Request.";
-                    $mail = new SupportRequestEmail($admin->name, $issueDetails, $admin->name);
-                    globalSendEmail($staff, $subject, $mail, null, false, $supportRequest->id, [
-                        "personal_id" => $staff->email,
-                        "action" => env('APP_URL') . "/supportCenter",
-                        "description" => "A new support request has been submitted by " . auth()->user()->name . " Kindly action the request",
-                        "submitted_by" => auth()->user()->name,
-                        "title" => $subject,
-                        "profile_photo_path" => null
-                    ]);
-                } catch (\Exception $ex) {
-                }
-            }
+        //         try {
+        //             $subject =  "New Support Request.";
+        //             $mail = new SupportRequestEmail($admin->name, $issueDetails, $admin->name);
+        //             globalSendEmail($staff, $subject, $mail, null, false, $supportRequest->id, [
+        //                 "personal_id" => $staff->email,
+        //                 "action" => env('APP_URL') . "/supportCenter",
+        //                 "description" => "A new support request has been submitted by " . auth()->user()->name . " Kindly action the request",
+        //                 "submitted_by" => auth()->user()->name,
+        //                 "title" => $subject,
+        //                 "profile_photo_path" => null
+        //             ]);
+        //         } catch (\Exception $ex) {
+        //         }
+        //     }
 
-            return apiResponse('success');
-        }
+        //     return apiResponse('success');
+        // }
     }
 
     public function supportCenter()
@@ -106,7 +106,7 @@ class SupportController extends Controller
 
         $generalSupportRequests =  SupportRequest::where('closed', 0)->where('issue_category', 'General Support')->with(['responses', 'files'])->latest()->get();
         $accountProfileRequests =  SupportRequest::where('closed', 0)->where('issue_category', 'Account and Profile')->with(['responses', 'files'])->latest()->get();
-        $systemVideos = Video::with(['views'])->latest()->get();
+        $systemVideos = [];
 
 
         return Inertia::render(

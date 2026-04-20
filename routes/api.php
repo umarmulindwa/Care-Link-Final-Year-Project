@@ -7,6 +7,8 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\StaffRegisterController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\SystemConfiguration;
+use App\Http\Controllers\ChatController;
+
 
 
 /*
@@ -38,6 +40,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('support')->group(function () {
     Route::post("/submitRequest", [SupportController::class, 'submitSupportRequest']);
 });
+
+
 
 
 Route::group(['namespace' => 'Api'], function () {
@@ -93,6 +97,11 @@ Route::group(['namespace' => 'Api'], function () {
             Route::post("/closeSupportRequest", [SupportController::class, 'closeSupportRequest']);
         });
 
+         Route::prefix('chat')->group(function () {
+            Route::post("/generalchat", [ChatController::class, 'generalChat']);
+            Route::post("/privateChat", [ChatController::class, 'privateChat']);
+        });
+        
         Route::prefix('system-configuration')->group(function () {
             Route::get("/generalConfig", [SystemConfiguration::class, 'getGeneralConfiguration']);
             Route::post("/generalConfig", [SystemConfiguration::class, 'submitGeneralConfig']);

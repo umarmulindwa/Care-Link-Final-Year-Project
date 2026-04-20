@@ -29,6 +29,8 @@ use App\Http\Controllers\RequestMedicationController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\HealthRecordsController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\DataRecoveryController;
+use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -201,6 +203,10 @@ Route::middleware([
      //Health Records
     Route::get('/health-records', [HealthRecordsController::class, 'index'])->name('index');
 
+    //Data Recovery
+    Route::get('/data-recovery', [DataRecoveryController::class, 'index'])->name('index');
+
+
     
      //Appointments
     Route::get('/my-appointments', [AppointmentController::class, 'myAppointments'])->name('myAppointments');
@@ -251,6 +257,10 @@ Route::middleware([
 
     //Support Center for super Admins
     Route::get('/supportCenter', [SupportController::class, 'supportCenter'])->name('supportCenter');
+
+    //Chat
+    Route::get('/chat', [ChatController::class, 'index'])->name('index');
+
 
     //System configurations for super Admins
     Route::get('/system_congifuration', [SystemConfiguration::class, 'systemconfig'])->name('systemconfig');

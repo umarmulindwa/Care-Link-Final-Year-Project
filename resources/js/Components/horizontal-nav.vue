@@ -197,6 +197,9 @@ export default {
             showLoader("Applying user session ...");
             return (window.location.href = `${VHCL_MAIN_URL}/loginFromMain?token=${this.currentUser.token}`);
         },
+        gotoDashboard(){
+            router.visit("dashboard")
+        }
     },
 };
 </script>
@@ -207,10 +210,19 @@ export default {
             <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
                 <div id="topnav-menu-content" class="collapse navbar-collapse">
                     <ul class="navbar-nav">
+                         
+                        <li  class="nav-item dropdown">
+                           
+                            <a class="nav-link" @click="gotoDashboard" href="javascript: void(0);"
+                                id="topnav-components" role="button">
+                                <i :class="`bx bx-home-circle mr-1`"></i>
+                                Dashboard
+                            </a>
+                            </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link" @click="onMenuClick($event)" href="javascript: void(0);"
                                 id="topnav-components" role="button">
-                                <i :class="`bx bx-home-circle mr-1`"></i>
+                                <i :class="`bx bx-link mr-1`"></i>
                                 Quick Links
                                 <i class="mdi mdi-chevron-down"></i>
                             </a>

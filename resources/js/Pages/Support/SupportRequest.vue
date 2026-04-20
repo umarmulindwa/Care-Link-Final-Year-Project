@@ -12,53 +12,53 @@ import Swal from "sweetalert2";
 const state = reactive({
     faqs: [
         {
-            title: "Account and Profile",
-            subTitle: "How to go about 'These Credentials Don't Match our Records' error.",
+            title: "What is HIV and how is it different from AIDS?",
+            subTitle: "HIV (Human Immunodeficiency Virus) is a virus that attacks the body’s immune system, specifically the CD4 cells, which help fight infections. When HIV is not treated over a long period, it weakens the immune system to a very serious level. This advanced stage is called AIDS (Acquired Immunodeficiency Syndrome). Not everyone with HIV develops AIDS, especially if they start treatment early and take their medication consistently. With modern antiretroviral therapy (ART), people living with HIV can maintain strong immune systems and never progress to AIDS. Understanding this difference is important because HIV is manageable, and early treatment can prevent serious complications.",
             active: false,
         },
         {
-            title: "General Support",
-            subTitle: "The updated Invoice submission process.",
+            title: "How is HIV transmitted?",
+            subTitle: "HIV is transmitted through specific body fluids that contain the virus in sufficient amounts. These include blood, semen, vaginal fluids, rectal fluids, and breast milk. The most common ways HIV spreads are through unprotected sexual contact with an infected person, sharing needles or syringes, and from mother to child during pregnancy, childbirth, or breastfeeding. It is important to understand that HIV cannot be transmitted through casual contact such as hugging, shaking hands, sharing food, using the same toilet, or mosquito bites. Knowing how HIV spreads helps individuals take the right preventive measures, such as using protection during sex and avoiding sharing sharp objects.",
             active: false,
         },
         {
-            title: "General Support",
-            subTitle: "How do I add my Service Provider's Vendor Number?",
+            title: "How can I know if I have HIV?",
+            subTitle: "The only reliable way to know if you have HIV is by taking an HIV test. Many people with HIV do not show symptoms in the early stages, which is why testing is very important even if you feel healthy. Some individuals may experience flu-like symptoms within a few weeks after infection, but these symptoms are not enough to confirm HIV. Testing can be done at hospitals, clinics, or through self-testing kits where available. Early diagnosis allows you to start treatment immediately, which helps protect your immune system and reduces the risk of transmitting the virus to others. Regular testing is especially important if you are at higher risk.",
             active: false,
         },
         {
-            title: "General Support",
-            subTitle: "Video on How to submit Signed FACE forms to UNICEF.",
+            title: "Can HIV be treated or cured?",
+            subTitle: "Currently, there is no cure for HIV, but it can be effectively controlled with treatment known as antiretroviral therapy (ART). ART involves taking medication daily as prescribed by a healthcare provider. These medicines reduce the amount of virus in the body, known as the viral load, to very low levels. When taken consistently, ART allows people living with HIV to live long and healthy lives, similar to those without HIV. It also prevents the virus from damaging the immune system further. Skipping medication can lead to drug resistance, making treatment less effective. Therefore, adherence to treatment is very important for long-term health and well-being.",
             active: false,
         },
         {
-            title: "General Support",
-            subTitle: "How do I process FACE forms on the platform?",
+            title: "Can I transmit HIV if I am on treatment?",
+            subTitle: "If a person living with HIV is on consistent treatment and achieves an undetectable viral load, they cannot transmit HIV through sexual contact. This concept is known as U=U, meaning “Undetectable equals Untransmittable.” An undetectable viral load means the level of HIV in the blood is so low that standard tests cannot detect it. However, reaching and maintaining this state requires strict adherence to medication and regular medical check-ups. It is still important to follow medical advice and attend clinic visits to ensure the viral load remains controlled. This breakthrough has significantly reduced stigma and allowed people living with HIV to have safer relationships.",
             active: false,
         },
         {
-            title: "General Support",
-            subTitle: "How do I submit Signed FACE forms to UNICEF?",
+            title: "Can people living with HIV have normal relationships and children?",
+            subTitle: "Yes, people living with HIV can have normal, healthy relationships and even have children who are HIV-negative. With proper treatment and medical guidance, the risk of transmitting HIV to a partner or baby can be reduced to very low levels. For couples where one partner is HIV-positive and the other is negative, safe practices and medical support ensure a healthy relationship. Pregnant women living with HIV can take medication to prevent transmission to their babies during pregnancy and delivery. Modern healthcare has made it possible for people living with HIV to plan families and live fulfilling emotional and social lives without significant limitations.",
             active: false,
         },
         {
-            title: "Account and Profile",
-            subTitle: "I created an account on the platform but I haven’t received my Account Credentials.",
+            title: "What are the early symptoms of HIV?",
+            subTitle: "Some people may experience early symptoms of HIV within 2 to 4 weeks after infection. These symptoms often resemble the flu and may include fever, sore throat, swollen lymph nodes, fatigue, rash, and muscle aches. However, not everyone experiences these symptoms, and they usually go away on their own. After this early stage, HIV may not cause noticeable symptoms for many years while still damaging the immune system. Because symptoms are not reliable indicators, testing is the only accurate way to confirm HIV infection. Recognizing early signs can encourage timely testing, but relying solely on symptoms can be misleading.",
             active: false,
         },
         {
-            title: "Account and Profile",
-            subTitle: "How do I create an account on the Platform?",
+            title: "What happens if I miss my HIV medication?",
+            subTitle: "Missing HIV medication doses can have serious consequences. When medication is not taken consistently, the virus can begin to multiply again in the body, increasing the viral load. This can weaken the immune system and increase the risk of illness. More importantly, inconsistent use of medication can lead to drug resistance, where the virus no longer responds to the treatment being used. This makes it harder to control HIV and may require switching to more complex or expensive medications. If you miss a dose, it is important to follow your healthcare provider’s advice and try to maintain a strict routine to avoid future missed doses.",
             active: false,
         },
         {
-            title: "General Support",
-            subTitle: "Invoice Submission on the Platform: Why do I need to select the Type of Payment?",
+            title: "How can I prevent HIV infection or transmission?",
+            subTitle: "HIV prevention involves a combination of safe practices and medical strategies. Using condoms correctly and consistently during sexual activity significantly reduces the risk of infection. Avoiding the sharing of needles or sharp instruments is also very important. For people at higher risk, preventive medications such as PrEP (pre-exposure prophylaxis) can be taken to reduce the chances of getting HIV. In emergency situations, PEP (post-exposure prophylaxis) can be used within 72 hours after potential exposure. Regular testing and knowing your partner’s status also play a key role in prevention. Education and awareness are essential tools in reducing the spread of HIV.",
             active: false,
         },
         {
-            title: "Account and Profile",
-            subTitle: "How to Login to the Platform",
+            title: "What is viral load and why is it important?",
+            subTitle: "Viral load refers to the amount of HIV present in a person’s blood. It is an important measure used by healthcare providers to monitor how well HIV treatment is working. When a person takes their medication consistently, the viral load can drop to an undetectable level. This means the virus is effectively controlled and cannot be transmitted through sex. A high viral load, on the other hand, indicates that the virus is active and may be damaging the immune system. Regular viral load testing helps doctors adjust treatment if necessary and ensures that patients remain healthy while reducing the risk of transmission.",
             active: false,
         },
     ],
@@ -191,7 +191,7 @@ function submitSupportRequest() {
     <Head title="Support" />
     <div>
         <HorizontalSupportLayout>
-            <h2 class="mb-3 text-center">Need Some Help?</h2>
+            <h2 class="mb-3 text-center">Frequently Asked Questions?</h2>
             <div class="text-center">Begin by going over the Frequently Asked Questions below, or send us a Support Request</div>
             <div class="mt-5 ps-2 pe-2 position-relative">
                 <div role="button" class="card mb-4" v-for="(faq, index) in state.faqs" :key="index">
@@ -199,7 +199,7 @@ function submitSupportRequest() {
                         <div :class="faq.active ? 'text-primary' : ''">
                             <h5>{{ faq.title }}</h5>
                         </div>
-                        <div>{{ faq.subTitle }}</div>
+                        <div>{{ faq.subTitle.length > 100 ? faq.subTitle.slice(0, 100) + '...' : faq.subTitle }}</div>
                     </div>
                 </div>
             </div>
